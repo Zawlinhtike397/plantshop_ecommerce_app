@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/logos/plantify_logo.png
+
+  color_dark: "#042a49"
+  image_dark: assets/logos/plantify_logo.png
+
+  web: false
+  
+  android_12:
+    color: "#FFFFFF"
+    image: assets/logos/plantify_logo.png
+
+    color_dark: "#042a49"
+    image_dark: assets/logos/plantify_logo.png
