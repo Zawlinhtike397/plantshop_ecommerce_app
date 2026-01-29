@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/bloc/login_bloc.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 class SocialIconButtons extends StatelessWidget {
@@ -34,7 +36,9 @@ class SocialIconButtons extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         InkWell(
-          onTap: () async {},
+          onTap: () async {
+            context.read<LoginBloc>().add(GoogleLoginRequested());
+          },
           child: Container(
             width: 90,
             height: 50,

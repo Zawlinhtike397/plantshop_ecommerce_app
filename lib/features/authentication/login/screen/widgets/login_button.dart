@@ -1,32 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/bloc/login_bloc.dart';
+import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const LoginButton({
+    super.key,
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 45.0,
-      width: MediaQuery.sizeOf(context).width,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final isLoading = state is LoginLoading;
+
+        return SizedBox(
+          width: MediaQuery.sizeOf(context).width,
+          child: ElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () {
+                    if (formKey.currentState!.validate()) {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text.trim();
+
+                      context.read<LoginBloc>().add(
+                        LoginSubmitted(email, password),
+                      );
+                    }
+                  },
+            child: isLoading
+                ? const CircularProgressIndicator(color: Colors.blue)
+                : Text(AppText.login),
           ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-        ),
-        child: Text(
-          'Login',
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
-        ),
-        onPressed: () async {
-          // if (_formKey.currentState!.validate()) {}
-        },
-      ),
+        );
+      },
     );
   }
 }

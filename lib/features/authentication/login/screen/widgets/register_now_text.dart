@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/utils/constants/colors.dart';
+import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
 
 class RegisterNowText extends StatelessWidget {
   const RegisterNowText({super.key});
@@ -10,17 +12,17 @@ class RegisterNowText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have an account?',
+          AppText.notHaveAccText,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(),
         ),
         const SizedBox(width: 5),
         InkWell(
           onTap: () {},
           child: Text(
-            'Register Now',
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
+            AppText.registerNowText,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall!.copyWith(color: AppColor.primary),
           ),
         ),
       ],

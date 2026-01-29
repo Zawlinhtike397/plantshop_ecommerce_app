@@ -5,6 +5,7 @@ import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_
 import 'package:plantify_plantshop_project/features/authentication/login/screen/login_screen.dart';
 import 'package:plantify_plantshop_project/features/authentication/onboarding/onboarding_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/screens/home_screen.dart';
+import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:plantify_plantshop_project/utils/themes/theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,23 +17,34 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) {
-          switch (state) {
-            case AppInitial():
-              return const SizedBox();
-            case AppOnboarding():
-              FlutterNativeSplash.remove();
-              return const OnboardingScreen();
-            case AppUnauthenticated():
-              FlutterNativeSplash.remove();
-              return const LoginScreen();
-
-            case AppAuthenticated():
-              FlutterNativeSplash.remove();
-              return const HomeScreen();
+      home: BlocListener<NetworkBloc, NetworkState>(
+        listener: (context, state) {
+          if (!state.hasInternet) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('No Internet Connection'),
+                duration: Duration(seconds: 3),
+              ),
+            );
           }
         },
+        child: BlocBuilder<AppBloc, AppState>(
+          builder: (context, state) {
+            switch (state) {
+              case AppInitial():
+                return const SizedBox();
+              case AppOnboarding():
+                FlutterNativeSplash.remove();
+                return const OnboardingScreen();
+              case AppUnauthenticated():
+                FlutterNativeSplash.remove();
+                return const LoginScreen();
+              case AppAuthenticated():
+                FlutterNativeSplash.remove();
+                return const HomeScreen();
+            }
+          },
+        ),
       ),
     );
   }

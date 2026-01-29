@@ -1,58 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:plantify_plantshop_project/common/widgets/plantify_logo.dart';
-import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/login_form.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
+import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/bloc/login_bloc.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/screen/login_view.dart';
+import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
+import 'package:plantify_plantshop_project/utils/popups/fullscreen_loader.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  // final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  // bool _isPasswordVisible = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 10),
-                PlantifyLogo(width: 300, height: 170),
-                const SizedBox(height: 10.0),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width > 600
-                      ? 600
-                      : MediaQuery.sizeOf(context).width,
-                  child: LoginForm(),
-                ),
-                const SizedBox(height: 20.0),
-              ],
-            ),
-          ),
-        ),
+    return BlocProvider(
+      create: (context) => LoginBloc(
+        networkBloc: context.read<NetworkBloc>(),
+        authRepository: context.read<AuthRepository>(),
+        appBloc: context.read<AppBloc>(),
+      ),
+      child: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state is LoginLoading) {
+            FullscreenLoader.showLoader(context, text: 'Signing you in...');
+          }
+          if (state is LoginFailure) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+
+          if (state is LoginSuccess) {
+            FullscreenLoader.hide(context);
+          }
+        },
+        child: LoginView(),
       ),
     );
   }
