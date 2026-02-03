@@ -3,7 +3,7 @@ import 'package:plantify_plantshop_project/features/authentication/login/screen/
 import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/form_divider.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/login_button.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/login_form_fields.dart';
-import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/register_now_text.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/register_now_text_btn.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/screen/widgets/social_icon_buttons.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
@@ -47,14 +47,14 @@ class LoginForm extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               ForgotPasswordTextBtn(),
-              const SizedBox(height: 30.0),
+              const SizedBox(height: 20.0),
               LoginButton(
                 formKey: formKey,
                 emailController: emailController,
                 passwordController: passwordController,
               ),
               const SizedBox(height: 10.0),
-              RegisterNowText(),
+              RegisterNowTextBtn(),
               const SizedBox(height: 10.0),
               FormDivider(),
               const SizedBox(height: 15),

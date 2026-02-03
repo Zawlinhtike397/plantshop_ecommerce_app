@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
@@ -11,9 +12,10 @@ Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  await dotenv.load(fileName: '.env');
   await Supabase.initialize(
-    url: 'https://gcgghppolikcontdgnnu.supabase.co',
-    anonKey: 'sb_publishable_Z7Va8wDlRexJG4dg-PgMFA_6dW0nKTI',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   runApp(

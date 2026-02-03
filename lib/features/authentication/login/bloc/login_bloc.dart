@@ -25,13 +25,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    if (!networkBloc.state.hasInternet) {
-      emit(LoginFailure('No Internet Connection'));
-      return;
-    }
-
     try {
+      // if (!networkBloc.state.hasInternet) {
+      //   emit(LoginFailure('No Internet Connection'));
+      //   return;
+      // }
       emit(LoginLoading());
+
+      final hasInternet = await networkBloc.checkConnection();
+
+      if (!hasInternet) {
+        emit(LoginFailure('No Internet Connection'));
+        return;
+      }
 
       await authRepository.login(event.email, event.password);
 
@@ -47,13 +53,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     GoogleLoginRequested event,
     Emitter<LoginState> emit,
   ) async {
-    if (!networkBloc.state.hasInternet) {
-      emit(LoginFailure('No Internet Connection'));
-      return;
-    }
-
     try {
+      // if (!networkBloc.state.hasInternet) {
+      //   emit(LoginFailure('No Internet Connection'));
+      //   return;
+      // }
+
       emit(LoginLoading());
+
+      final hasInternet = await networkBloc.checkConnection();
+
+      if (!hasInternet) {
+        emit(LoginFailure('No Internet Connection'));
+        return;
+      }
 
       await authRepository.signInWithGoogle();
 

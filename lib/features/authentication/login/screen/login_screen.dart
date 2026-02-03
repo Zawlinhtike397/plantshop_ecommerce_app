@@ -20,17 +20,22 @@ class LoginScreen extends StatelessWidget {
       ),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state is LoginLoading) {
-            FullscreenLoader.showLoader(context, text: 'Signing you in...');
-          }
-          if (state is LoginFailure) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-
-          if (state is LoginSuccess) {
-            FullscreenLoader.hide(context);
+          switch (state) {
+            case LoginInitial():
+              FullscreenLoader.hide(context);
+              break;
+            case LoginLoading():
+              FullscreenLoader.showLoader(context, text: 'Signing you in...');
+              break;
+            case LoginSuccess():
+              FullscreenLoader.hide(context);
+              break;
+            case LoginFailure(message: final message):
+              FullscreenLoader.hide(context);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(message)));
+              break;
           }
         },
         child: LoginView(),

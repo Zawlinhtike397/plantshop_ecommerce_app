@@ -56,9 +56,8 @@ class _LoginFormFieldsState extends State<LoginFormFields> {
               obscureText: _obscurePassword,
               decoration: InputDecoration(
                 hintText: AppText.passwordHintText,
-                suffixIcon: widget.passwordController.text.isEmpty
-                    ? null
-                    : IconButton(
+                suffixIcon: widget.passwordController.text.isNotEmpty
+                    ? IconButton(
                         onPressed: () {
                           setState(() {
                             _obscurePassword = !_obscurePassword;
@@ -69,7 +68,8 @@ class _LoginFormFieldsState extends State<LoginFormFields> {
                               ? Icons.visibility_off
                               : Icons.visibility,
                         ),
-                      ),
+                      )
+                    : null,
               ),
               validator: (value) =>
                   Validator.validateIsEmpty(value, 'Password'),

@@ -15,4 +15,6 @@ class LoginSubmitted extends LoginEvent {
   List<Object?> get props => [email, password];
 }
 
-class GoogleLoginRequested extends LoginEvent {}
+final class GoogleLoginRequested extends LoginEvent {}
+
+final class FacebookLoginRequested extends LoginEvent {}

@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -58,11 +59,8 @@ class AuthRepository {
   }
 
   Future<void> signInWithGoogle() async {
-    const webClientId =
-        '97248628227-38kvb23ft7ak9pcoadvp0mj56of240v2.apps.googleusercontent.com';
-    const androidClientId =
-        '97248628227-1hnm1clm2r6invovs04op4o54mj8crgp.apps.googleusercontent.com';
-
+    var webClientId = dotenv.env['WEB_CLIENT_ID'];
+    var androidClientId = dotenv.env['ANDROID_CLIENT_ID'];
     final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
     await googleSignIn.initialize(
@@ -72,11 +70,9 @@ class AuthRepository {
 
     final googleUser = await googleSignIn.authenticate();
 
-    final googleAuth = await googleUser.authentication;
-    // final accessToken = googleAuth.;
+    final googleAuth = googleUser.authentication;
     final idToken = googleAuth.idToken;
 
-    // if (accessToken == null) throw 'No Access Token found.';
     if (idToken == null) throw 'No ID Token found.';
 
     final response = await _supabase.auth.signInWithIdToken(
@@ -89,6 +85,30 @@ class AuthRepository {
     if (session != null) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_tokenKey, session.accessToken);
+    }
+  }
+
+  Future<void> register({
+    required String email,
+    required String password,
+    required String name,
+    required String phone,
+  }) async {
+    try {
+      final AuthResponse res = await _supabase.auth.signUp(
+        email: email,
+        password: password,
+        data: {'name': name, 'phone': phone},
+        emailRedirectTo: 'com.plantify.app://login-callback',
+      );
+
+      final user = res.user;
+
+      if (user == null) {
+        throw Exception('Registration failed');
+      }
+    } catch (e) {
+      throw Exception('Register error: $e');
     }
   }
 }

@@ -36,9 +36,7 @@ class LoginButton extends StatelessWidget {
                       );
                     }
                   },
-            child: isLoading
-                ? const CircularProgressIndicator(color: Colors.blue)
-                : Text(AppText.login),
+            child: Text(AppText.login),
           ),
         );
       },

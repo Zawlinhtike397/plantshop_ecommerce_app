@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/features/authentication/login/screen/login_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
 
-class RegisterNowText extends StatelessWidget {
-  const RegisterNowText({super.key});
+class LoginNowTextBtn extends StatelessWidget {
+  const LoginNowTextBtn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +13,18 @@ class RegisterNowText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          AppText.notHaveAccText,
+          AppText.alrdyHaveAccText,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(),
         ),
         const SizedBox(width: 5),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
           child: Text(
-            AppText.registerNowText,
+            AppText.loginNowText,
             style: Theme.of(
               context,
             ).textTheme.bodySmall!.copyWith(color: AppColor.primary),

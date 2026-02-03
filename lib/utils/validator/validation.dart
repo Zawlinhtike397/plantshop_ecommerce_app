@@ -44,5 +44,17 @@ class Validator {
     return null;
   }
 
-  static String? validatePhoneNumber(String? value) {}
+  static String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number is required.';
+    }
+
+    final mmPhoneRegExp = RegExp(r'^(09\d{9,11}|\+959\d{9,11})$');
+
+    if (!mmPhoneRegExp.hasMatch(value)) {
+      return 'Invalid Myanmar Phone Number';
+    }
+
+    return null;
+  }
 }

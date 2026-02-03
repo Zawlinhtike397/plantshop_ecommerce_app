@@ -15,11 +15,22 @@ class AppText {
   static const String loginFormHeader = 'Login to your account';
   static const String password = 'Password';
   static const String email = 'Email';
+  static const String name = 'Name';
+  static const String phoneNo = 'Phone Number';
+  static const String nameHintText = 'Enter your name';
   static const String emailHintText = 'Enter your email';
+  static const String phoneNoHintText = 'Enter your phone number';
   static const String passwordHintText = 'Enter your password';
   static const String forgotPwText = 'Forgot Password?';
+
   static const String login = 'Login';
+  static const String register = 'Register';
   static const String notHaveAccText = 'Don\'t have an account?';
+  static const String alrdyHaveAccText = 'Already have an account?';
   static const String registerNowText = 'Register Now';
+  static const String loginNowText = 'Login Now';
   static const String orLoginWith = 'Or Login with';
+  static const String confirmPassword = 'Confrim password';
+  static const String confirmPasswordHintText = 'Confirm your password';
+  static const String registerFormHeader = 'Register your account';
 }

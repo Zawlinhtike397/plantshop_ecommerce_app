@@ -7,8 +7,10 @@ plugins {
 
 android {
     namespace = "com.example.plantify_plantshop_project"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 36
+    // flutter.compileSdkVersion
+    ndkVersion = "27.0.12077973"
+    // flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
