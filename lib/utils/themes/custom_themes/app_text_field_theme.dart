@@ -8,7 +8,7 @@ class AppTextFieldTheme {
     errorMaxLines: 3,
     prefixIconColor: Colors.grey,
     suffixIconColor: Colors.grey,
-    hintStyle: TextStyle().copyWith(color: AppColor.textSecondary),
+    hintStyle: TextStyle().copyWith(color: AppColor.midGray),
     border: OutlineInputBorder().copyWith(
       borderSide: const BorderSide(color: AppColor.borderColor),
       borderRadius: BorderRadius.circular(10.0),
@@ -33,7 +33,7 @@ class AppTextFieldTheme {
     suffixIconColor: Colors.grey,
     hintStyle: TextStyle().copyWith(
       fontWeight: FontWeight.w300,
-      color: AppColor.textSecondary,
+      color: AppColor.midGray,
     ),
     border: OutlineInputBorder().copyWith(
       borderSide: const BorderSide(color: AppColor.borderColor),

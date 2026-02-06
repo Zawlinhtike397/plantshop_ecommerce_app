@@ -4,7 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/screen/login_screen.dart';
 import 'package:plantify_plantshop_project/features/authentication/onboarding/onboarding_screen.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/home/screens/home_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/navigation/widgets/bottom_navigation_menu.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:plantify_plantshop_project/utils/themes/theme.dart';
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
                 return const LoginScreen();
               case AppAuthenticated():
                 FlutterNativeSplash.remove();
-                return const HomeScreen();
+                return const BottomNavigationMenu();
             }
           },
         ),

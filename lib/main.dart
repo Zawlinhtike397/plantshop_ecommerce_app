@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/screen/app.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -27,8 +28,8 @@ Future<void> main() async {
           BlocProvider(
             create: (context) =>
                 AppBloc(context.read<AuthRepository>())..add(AppStarted()),
-            child: const MyApp(),
           ),
+          BlocProvider(create: (context) => NavigationCubit()),
         ],
         child: const MyApp(),
       ),

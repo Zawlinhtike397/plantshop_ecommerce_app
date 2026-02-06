@@ -33,4 +33,6 @@ class AppText {
   static const String confirmPassword = 'Confrim password';
   static const String confirmPasswordHintText = 'Confirm your password';
   static const String registerFormHeader = 'Register your account';
+
+  static const String welcomeText = 'Happy Shopping!';
 }

@@ -23,7 +23,7 @@ class AppTextTheme {
       color: Colors.black,
     ),
     bodyLarge: const TextStyle().copyWith(
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: FontWeight.w500,
       color: Colors.black,
     ),
@@ -72,27 +72,27 @@ class AppTextTheme {
     ),
     bodyLarge: const TextStyle().copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     bodyMedium: const TextStyle().copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
       color: Colors.white,
     ),
     bodySmall: const TextStyle().copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       color: Colors.white.withValues(alpha: 0.5),
     ),
     labelLarge: const TextStyle().copyWith(
       fontSize: 10,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     labelMedium: const TextStyle().copyWith(
       fontSize: 10,
-      fontWeight: FontWeight.normal,
+      fontWeight: FontWeight.w500,
       color: Colors.white.withValues(alpha: 0.5),
     ),
   );

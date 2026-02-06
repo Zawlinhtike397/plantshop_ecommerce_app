@@ -12,4 +12,12 @@ class ImageStrings {
   static const String plantifyLogo = 'assets/logos/plantify_logo.png';
   static const String facebookLogo = 'assets/logos/facebook_icon.png';
   static const String googleLogo = 'assets/logos/google_icon.png';
+
+  static const String profile1 = 'assets/images/profile_1.jpg';
+  static const String discountBanner = 'assets/images/discount_banner.svg';
+  static const String filterIcon = 'assets/icons/mage_filter.svg';
+
+  static const String plant1 = 'assets/images/lush_green_dracaena.jpg';
+  static const String plant1Test = 'assets/images/lush_green_dracaena_2.png';
+  static const String plant2 = 'assets/images/monstera_deliciosa.jpg';
 }
