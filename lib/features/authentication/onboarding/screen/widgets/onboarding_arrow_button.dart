@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
-import 'package:plantify_plantshop_project/utils/themes/theme.dart';
+import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 
 class OnBoardingArrowButton extends StatelessWidget {
   final PageController pageController;

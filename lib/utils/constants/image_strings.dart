@@ -8,6 +8,7 @@ class ImageStrings {
   static const String onBoardingAnimation3 = 'assets/animations/QR Code.json';
   static const String loadingAnimation =
       'assets/animations/doceranimation.json';
+  static const String emptyAnimation = 'assets/animations/Empty State.json';
 
   static const String plantifyLogo = 'assets/logos/plantify_logo.png';
   static const String facebookLogo = 'assets/logos/facebook_icon.png';

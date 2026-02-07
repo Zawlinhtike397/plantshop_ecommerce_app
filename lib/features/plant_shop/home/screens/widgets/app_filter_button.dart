@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
-class FilterButton extends StatelessWidget {
+class AppFilterButton extends StatelessWidget {
   final void Function()? onTap;
+  final ColorFilter? iconColorFilter;
+  final Color? backgroundColor;
 
-  const FilterButton({super.key, this.onTap});
+  const AppFilterButton({
+    super.key,
+    this.onTap,
+    this.iconColorFilter,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final filterIcon = SvgPicture.asset(
       ImageStrings.filterIcon,
-      colorFilter: const ColorFilter.mode(
-        AppColor.buttonPrimary,
-        BlendMode.srcIn,
-      ),
+      colorFilter: iconColorFilter,
+
       semanticsLabel: 'filter icon',
     );
 
@@ -24,9 +27,7 @@ class FilterButton extends StatelessWidget {
       onTap: () {},
       child: Container(
         decoration: BoxDecoration(
-          color: isDarkMode
-              ? AppColor.darkBackground
-              : AppColor.buttonSecondary,
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(10.0),
         ),
         padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),

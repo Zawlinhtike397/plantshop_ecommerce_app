@@ -33,9 +33,12 @@ class BottomNavigationMenu extends StatelessWidget {
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Iconsax.shop),
-                selectedIcon: Icon(Iconsax.shop, color: AppColor.buttonPrimary),
-                label: 'Store',
+                icon: Icon(Iconsax.shopping_bag),
+                selectedIcon: Icon(
+                  Iconsax.shopping_bag,
+                  color: AppColor.buttonPrimary,
+                ),
+                label: 'Cart',
               ),
               NavigationDestination(
                 icon: Icon(Iconsax.heart),
@@ -43,7 +46,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Iconsax.heart,
                   color: AppColor.buttonPrimary,
                 ),
-                label: 'Wishlist',
+                label: 'Favourites',
               ),
               NavigationDestination(
                 icon: Icon(Iconsax.user),
@@ -64,7 +67,7 @@ class BottomNavigationMenu extends StatelessWidget {
 
 const List<Widget> _screens = [
   HomeScreen(),
-  FavouriteScreen(),
   CartScreen(),
+  FavouriteScreen(),
   ProfileScreen(),
 ];

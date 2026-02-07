@@ -33,14 +33,10 @@ class SearchContainer extends StatelessWidget {
         child: Row(
           spacing: 10.0,
           children: [
-            Icon(
-              icon,
-              // Iconsax.search_normal,
-              color: AppColor.midGray,
-            ),
+            Icon(icon, color: AppColor.midGray),
             Text(
               searchBarText,
-              // ZTexts.serachBarHintText,
+
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.copyWith(color: AppColor.gray),

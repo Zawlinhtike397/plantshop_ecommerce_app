@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
-import 'package:plantify_plantshop_project/utils/themes/theme.dart';
+import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 
 class ForgotPasswordTextBtn extends StatelessWidget {
   const ForgotPasswordTextBtn({super.key});

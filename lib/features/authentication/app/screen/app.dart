@@ -6,7 +6,7 @@ import 'package:plantify_plantshop_project/features/authentication/login/screen/
 import 'package:plantify_plantshop_project/features/authentication/onboarding/onboarding_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/navigation/widgets/bottom_navigation_menu.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
-import 'package:plantify_plantshop_project/utils/themes/theme.dart';
+import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
