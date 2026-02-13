@@ -18,7 +18,6 @@ class ImageStrings {
   static const String discountBanner = 'assets/images/discount_banner.svg';
   static const String filterIcon = 'assets/icons/mage_filter.svg';
 
-  static const String plant1 = 'assets/images/lush_green_dracaena.jpg';
-  static const String plant1Test = 'assets/images/lush_green_dracaena_2.png';
-  static const String plant2 = 'assets/images/monstera_deliciosa.jpg';
+  static const String plant1 = 'assets/images/lush_green_dracaena_2.png';
+  static const String plant2 = 'assets/images/monstera_deliciosa_2.png';
 }

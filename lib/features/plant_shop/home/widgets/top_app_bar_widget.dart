@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:plantify_plantshop_project/common/widgets/image/rounded_image.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
@@ -44,7 +45,7 @@ class TopAppBarWidget extends StatelessWidget {
         IconButton(
           onPressed: () {},
           icon: Icon(
-            Icons.shopping_bag_outlined,
+            Iconsax.shopping_bag,
             color: isDarkMode ? Colors.white : Colors.black,
             size: 25.0,
           ),

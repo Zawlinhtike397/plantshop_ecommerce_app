@@ -15,7 +15,7 @@ class AppColor {
   static const Color white = Colors.white;
 
   static const Color buttonPrimary = Color(0xFF23A062);
-  static const Color buttonSecondary = Color(0xFFF2F1F1);
+  static const Color buttonSecondary = Color(0xFF678647);
 
   static const Color darkTeal = Color(0xFF36656B);
   static const Color yellow = Color(0xFFD3D183);

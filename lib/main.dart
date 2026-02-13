@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/screen/app.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
       providers: [RepositoryProvider(create: (_) => AuthRepository())],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (_) => SearchCubit()),
           BlocProvider(create: (_) => NetworkBloc()..add(NetworkRequested())),
           BlocProvider(
             create: (context) =>

@@ -23,6 +23,7 @@ class GridViewWidget extends StatelessWidget {
         crossAxisCount: crossAxisCount,
         mainAxisSpacing: 15,
         crossAxisSpacing: 15,
+
         childAspectRatio: 0.56,
       ),
       itemBuilder: itemBuilder,
