@@ -24,7 +24,12 @@ class FavouriteScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favourites'),
+        title: Text(
+          'Favourites',
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge!.copyWith(fontSize: 20.0),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),

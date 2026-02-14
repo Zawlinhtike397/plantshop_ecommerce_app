@@ -10,7 +10,7 @@ class AppColor {
   static const Color midGray = Color(0xFF9A9A9A);
   static const Color textWhite = Colors.white;
 
-  static const Color primaryBackground = Color(0xFFFAFAFA);
+  static const Color primaryBackground = Color.fromARGB(255, 240, 240, 240);
   static const Color darkBackground = Color.fromARGB(255, 7, 7, 7);
   static const Color white = Colors.white;
 

@@ -17,7 +17,7 @@ class VerticalTotalPriceText extends StatelessWidget {
           ).textTheme.bodyMedium!.copyWith(color: Colors.white, fontSize: 16),
         ),
         Text(
-          '\$${plantData['price']}',
+          '${plantData['price']} MMK',
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.w400,
