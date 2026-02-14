@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
-import 'package:plantify_plantshop_project/common/widgets/product/product_title.dart';
+import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/top_header_widget.dart';
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ProductTitle(name: 'Categories'),
+                    HeadingWidget(name: 'Categories'),
                     SizedBox(height: 15.0),
                     SizedBox(
                       height: 40,

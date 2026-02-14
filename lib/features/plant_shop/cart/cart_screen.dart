@@ -66,9 +66,10 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         title: Text(
           'Cart',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontSize: 20.0),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+            fontSize: 20.0,
+            fontWeight: FontWeight.normal,
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,

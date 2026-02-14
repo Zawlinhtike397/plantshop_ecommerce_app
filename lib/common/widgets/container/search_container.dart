@@ -30,7 +30,7 @@ class SearchContainer extends StatelessWidget {
         showColor
             ? isDarkMode
                   ? AppColor.darkerGrey
-                  : AppColor.lightGray
+                  : AppColor.white
             : Colors.transparent,
       ),
       shape: WidgetStateProperty.all(
