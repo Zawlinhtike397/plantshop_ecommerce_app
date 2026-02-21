@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/delivery_text_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/subtotal_text_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/total_text_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/checkout/checkout_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class CartPriceBottomSheet extends StatelessWidget {
@@ -37,7 +38,20 @@ class CartPriceBottomSheet extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CheckoutScreen(
+                            subTotalValue: 90000,
+                            totalValue: 100000,
+                            totalQuantityValue: 0,
+                          );
+                        },
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.primary,
                     padding: const EdgeInsets.symmetric(vertical: 17),

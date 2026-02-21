@@ -13,6 +13,10 @@ class ImageStrings {
   static const String plantifyLogo = 'assets/logos/plantify_logo.png';
   static const String facebookLogo = 'assets/logos/facebook_icon.png';
   static const String googleLogo = 'assets/logos/google_icon.png';
+  static const String kbzPayLogo = 'assets/logos/KBZ Pay_logo.png';
+  static const String waveMoneyLogo = 'assets/logos/Wave Money_logo.png';
+  static const String ayaPayLogo = 'assets/logos/AYA Pay_logo.jpeg';
+  static const String cbPayLogo = 'assets/logos/CB Pay_logo.jpeg';
 
   static const String profile1 = 'assets/images/profile_1.jpg';
   static const String discountBanner = 'assets/images/discount_banner.svg';

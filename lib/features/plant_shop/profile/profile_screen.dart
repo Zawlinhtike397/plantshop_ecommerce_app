@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:plantify_plantshop_project/common/widgets/image/rounded_image.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/address_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/discount_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
@@ -79,12 +80,30 @@ class ProfileScreen extends StatelessWidget {
                       ProfileTile(
                         icon: Iconsax.discount_shape,
                         text: 'Discount Offers',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DiscountScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                       ProfileTile(
                         icon: Iconsax.location,
                         text: 'My Addresses',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return AddressScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                       ProfileTile(
                         icon: Iconsax.heart,

@@ -71,28 +71,28 @@ class AppTextTheme {
       color: Colors.white,
     ),
     bodyLarge: const TextStyle().copyWith(
-      fontSize: 12,
-      fontWeight: FontWeight.w600,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
       color: Colors.white,
     ),
     bodyMedium: const TextStyle().copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
       color: Colors.white,
     ),
     bodySmall: const TextStyle().copyWith(
       fontSize: 12,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.normal,
       color: Colors.white.withValues(alpha: 0.5),
     ),
     labelLarge: const TextStyle().copyWith(
       fontSize: 10,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.normal,
       color: Colors.white,
     ),
     labelMedium: const TextStyle().copyWith(
       fontSize: 10,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
       color: Colors.white.withValues(alpha: 0.5),
     ),
   );

@@ -18,6 +18,10 @@ class _FilterSheetState extends State<FilterSheet> {
     'Newest first',
     'Sale (High/Low )',
     'Sale (Low/High)',
+
+    'Newest first',
+    'Sale (High/Low )',
+    'Sale (Low/High)',
     'Name',
   ];
 
