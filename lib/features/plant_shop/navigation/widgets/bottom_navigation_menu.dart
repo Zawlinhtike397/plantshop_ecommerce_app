@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/favourite/favourite_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/home_screen.dart';

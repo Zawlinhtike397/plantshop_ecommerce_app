@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class CategoryTag extends StatelessWidget {
-  const CategoryTag({super.key});
+  final String category;
+  const CategoryTag({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class CategoryTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: Text(
-        'Indoor',
+        category,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
           color: AppColor.darkTeal,
           fontSize: 11.0,

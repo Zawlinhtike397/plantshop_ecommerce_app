@@ -13,7 +13,6 @@ class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  // bool _isPasswordVisible = true;
 
   @override
   void initState() {

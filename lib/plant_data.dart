@@ -1,60 +1,28 @@
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
+//plant 1 => Succulent Plant (Outdoor) (yes photo)
+//plant 2 => Snake Plants (Outdoor) (yes photo)
+//plant 3 => Peperomia Plant  (Indoor) (yes photo)
+//plant 4 => Arecea plam (Indoor) (yes photo)
+//plant 5 => lush green darcena (Gardening) (yes photo)
+//plant 6 will be monstera_deliciosa_2 (Gardening)  (yes photo)
+//plant 7 => pink alzaza (Flowering) (yes photo)
+//plant 8 => cherry blosom (Flowering) (yes photo)
+//plant 9 => hanging plant (hanging) (yes photo)
 final plants = [
   {
-    'id': '0',
-    'name': 'Lucky Jade Plant',
-    'price': 12.99,
-    'height': '2m',
-    'category': 'Outdoor',
-    'stock': 'In Stock',
-    'temperature': '20°F to 25°F',
-    'pot': 'Ciramic Pot',
-    'imageUrl': [ImageStrings.plant1],
-    'description':
-        'Jade plants, or money plants, are adaptable houseplants with attractive, gem-like green leaves.',
-    'quantity': 10,
-    'careGuide': {
-      'light': {
-        'title': 'Light',
-        'description':
-            'Prefers bright, indirect sunlight. Can tolerate some direct morning sun.',
-      },
-      'water': {
-        'title': 'Water',
-        'description':
-            'Water only when the soil is completely dry. Overwatering may cause root rot.',
-      },
-      'humidity': {
-        'title': 'Humidity',
-        'description':
-            'Does well in average indoor humidity. No misting required.',
-      },
-
-      'soil': {
-        'title': 'Soil',
-        'description': 'Use well-draining cactus or succulent soil mix.',
-      },
-
-      'petSafety': {
-        'title': 'Pet Safety',
-        'description': 'Toxic to pets if ingested.',
-      },
-    },
-  },
-  {
-    'id': '1',
+    'id': 1,
     'name': 'Snake Plants',
-    'price': 15.0,
+    'price': 15000,
+    'salePrice': 12000,
     'height': '1.5m',
     'category': 'Outdoor',
-    'stock': 'Out of Stock',
     'temperature': '60°F to 75°F',
     'pot': 'Ciramic Pot',
-    'imageUrl': [ImageStrings.plant1],
+    'imageUrl': [ImageStrings.snakePlant],
     'description':
         'The snake plant is a hardy, low-maintenance indoor plant with striking leaves',
-    'quantity': 60,
+    'stock': 60,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -84,19 +52,18 @@ final plants = [
     },
   },
   {
-    'id': '2',
+    'id': 2,
     'name': 'Peperomia Plant',
-    'subTitle': 'Super greens',
-    'price': 12.0,
+    'price': 22000,
+    'salePrice': 17000,
     'height': '1.2m',
     'category': 'Indoor',
-    'stock': 'Out of Stock',
     'temperature': '50°F',
     'pot': 'Plastic Pot',
-    'imageUrl': [ImageStrings.plant2, ImageStrings.plant1],
+    'imageUrl': [ImageStrings.peperomiaPlant],
     'description':
         'Peperomia are small, low-maintenance houseplants with varied, attractive leaves, thriving in indirect light and humidity.',
-    'quantity': 100,
+    'stock': 100,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -126,19 +93,59 @@ final plants = [
     },
   },
   {
-    'id': '3',
-    'name': 'Small Plant',
-    'subTitle': 'Super greens',
-    'price': 10.0,
-    'height': '1.4m',
+    'id': 3,
+    'name': 'Areca Palm',
+    'price': 33000,
+    'salePrice': 27000,
+    'height': '1.2m - 2m',
     'category': 'Indoor',
-    'stock': 'In Stock',
+    'temperature': '18°C to 24°C',
+    'pot': 'Plastic Pot',
+    'imageUrl': [ImageStrings.plamPlant],
+    'description':
+        'Areca Palm is a popular indoor plant known for its feathery, arching green fronds that bring a tropical feel to any space. It is also known for improving indoor air quality and is easy to maintain.',
+    'stock': 180,
+    'careGuide': {
+      'light': {
+        'title': 'Light',
+        'description':
+            'Prefers bright, indirect sunlight. Avoid strong direct sunlight as it can burn the leaves.',
+      },
+      'water': {
+        'title': 'Water',
+        'description':
+            'Keep the soil lightly moist but not soggy. Water when the top inch of soil feels dry.',
+      },
+      'humidity': {
+        'title': 'Humidity',
+        'description':
+            'Prefers moderate to high humidity. Occasional misting helps keep the leaves healthy.',
+      },
+      'soil': {
+        'title': 'Soil',
+        'description':
+            'Use well-draining potting soil with good aeration, such as a mix for indoor plants.',
+      },
+      'petSafety': {
+        'title': 'Pet Safety',
+        'description':
+            'Non-toxic to cats and dogs, making it a pet-friendly houseplant.',
+      },
+    },
+  },
+  {
+    'id': 4,
+    'name': 'Lush green dracena',
+    'price': 15000,
+    'salePrice': 10000,
+    'height': '1.4m',
+    'category': 'Gardening',
     'temperature': '60°F',
     'pot': 'Plastic Pot',
-    'imageUrl': [ImageStrings.plant1, ImageStrings.plant2],
+    'imageUrl': [ImageStrings.lushGreen],
     'description':
         'Green Echeveria agavoides is a compact, rosette-forming succulent with pointed, fleshy green leaves that resemble an agave.',
-    'quantity': 180,
+    'stock': 180,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -164,6 +171,168 @@ final plants = [
       'petSafety': {
         'title': 'Pet Safety',
         'description': 'Toxic to pets if ingested.',
+      },
+    },
+  },
+  {
+    'id': 5,
+    'name': 'Monstera Deliciosa',
+    'price': 22000,
+    'salePrice': 18000,
+    'height': '1m - 2m',
+    'category': 'Gardening',
+    'temperature': '18°C to 30°C',
+    'pot': 'Plastic Pot',
+    'imageUrl': [ImageStrings.monsteraPlant],
+    'description':
+        'Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical houseplant famous for its large, glossy green leaves with natural splits and holes. It is a popular decorative plant that adds a lush, jungle-like feel to indoor spaces.',
+    'stock': 180,
+    'careGuide': {
+      'light': {
+        'title': 'Light',
+        'description':
+            'Thrives in bright, indirect sunlight. Can tolerate medium light but avoid harsh direct sun.',
+      },
+      'water': {
+        'title': 'Water',
+        'description':
+            'Water when the top 2–3 cm of soil feels dry. Avoid overwatering to prevent root rot.',
+      },
+      'humidity': {
+        'title': 'Humidity',
+        'description':
+            'Prefers moderate to high humidity. Occasional misting helps keep leaves healthy.',
+      },
+      'soil': {
+        'title': 'Soil',
+        'description':
+            'Use well-draining potting mix rich in organic matter, such as peat, perlite, and bark.',
+      },
+      'petSafety': {
+        'title': 'Pet Safety',
+        'description':
+            'Toxic to cats and dogs if ingested due to calcium oxalate crystals.',
+      },
+    },
+  },
+  {
+    'id': 6,
+    'name': 'Pink Azalea',
+    'price': 50000,
+    'salePrice': 38000,
+    'height': '60cm - 1.5m',
+    'category': 'Flowering',
+    'temperature': '15°C to 24°C',
+    'pot': 'Plastic Pot',
+    'imageUrl': [ImageStrings.pinkAzalea],
+    'description':
+        'Pink Azalea is a beautiful flowering shrub known for its vibrant pink blossoms and lush green foliage. It is commonly grown in gardens and patios, bringing bright seasonal color and elegance to outdoor spaces.',
+    'stock': 180,
+    'careGuide': {
+      'light': {
+        'title': 'Light',
+        'description':
+            'Prefers partial shade or filtered sunlight. Avoid strong afternoon sun.',
+      },
+      'water': {
+        'title': 'Water',
+        'description':
+            'Keep the soil consistently moist but not waterlogged. Azaleas dislike dry soil.',
+      },
+      'humidity': {
+        'title': 'Humidity',
+        'description': 'Prefers moderate humidity and good air circulation.',
+      },
+      'soil': {
+        'title': 'Soil',
+        'description':
+            'Requires acidic, well-draining soil rich in organic matter such as peat moss.',
+      },
+      'petSafety': {
+        'title': 'Pet Safety',
+        'description':
+            'Toxic to pets and humans if ingested due to grayanotoxins.',
+      },
+    },
+  },
+  {
+    'id': 7,
+    'name': 'Cherry Blossom',
+    'price': 40000,
+    'salePrice': 20000,
+    'height': '3m - 8m',
+    'category': 'Flowering',
+    'temperature': '10°C to 25°C',
+    'pot': 'Plastic Pot',
+    'imageUrl': [ImageStrings.cherryBlosom],
+    'description':
+        'Cherry Blossom is a famous ornamental tree known for its stunning pink or white flowers that bloom in spring. These delicate blossoms create breathtaking landscapes and symbolize beauty and renewal.',
+    'stock': 180,
+    'careGuide': {
+      'light': {
+        'title': 'Light',
+        'description':
+            'Requires full sunlight for healthy growth and abundant flowering.',
+      },
+      'water': {
+        'title': 'Water',
+        'description':
+            'Water regularly, especially during dry periods. Keep the soil moist but well-drained.',
+      },
+      'humidity': {
+        'title': 'Humidity',
+        'description': 'Prefers moderate humidity with good air circulation.',
+      },
+      'soil': {
+        'title': 'Soil',
+        'description':
+            'Thrives in well-draining, fertile soil with slightly acidic to neutral pH.',
+      },
+      'petSafety': {
+        'title': 'Pet Safety',
+        'description':
+            'Seeds, leaves, and stems can be toxic to pets if ingested.',
+      },
+    },
+  },
+  {
+    'id': 8,
+    'name': 'Hanging Plant',
+    'price': 20000,
+    'salePrice': 12000,
+    'height': '20cm - 60cm',
+    'category': 'Hanging',
+    'temperature': '18°C to 28°C',
+    'pot': 'no pot',
+    'imageUrl': [ImageStrings.hangingPlant],
+    'description':
+        'Hanging plants are beautiful trailing houseplants that grow gracefully from hanging baskets or pots. Their cascading vines make them perfect for decorating balconies, windows, and indoor spaces.',
+    'stock': 180,
+    'careGuide': {
+      'light': {
+        'title': 'Light',
+        'description':
+            'Prefers bright, indirect sunlight. Can tolerate low to medium light conditions.',
+      },
+      'water': {
+        'title': 'Water',
+        'description':
+            'Water when the top layer of soil feels dry. Avoid overwatering to prevent root rot.',
+      },
+      'humidity': {
+        'title': 'Humidity',
+        'description':
+            'Prefers moderate humidity but adapts well to normal indoor conditions.',
+      },
+      'soil': {
+        'title': 'Soil',
+        'description':
+            'Use well-draining indoor potting mix with good aeration.',
+      },
+      'petSafety': {
+        'title': 'Pet Safety',
+        'description':
+            'Pet safety depends on the specific plant variety. Some hanging plants may be toxic to pets.',
       },
     },
   },

@@ -67,7 +67,7 @@ class _CartScreenState extends State<CartScreen> {
         title: Text(
           'Cart',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            fontSize: 20.0,
+            fontSize: 17.0,
             fontWeight: FontWeight.normal,
           ),
         ),

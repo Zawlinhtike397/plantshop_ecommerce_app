@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/address/edit_address_screen.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/screen/edit_address_screen.dart';
 
 class AddressListTile extends StatefulWidget {
   final int index;

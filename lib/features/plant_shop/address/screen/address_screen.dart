@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/common/widgets/listView/address_listview.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/address/add_address_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/screen/add_address_screen.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});

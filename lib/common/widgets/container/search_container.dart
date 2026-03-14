@@ -59,7 +59,11 @@ class SearchContainer extends StatelessWidget {
           ? () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const SearchResultScreen()),
+                MaterialPageRoute(
+                  builder: (_) {
+                    return const SearchResultScreen();
+                  },
+                ),
               );
             }
           : null,

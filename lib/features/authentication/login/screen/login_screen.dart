@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/user_repository.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/bloc/login_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/login/screen/login_view.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:plantify_plantshop_project/utils/popups/fullscreen_loader.dart';
 
@@ -17,6 +20,9 @@ class LoginScreen extends StatelessWidget {
         networkBloc: context.read<NetworkBloc>(),
         authRepository: context.read<AuthRepository>(),
         appBloc: context.read<AppBloc>(),
+        userBloc: context.read<UserBloc>(),
+        navigationCubit: context.read<NavigationCubit>(),
+        userRepository: context.read<UserRepository>(),
       ),
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
@@ -29,6 +35,7 @@ class LoginScreen extends StatelessWidget {
               break;
             case LoginSuccess():
               FullscreenLoader.hide(context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
               break;
             case LoginFailure(message: final message):
               FullscreenLoader.hide(context);

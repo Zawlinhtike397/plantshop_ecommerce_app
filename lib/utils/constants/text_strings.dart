@@ -35,4 +35,11 @@ class AppText {
   static const String registerFormHeader = 'Register your account';
 
   static const String welcomeText = 'Happy Shopping!';
+
+  static const String changeNameText =
+      'We recommend using real name for easy verification. This name will appear on several pages.';
+  static const String changeEmailText =
+      'Remeber this email since the next time u login, u need to login with this email.';
+  static const String changePhoneNumberText =
+      'Change your current phone number in Myanmar Format';
 }

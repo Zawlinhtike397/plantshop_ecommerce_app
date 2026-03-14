@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/plant_info_bottom_sheet.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_care_instruction_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_category_text.dart';
@@ -8,7 +9,8 @@ import 'package:plantify_plantshop_project/features/plant_shop/plant_details/wid
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_stock_status.dart';
 
 class PlantDetailsScreen extends StatefulWidget {
-  final Map<String, Object> plant;
+  // final Map<String, Object> plant;
+  final PlantModel plant;
   const PlantDetailsScreen({super.key, required this.plant});
 
   @override
@@ -41,39 +43,39 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProductDetailImageSlider(
-                    controller: _controller,
-                    plantData: widget.plant,
-                  ),
+                  // ProductDetailImageSlider(
+                  //   controller: _controller,
+                  //   // plantData: widget.plant,
+                  // ),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ProductDetailText(plantData: widget.plant),
+                        // ProductDetailText(plantData: widget.plant),
                         const SizedBox(height: 20),
 
-                        ProductCategoryText(plantData: widget.plant),
+                        // ProductCategoryText(plantData: widget.plant),
                         const SizedBox(height: 20),
 
                         ProductStockStatus(),
                         const SizedBox(height: 20),
 
-                        ProductCareInstructionWidget(plantData: widget.plant),
+                        // ProductCareInstructionWidget(plantData: widget.plant),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: PlantInfoBottomSheet(plantData: widget.plant),
-              ),
-            ),
+            // SliverFillRemaining(
+            //   hasScrollBody: false,
+            //   child: Align(
+            //     alignment: Alignment.bottomCenter,
+            //     child: PlantInfoBottomSheet(plantData: widget.plant),
+            //   ),
+            // ),
           ],
         ),
       ),

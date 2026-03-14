@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/common/widgets/container/search_container.dart';
 import 'package:plantify_plantshop_project/common/widgets/custom_shapes/custom_curved_edge.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/top_app_bar_widget.dart';

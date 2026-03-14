@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
 import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 
@@ -11,7 +12,16 @@ class ForgotPasswordTextBtn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return ForgotPasswordScreen();
+                },
+              ),
+            );
+          },
           child: Text(
             AppText.forgotPwText,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

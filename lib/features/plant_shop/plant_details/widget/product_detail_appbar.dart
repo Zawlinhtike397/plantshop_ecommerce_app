@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:iconsax/iconsax.dart';
+
 import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
 
 class ProductDetailAppBar extends StatelessWidget {

@@ -26,7 +26,7 @@ class PlantCartItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
               child: Row(
                 children: [
-                  Image.asset(ImageStrings.plant1, fit: BoxFit.fitWidth),
+                  Image.asset(ImageStrings.lushGreen, fit: BoxFit.fitWidth),
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,

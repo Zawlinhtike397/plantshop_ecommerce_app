@@ -20,8 +20,8 @@ class AuthRepository {
   }
 
   Future<bool> isLoggedIn() async {
-    final prefs = await initSharedPerf();
-    return prefs.getString(_tokenKey) != null;
+    final session = _supabase.auth.currentSession;
+    return session?.user != null;
   }
 
   Future<void> completeOnboarding() async {
@@ -54,37 +54,43 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
+    await _supabase.auth.signOut();
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
   }
 
   Future<void> signInWithGoogle() async {
-    var webClientId = dotenv.env['WEB_CLIENT_ID'];
-    var androidClientId = dotenv.env['ANDROID_CLIENT_ID'];
-    final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+    try {
+      var webClientId = dotenv.env['WEB_CLIENT_ID'];
+      var androidClientId = dotenv.env['ANDROID_CLIENT_ID'];
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
 
-    await googleSignIn.initialize(
-      clientId: androidClientId,
-      serverClientId: webClientId,
-    );
+      await googleSignIn.initialize(
+        clientId: androidClientId,
+        serverClientId: webClientId,
+      );
 
-    final googleUser = await googleSignIn.authenticate();
+      final googleUser = await googleSignIn.authenticate();
 
-    final googleAuth = googleUser.authentication;
-    final idToken = googleAuth.idToken;
+      final googleAuth = googleUser.authentication;
+      final idToken = googleAuth.idToken;
 
-    if (idToken == null) throw 'No ID Token found.';
+      if (idToken == null) throw 'No ID Token found.';
 
-    final response = await _supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      // accessToken: accessToken,
-    );
+      final response = await _supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        // accessToken: accessToken,
+      );
 
-    final session = response.session;
-    if (session != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_tokenKey, session.accessToken);
+      final session = response.session;
+      if (session != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(_tokenKey, session.accessToken);
+      }
+    } catch (e) {
+      throw Exception('SignIn with google error: $e');
     }
   }
 
@@ -109,6 +115,34 @@ class AuthRepository {
       }
     } catch (e) {
       throw Exception('Register error: $e');
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    await _supabase.auth.resetPasswordForEmail(
+      email,
+      redirectTo: "com.plantify.app://reset-password",
+    );
+  }
+
+  Future<void> verifyPasswordResetLink(Uri uri) async {
+    await _supabase.auth.getSessionFromUrl(uri);
+  }
+
+  Future<void> updatePassword(String newPassword) async {
+    await _supabase.auth.updateUser(UserAttributes(password: newPassword));
+
+    await _supabase.auth.signOut();
+  }
+
+  Future<void> changeEmail(String newEmail) async {
+    try {
+      await _supabase.auth.updateUser(
+        UserAttributes(email: newEmail),
+        emailRedirectTo: "com.plantify.app://change-email",
+      );
+    } catch (e) {
+      throw Exception('Change email error: $e');
     }
   }
 }

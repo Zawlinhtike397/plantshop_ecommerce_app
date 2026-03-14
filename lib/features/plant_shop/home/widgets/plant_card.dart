@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/category_tag.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/favorite_icon.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_name_text.dart';
@@ -8,7 +9,8 @@ import 'package:plantify_plantshop_project/features/plant_shop/plant_details/pla
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class PlantCard extends StatelessWidget {
-  final Map<String, Object> plant;
+  // final Map<String, Object> plant;
+  final PlantModel plant;
 
   const PlantCard({super.key, required this.plant});
 
@@ -22,13 +24,14 @@ class PlantCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return PlantDetailsScreen(plant: plant);
+              // return PlantDetailsScreen(plant: plant);
+              return SizedBox();
             },
           ),
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: isDarkMode ? AppColor.darkerGrey : AppColor.white,
           borderRadius: BorderRadius.circular(20),
@@ -44,27 +47,28 @@ class PlantCard extends StatelessWidget {
           spacing: 16.0,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PlantBackgroundWithDiscount(plantData: plant),
-
+            PlantBackgroundWithDiscount(plantData: plant, isNetworkImage: true),
             Column(
               spacing: 7.0,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProductText(
-                  name: '${plant['name']}',
+                  name: plant.name,
                   overflow: TextOverflow.ellipsis,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w600,
                 ),
 
-                CategoryTag(),
+                CategoryTag(category: plant.category),
               ],
             ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppProductPriceText(price: '${plant['price']}'),
+                Expanded(
+                  child: AppProductPriceText(price: '${plant.salePrice}'),
+                ),
 
                 FavouriteIcon(markedAsFavourite: true),
               ],

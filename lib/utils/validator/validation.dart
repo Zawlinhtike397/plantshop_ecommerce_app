@@ -49,7 +49,7 @@ class Validator {
       return 'Phone number is required.';
     }
 
-    final mmPhoneRegExp = RegExp(r'^(09\d{9,11}|\+959\d{9,11})$');
+    final mmPhoneRegExp = RegExp(r'^(09\d{7,11}|\+959\d{9,11})$');
 
     if (!mmPhoneRegExp.hasMatch(value)) {
       return 'Invalid Myanmar Phone Number';

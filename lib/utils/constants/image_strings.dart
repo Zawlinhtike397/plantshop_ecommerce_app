@@ -18,11 +18,24 @@ class ImageStrings {
   static const String ayaPayLogo = 'assets/logos/AYA Pay_logo.jpeg';
   static const String cbPayLogo = 'assets/logos/CB Pay_logo.jpeg';
 
-  static const String profile1 = 'assets/images/profile_1.jpg';
-  static const String discountBanner = 'assets/images/discount_banner.svg';
+  static const String profile1 = 'assets/images/dummy-profile-pic.png';
   static const String filterIcon = 'assets/icons/mage_filter.svg';
   static const String editIcon = 'assets/icons/edit_icon.svg';
 
-  static const String plant1 = 'assets/images/lush_green_dracaena_2.png';
-  static const String plant2 = 'assets/images/monstera_deliciosa_2.png';
+  static const String lushGreen =
+      'assets/images/plants/lush_green_dracaena_2.png';
+  static const String succulentPlant =
+      'assets/images/plants/succulent_plant.png';
+  static const String plamPlant = 'assets/images/plants/Areca Palm.png';
+  static const String cherryBlosom = 'assets/images/plants/cherry_blosom.png';
+  static const String hangingPlant = 'assets/images/plants/Hanging_plant.png';
+  static const String monsteraPlant =
+      'assets/images/plants/monstera_deliciosa_2.png';
+  static const String peperomiaPlant =
+      'assets/images/plants/Peperomia_plant.png';
+  static const String pinkAzalea = 'assets/images/plants/pink_azalea.png';
+  static const String snakePlant = 'assets/images/plants/snake_plant.png';
+
+  static const String forgotPwBackground =
+      'assets/images/forgot_password_background.jpg';
 }

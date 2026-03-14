@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class DiscountCuponTextField extends StatelessWidget {

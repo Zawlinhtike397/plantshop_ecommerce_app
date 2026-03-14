@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/utils/popups/shimmer_effect.dart';
 
 class AppRoundedImage extends StatelessWidget {
   final double? width, height;
@@ -47,7 +49,16 @@ class AppRoundedImage extends StatelessWidget {
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
           child: Center(
-            child: Image(image: AssetImage(imageUrl), fit: fit),
+            child: isNetworkImage
+                ? CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: fit,
+                    placeholder: (context, url) =>
+                        const ZShimmerEffect(width: 72, height: 72),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  )
+                : Image(image: AssetImage(imageUrl), fit: fit),
           ),
         ),
       ),

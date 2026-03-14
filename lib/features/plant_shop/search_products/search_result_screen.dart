@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
 import 'package:plantify_plantshop_project/common/widgets/container/search_container.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
@@ -124,13 +124,14 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     );
                   }
 
-                  return GridViewWidget(
-                    itemCount: filteredPlants.length,
-                    crossAxisCount: 2,
-                    itemBuilder: (context, index) {
-                      return PlantCard(plant: filteredPlants[index]);
-                    },
-                  );
+                  // return GridViewWidget(
+                  //   itemCount: filteredPlants.length,
+                  //   crossAxisCount: 2,
+                  //   itemBuilder: (context, index) {
+                  //     return PlantCard(plant: filteredPlants[index]);
+                  //   },
+                  // );
+                  return SizedBox();
                 },
               ),
             ],

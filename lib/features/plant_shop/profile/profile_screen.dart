@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/image/rounded_image.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/address/address_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/screen/address_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/discount_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/profile/profile_detail_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
+import 'package:plantify_plantshop_project/load_data.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
+import 'package:plantify_plantshop_project/utils/popups/shimmer_effect.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -16,9 +21,9 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'MyAccount',
+          'My Account',
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-            fontSize: 20.0,
+            fontSize: 17.0,
             fontWeight: FontWeight.normal,
           ),
         ),
@@ -30,37 +35,79 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              SizedBox(height: 30),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    spacing: 12.0,
-                    children: [
-                      AppRoundedImage(
-                        width: 72,
-                        height: 72,
-                        imageUrl: ImageStrings.profile1,
-                      ),
-                      Column(
-                        spacing: 3,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Shyvana',
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          Text(
-                            'Shyvana@gmail.com',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodySmall!.copyWith(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ],
+                  BlocBuilder<UserBloc, UserState>(
+                    builder: (context, state) {
+                      switch (state) {
+                        case UserInitial():
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 3,
+                            children: const [
+                              ZShimmerEffect(width: 120, height: 16, radius: 4),
+                              ZShimmerEffect(width: 160, height: 14, radius: 4),
+                            ],
+                          );
+
+                        case UserLoaded(:final user):
+                          final profileUrl =
+                              user.profilePicture != null &&
+                                  user.profilePicture!.isNotEmpty == true
+                              ? user.profilePicture!
+                              : ImageStrings.profile1;
+                          return Row(
+                            spacing: 12.0,
+                            children: [
+                              AppRoundedImage(
+                                width: 60,
+                                height: 60,
+                                imageUrl: profileUrl,
+                                isNetworkImage: profileUrl.startsWith('http'),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 3,
+                                children: [
+                                  Text(
+                                    user.userName,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleSmall,
+                                  ),
+                                  Text(
+                                    user.email,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+
+                        case UserError():
+                        case UserLoggedOut():
+                          return const Text("Problem in Loading User Data...");
+                      }
+                    },
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Iconsax.edit)),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProfileDetailScreen();
+                          },
+                        ),
+                      );
+                    },
+                    icon: Icon(Iconsax.edit),
+                  ),
                 ],
               ),
               SizedBox(height: 30),
@@ -152,6 +199,20 @@ class ProfileScreen extends StatelessWidget {
                         text: 'FAQ',
                         onTap: () {},
                       ),
+                      ProfileTile(
+                        icon: Iconsax.shop,
+                        text: 'LoadData',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoadDataScreen();
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -161,7 +222,9 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<UserBloc>().add(LogoutUser());
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.primary,
                     padding: const EdgeInsets.symmetric(vertical: 17),
