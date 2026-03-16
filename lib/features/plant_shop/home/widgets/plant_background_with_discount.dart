@@ -33,11 +33,7 @@ class PlantBackgroundWithDiscount extends StatelessWidget {
                       const ZShimmerEffect(width: 72, height: 72),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
-              : Image.asset(
-                  images[0],
-                  width: double.infinity,
-                  // fit: BoxFit.contain,
-                ),
+              : Image.asset(images[0], width: double.infinity),
         ),
         if (plantData.salePrice < plantData.price)
           DiscountTag(

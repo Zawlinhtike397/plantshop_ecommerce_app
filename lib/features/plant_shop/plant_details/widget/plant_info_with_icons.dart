@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 
 class PlantInfoWithIcons extends StatelessWidget {
   const PlantInfoWithIcons({super.key, required this.plantData});
 
-  final Map<String, Object> plantData;
+  final PlantModel plantData;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,6 @@ class PlantInfoWithIcons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Icon(Icons.height, size: 34),
               Text(
@@ -25,7 +25,7 @@ class PlantInfoWithIcons extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                plantData['height'] as String,
+                plantData.height,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
@@ -47,7 +47,7 @@ class PlantInfoWithIcons extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                plantData['temperature'] as String,
+                plantData.temperature,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
@@ -69,7 +69,7 @@ class PlantInfoWithIcons extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                plantData['pot'] as String,
+                plantData.pot,
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,

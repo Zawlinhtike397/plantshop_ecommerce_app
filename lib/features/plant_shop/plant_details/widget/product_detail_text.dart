@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_name_text.dart';
 
 class ProductDetailText extends StatelessWidget {
-  final Map<String, Object> plantData;
+  final PlantModel plantData;
   const ProductDetailText({super.key, required this.plantData});
 
   @override
@@ -11,7 +12,7 @@ class ProductDetailText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ProductText(
-          name: '${plantData['name']}',
+          name: plantData.name,
           overflow: TextOverflow.ellipsis,
           letterSpacing: 0.0,
           fontWeight: FontWeight.w600,
@@ -19,7 +20,7 @@ class ProductDetailText extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         Text(
-          '${plantData['description']}',
+          plantData.description,
           style: Theme.of(
             context,
           ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w300),

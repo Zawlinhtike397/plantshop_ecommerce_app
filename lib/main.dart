@@ -10,6 +10,8 @@ import 'package:plantify_plantshop_project/data/repositories/user_repository.dar
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/screen/app.dart';
 import 'package:plantify_plantshop_project/features/authentication/forgot_password/bloc/forgot_password_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/favourite/bloc/favourites_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/favourite/repository/favourite_repository.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -32,12 +34,20 @@ Future<void> main() async {
         RepositoryProvider(create: (_) => UserRepository()),
         RepositoryProvider(create: (_) => AuthRepository()),
         RepositoryProvider(create: (_) => PlantRepository()),
+        RepositoryProvider(create: (_) => FavouriteRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) => PlantBloc(
+              plantRepository: context.read<PlantRepository>(),
+              // ..add(LoadPlantsEvent()),
+            ),
+          ),
+          BlocProvider(
             create: (context) =>
-                PlantBloc(plantRepository: context.read<PlantRepository>()),
+                FavouritesBloc(repository: context.read<FavouriteRepository>())
+                  ..add(LoadFavouritesEvent()),
           ),
           BlocProvider(
             create: (context) => AppBloc(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_name_text.dart';
 
 class ProductCategoryText extends StatelessWidget {
-  final Map<String, Object> plantData;
+  final PlantModel plantData;
   const ProductCategoryText({super.key, required this.plantData});
 
   @override
@@ -18,7 +19,7 @@ class ProductCategoryText extends StatelessWidget {
           fontSize: 15,
         ),
         SizedBox(height: 10),
-        Text('${plantData['category']}'),
+        Text(plantData.category),
       ],
     );
   }

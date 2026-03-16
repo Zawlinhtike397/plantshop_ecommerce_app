@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/add_to_cart_button.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/plant_info_with_icons.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/vertical_total_price_text.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class PlantInfoBottomSheet extends StatelessWidget {
-  final Map<String, Object> plantData;
+  final PlantModel plantData;
   const PlantInfoBottomSheet({super.key, required this.plantData});
 
   @override

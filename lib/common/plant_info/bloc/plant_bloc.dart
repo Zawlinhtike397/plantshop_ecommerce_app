@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/plant_info/repository/plant_repository.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/favourite/repository/favourite_repository.dart';
 
 part 'plant_event.dart';
 part 'plant_state.dart';

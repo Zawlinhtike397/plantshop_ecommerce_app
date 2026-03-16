@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/category_tag.dart';
-import 'package:plantify_plantshop_project/common/widgets/product/favorite_icon.dart';
+import 'package:plantify_plantshop_project/common/widgets/product/favourite_icon.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_name_text.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_price_text.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_background_with_discount.dart';
@@ -9,7 +9,6 @@ import 'package:plantify_plantshop_project/features/plant_shop/plant_details/pla
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class PlantCard extends StatelessWidget {
-  // final Map<String, Object> plant;
   final PlantModel plant;
 
   const PlantCard({super.key, required this.plant});
@@ -24,8 +23,7 @@ class PlantCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              // return PlantDetailsScreen(plant: plant);
-              return SizedBox();
+              return PlantDetailsScreen(plant: plant);
             },
           ),
         );
@@ -70,7 +68,7 @@ class PlantCard extends StatelessWidget {
                   child: AppProductPriceText(price: '${plant.salePrice}'),
                 ),
 
-                FavouriteIcon(markedAsFavourite: true),
+                FavouriteIcon(plantId: plant.id),
               ],
             ),
           ],
