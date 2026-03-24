@@ -69,7 +69,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       if (state is UserLoaded) {
         final updatedUser = await userRepository.updateProfilePicture();
-        emit(UserLoaded(updatedUser));
+        if (updatedUser != null) {
+          emit(UserLoaded(updatedUser));
+        }
       }
     } catch (e) {
       emit(UserError(e.toString()));

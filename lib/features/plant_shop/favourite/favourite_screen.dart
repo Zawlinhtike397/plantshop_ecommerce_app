@@ -40,59 +40,66 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
+      body: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            sliver: BlocBuilder<PlantBloc, PlantState>(
+              builder: (context, plantState) {
+                if (plantState is PlantLoaded) {
+                  return BlocBuilder<FavouritesBloc, FavouritesState>(
+                    builder: (context, favState) {
+                      List<PlantModel> favouritePlants = [];
 
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: BlocBuilder<PlantBloc, PlantState>(
-            builder: (context, plantState) {
-              if (plantState is PlantLoaded) {
-                return BlocBuilder<FavouritesBloc, FavouritesState>(
-                  builder: (context, favState) {
-                    List<PlantModel> favouritePlants = [];
+                      if (favState is FavouriteLoaded) {
+                        favouritePlants = plantState.plants
+                            .where((p) => favState.favouriteIds.contains(p.id))
+                            .toList();
+                      }
 
-                    if (favState is FavouriteLoaded) {
-                      favouritePlants = plantState.plants
-                          .where((p) => favState.favouriteIds.contains(p.id))
-                          .toList();
-                    }
+                      if (favState is FavouriteLoading ||
+                          plantState is PlantLoading) {
+                        return const SliverFillRemaining(
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      }
 
-                    if (favState is FavouriteLoading ||
-                        plantState is PlantLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+                      if (favouritePlants.isEmpty) {
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Center(
+                            child: AnimationLoader(
+                              headingText: 'Wishlist is empty!',
+                              animation: ImageStrings.emptyAnimation,
+                              smallText:
+                                  'Add something that you wish to buy here',
+                              showActionButton: true,
+                              actionText: 'Add Products',
+                              onPressed: () {
+                                context.read<NavigationCubit>().changeIndex(0);
+                              },
+                            ),
+                          ),
+                        );
+                      }
 
-                    if (favouritePlants.isEmpty) {
-                      return Center(
-                        child: AnimationLoader(
-                          headingText: 'Wishlist is empty!',
-                          animation: ImageStrings.emptyAnimation,
-                          smallText: 'Add something that you wish to buy here',
-                          showActionButton: true,
-                          actionText: 'Add Products',
-                          onPressed: () {
-                            context.read<NavigationCubit>().changeIndex(0);
-                          },
-                        ),
+                      return GridViewWidget(
+                        itemCount: favouritePlants.length,
+                        crossAxisCount: 2,
+                        itemBuilder: (context, index) {
+                          final plant = favouritePlants[index];
+                          return PlantCard(plant: plant);
+                        },
                       );
-                    }
+                    },
+                  );
+                }
 
-                    return GridViewWidget(
-                      itemCount: favouritePlants.length,
-                      crossAxisCount: 2,
-                      itemBuilder: (context, index) {
-                        final plant = favouritePlants[index];
-                        return PlantCard(plant: plant);
-                      },
-                    );
-                  },
-                );
-              }
-
-              return const SizedBox();
-            },
+                return const SliverToBoxAdapter(child: SizedBox());
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

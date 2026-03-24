@@ -58,7 +58,7 @@ class BottomNavigationMenu extends StatelessWidget {
               context.read<NavigationCubit>().changeIndex(index);
             },
           ),
-          body: _screens[selectedIndex],
+          body: IndexedStack(index: selectedIndex, children: _screens),
         );
       },
     );

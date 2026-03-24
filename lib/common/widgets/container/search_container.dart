@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
+import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/search_products/search_result_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
+import 'package:plantify_plantshop_project/utils/debouncer/debouncer.dart';
 
-class SearchContainer extends StatelessWidget {
+class SearchContainer extends StatefulWidget {
   final IconData? icon;
   final String searchBarText;
   final bool showColor, showBorder;
@@ -20,14 +21,48 @@ class SearchContainer extends StatelessWidget {
   });
 
   @override
+  State<SearchContainer> createState() => _SearchContainerState();
+}
+
+class _SearchContainerState extends State<SearchContainer> {
+  late final Debouncer _debouncer;
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
+  }
+
+  @override
+  void dispose() {
+    _debouncer.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String value) {
+    if (!widget.openSearchPageOnTap) {
+      _debouncer.call(() {
+        context.read<PlantBloc>().add(
+          LoadPlantsEvent(category: 'All', searchQuery: value),
+        );
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return SearchBar(
-      hintText: searchBarText,
-      leading: icon != null ? Icon(icon, color: AppColor.midGray) : null,
+      controller: _controller,
+      hintText: widget.searchBarText,
+      leading: widget.icon != null
+          ? Icon(widget.icon, color: AppColor.midGray)
+          : null,
       backgroundColor: WidgetStateProperty.all(
-        showColor
+        widget.showColor
             ? isDarkMode
                   ? AppColor.darkerGrey
                   : AppColor.white
@@ -36,7 +71,7 @@ class SearchContainer extends StatelessWidget {
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          side: showBorder
+          side: widget.showBorder
               ? BorderSide(color: AppColor.borderColor)
               : BorderSide.none,
         ),
@@ -55,7 +90,7 @@ class SearchContainer extends StatelessWidget {
         const EdgeInsets.symmetric(horizontal: 12),
       ),
 
-      onTap: openSearchPageOnTap
+      onTap: widget.openSearchPageOnTap
           ? () {
               Navigator.push(
                 context,
@@ -67,11 +102,7 @@ class SearchContainer extends StatelessWidget {
               );
             }
           : null,
-      onChanged: openSearchPageOnTap
-          ? null
-          : (value) {
-              context.read<SearchCubit>().updateQuery(value);
-            },
+      onChanged: widget.openSearchPageOnTap ? null : _onSearchChanged,
     );
   }
 }

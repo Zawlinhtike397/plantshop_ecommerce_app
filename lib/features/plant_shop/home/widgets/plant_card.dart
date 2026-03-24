@@ -65,7 +65,15 @@ class PlantCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: AppProductPriceText(price: '${plant.salePrice}'),
+                  child: Column(
+                    children: [
+                      AppProductPriceText(price: '${plant.salePrice}'),
+                      AppProductPriceText(
+                        price: '${plant.originalPrice}',
+                        lineThrough: true,
+                      ),
+                    ],
+                  ),
                 ),
 
                 FavouriteIcon(plantId: plant.id),

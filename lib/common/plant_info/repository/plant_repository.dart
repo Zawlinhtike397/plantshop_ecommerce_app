@@ -43,9 +43,26 @@ class PlantRepository {
     }
   }
 
-  Future<List<PlantModel>> fetchPlants() async {
+  Future<List<PlantModel>> fetchPlants({
+    int start = 0,
+    int limit = 4,
+    String? category,
+    String? searchQuery,
+  }) async {
     try {
-      final response = await _supabase.from('plants').select();
+      var query = _supabase.from('plants').select();
+
+      if (category != null && category != 'All') {
+        query = query.eq('category', category);
+      }
+
+      if (searchQuery != null && searchQuery.isNotEmpty) {
+        query = query.ilike('name', '%$searchQuery%');
+      }
+
+      final response = await query
+          .order('id', ascending: true)
+          .range(start, start + limit - 1);
 
       final data = response as List<dynamic>?;
 
@@ -53,6 +70,23 @@ class PlantRepository {
       return data.map((json) => PlantModel.fromJson(json)).toList();
     } catch (e) {
       throw Exception('Failed to fetch plants: $e');
+    }
+  }
+
+  Future<List<String>> fetchCategories() async {
+    try {
+      final response = await _supabase.from('plants').select('category');
+
+      final data = response as List<dynamic>;
+
+      final categories = data
+          .map((e) => e['category'] as String)
+          .toSet()
+          .toList();
+
+      return ['All', ...categories];
+    } catch (e) {
+      throw Exception('Failed to fetch categories: $e');
     }
   }
 }

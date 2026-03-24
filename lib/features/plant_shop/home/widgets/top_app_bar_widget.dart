@@ -76,21 +76,6 @@ class TopAppBarWidget extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.bold),
                         );
                     }
-                    // if (state is UserLoaded) {
-                    //   return Text(
-                    //     state.name,
-                    //     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   );
-                    // }
-
-                    // return Text(
-                    //   'User',
-                    //   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // );
                   },
                 ),
               ],

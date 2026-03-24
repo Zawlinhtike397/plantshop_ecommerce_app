@@ -17,11 +17,48 @@ final class PlantLoading extends PlantState {}
 
 final class PlantLoaded extends PlantState {
   final List<PlantModel> plants;
+  final List<String> categories;
+  final bool hasReachedMax;
+  final bool isLoadingMore;
+  final String selectedCategory;
+  final String searchQuery;
 
-  const PlantLoaded(this.plants);
+  const PlantLoaded({
+    required this.plants,
+    required this.categories,
+    this.hasReachedMax = false,
+    this.isLoadingMore = false,
+    this.selectedCategory = 'All',
+    this.searchQuery = '',
+  });
+
+  PlantLoaded copyWith({
+    List<PlantModel>? plants,
+    List<String>? categories,
+    bool? hasReachedMax,
+    bool? isLoadingMore,
+    String? selectedCategory,
+    String? searchQuery,
+  }) {
+    return PlantLoaded(
+      plants: plants ?? this.plants,
+      categories: categories ?? this.categories,
+      hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
+      searchQuery: searchQuery ?? this.searchQuery,
+    );
+  }
 
   @override
-  List<Object> get props => [plants];
+  List<Object> get props => [
+    plants,
+    categories,
+    hasReachedMax,
+    isLoadingMore,
+    selectedCategory,
+    searchQuery,
+  ];
 }
 
 final class PlantError extends PlantState {

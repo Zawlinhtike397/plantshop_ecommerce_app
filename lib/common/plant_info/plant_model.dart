@@ -3,7 +3,7 @@ import 'package:plantify_plantshop_project/common/plant_info/care_guide_model.da
 class PlantModel {
   int id;
   String name;
-  double price;
+  double originalPrice;
   double salePrice;
   String height;
   String category;
@@ -17,7 +17,7 @@ class PlantModel {
   PlantModel({
     required this.id,
     required this.name,
-    required this.price,
+    required this.originalPrice,
     required this.salePrice,
     required this.height,
     required this.category,
@@ -30,13 +30,13 @@ class PlantModel {
   });
 
   double get discountPercent {
-    return ((price - salePrice) / price) * 100;
+    return ((originalPrice - salePrice) / originalPrice) * 100;
   }
 
   static PlantModel empty() => PlantModel(
     id: 0,
     name: '',
-    price: 0.0,
+    originalPrice: 0.0,
     salePrice: 0.0,
     height: '',
     category: '',
@@ -51,7 +51,7 @@ class PlantModel {
     return {
       'id': id,
       'name': name,
-      'price': price,
+      'price': originalPrice,
       'salePrice': salePrice,
       'height': height,
       'category': category,
@@ -86,7 +86,7 @@ class PlantModel {
     return PlantModel(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
-      price: (json['price'] ?? 0).toDouble(),
+      originalPrice: (json['price'] ?? 0).toDouble(),
       salePrice: (json['salePrice'] ?? 0).toDouble(),
       height: json['height'] ?? '',
       category: json['category'] ?? '',

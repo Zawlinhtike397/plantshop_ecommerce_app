@@ -35,7 +35,7 @@ class PlantBackgroundWithDiscount extends StatelessWidget {
                 )
               : Image.asset(images[0], width: double.infinity),
         ),
-        if (plantData.salePrice < plantData.price)
+        if (plantData.salePrice < plantData.originalPrice)
           DiscountTag(
             percentage: '${plantData.discountPercent.toStringAsFixed(0)}%',
           ),

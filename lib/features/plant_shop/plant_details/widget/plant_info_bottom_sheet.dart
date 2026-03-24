@@ -15,7 +15,6 @@ class PlantInfoBottomSheet extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: AppColor.darkTeal,
-        // AppColor.primary,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(

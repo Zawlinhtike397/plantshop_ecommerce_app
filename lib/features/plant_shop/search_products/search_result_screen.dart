@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
+import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/container/search_container.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/app_filter_button.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/search_products/widgets/filter_sheet.dart';
-import 'package:plantify_plantshop_project/plant_data.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class SearchResultScreen extends StatefulWidget {
@@ -19,6 +18,20 @@ class SearchResultScreen extends StatefulWidget {
 }
 
 class _SearchResultScreenState extends State<SearchResultScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<PlantBloc>().add(
+      const LoadPlantsEvent(category: 'All', searchQuery: ''),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void _openFilterSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -38,12 +51,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    context.read<SearchCubit>().clear();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final exampleFilters = [
       //   'Price (High/Low)',
@@ -59,20 +66,17 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
           searchBarText: 'Search plants',
           icon: Iconsax.search_normal,
           openSearchPageOnTap: false,
-          // showBorder: true,
+          showBorder: true,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
-          child: Column(
-            spacing: 16.0,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+              child: SizedBox(
                 height: 40,
                 child: Row(
-                  spacing: 10.0,
                   children: [
                     AppFilterButton(
                       iconColorFilter: ColorFilter.mode(
@@ -80,19 +84,17 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         BlendMode.srcIn,
                       ),
                       backgroundColor: Colors.transparent,
-                      onTap: () {
-                        _openFilterSheet(context);
-                      },
+                      onTap: () => _openFilterSheet(context),
                       showBorder: true,
                     ),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: exampleFilters.length,
-
-                        itemBuilder: (BuildContext context, int index) {
+                        itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
+                            padding: const EdgeInsets.only(right: 10),
                             child: CustomFilterChip(
                               label: exampleFilters[index],
                               showColor: false,
@@ -105,38 +107,88 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   ],
                 ),
               ),
+            ),
+          ),
 
-              BlocBuilder<SearchCubit, String>(
-                builder: (context, query) {
-                  final filteredPlants = query.isEmpty
-                      ? plants
-                      : plants.where((plant) {
-                          final name = plant['name'].toString().toLowerCase();
-                          return name.contains(query.toLowerCase().trim());
-                        }).toList();
+          BlocBuilder<PlantBloc, PlantState>(
+            builder: (context, state) {
+              if (state is PlantLoading) {
+                return const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
 
-                  if (filteredPlants.isEmpty) {
-                    return const Center(
+              if (state is PlantError) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(
+                      state.message,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                );
+              }
+
+              if (state is PlantLoaded) {
+                if (state.plants.isEmpty) {
+                  return const SliverFillRemaining(
+                    child: Center(
                       child: Text(
-                        'No plants found 🌱',
+                        'No plants found',
                         style: TextStyle(fontSize: 18),
                       ),
-                    );
-                  }
+                    ),
+                  );
+                }
 
-                  // return GridViewWidget(
-                  //   itemCount: filteredPlants.length,
-                  //   crossAxisCount: 2,
-                  //   itemBuilder: (context, index) {
-                  //     return PlantCard(plant: filteredPlants[index]);
-                  //   },
-                  // );
-                  return SizedBox();
-                },
-              ),
-            ],
+                return SliverMainAxisGroup(
+                  slivers: [
+                    SliverPadding(
+                      padding: const EdgeInsets.only(
+                        left: 20.0,
+                        right: 20.0,
+                        top: 20.0,
+                      ), //need to run for testing.
+                      sliver: GridViewWidget(
+                        itemCount: state.plants.length,
+                        crossAxisCount: 2,
+                        itemBuilder: (context, index) {
+                          return PlantCard(plant: state.plants[index]);
+                        },
+                      ),
+                    ),
+
+                    const SliverToBoxAdapter(child: SizedBox(height: 20)),
+
+                    SliverToBoxAdapter(
+                      child: Center(
+                        child: state.hasReachedMax
+                            ? const Text("No more data")
+                            : state.isLoadingMore
+                            ? const CircularProgressIndicator()
+                            : SizedBox(
+                                width: 200,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context.read<PlantBloc>().add(
+                                      LoadMorePlantsEvent(),
+                                    );
+                                  },
+                                  child: const Text("Load More"),
+                                ),
+                              ),
+                      ),
+                    ),
+
+                    const SliverToBoxAdapter(child: SizedBox(height: 40)),
+                  ],
+                );
+              }
+
+              return const SliverToBoxAdapter(child: SizedBox());
+            },
           ),
-        ),
+        ],
       ),
     );
   }

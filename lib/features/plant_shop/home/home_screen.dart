@@ -24,44 +24,92 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<PlantBloc>().add(LoadPlantsEvent());
+    final state = context.read<PlantBloc>().state;
+    if (state is! PlantLoaded) {
+      context.read<PlantBloc>().add(LoadPlantsEvent(category: 'All'));
+    }
   }
 
-  Widget buildPlantGrid({
+  List<Widget> buildPlantGrid({
     required PlantState state,
     List<PlantModel>? filteredPlants,
   }) {
     if (state is PlantLoading) {
-      return GridViewWidget(
-        itemCount: 6,
-        crossAxisCount: 2,
-        itemBuilder: (_, __) => const PlantCardShimmer(),
-      );
+      return [
+        GridViewWidget(
+          crossAxisCount: 2,
+          itemCount: 6,
+          itemBuilder: (_, __) => const PlantCardShimmer(),
+        ),
+      ];
     }
 
     if (state is PlantError) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 80),
-          child: Text(state.message, style: const TextStyle(color: Colors.red)),
+      return [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 80),
+            child: Center(
+              child: Text(
+                state.message,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          ),
         ),
-      );
+      ];
     }
 
     if (filteredPlants == null || filteredPlants.isEmpty) {
-      return const Center(
-        child: Padding(
-          padding: EdgeInsets.only(top: 80),
-          child: Text('No plant data found'),
+      return [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 80),
+              child: Text('No plant data found'),
+            ),
+          ),
         ),
-      );
+      ];
     }
 
-    return GridViewWidget(
-      itemCount: filteredPlants.length,
-      crossAxisCount: 2,
-      itemBuilder: (context, index) => PlantCard(plant: filteredPlants[index]),
-    );
+    return [
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        sliver: GridViewWidget(
+          crossAxisCount: 2,
+          itemCount: filteredPlants.length,
+          itemBuilder: (context, index) =>
+              PlantCard(plant: filteredPlants[index]),
+        ),
+      ),
+
+      const SliverToBoxAdapter(child: SizedBox(height: 20)),
+
+      SliverToBoxAdapter(
+        child: Center(
+          child: state is! PlantLoaded
+              ? const SizedBox()
+              : state.hasReachedMax
+              ? const Text("No more data")
+              : state.isLoadingMore
+              ? const CircularProgressIndicator()
+              : SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<PlantBloc>().add(LoadMorePlantsEvent());
+                    },
+                    child: const Text("Load More"),
+                  ),
+                ),
+        ),
+      ),
+
+      const SliverToBoxAdapter(child: SizedBox(height: 40)),
+    ];
   }
 
   Widget buildCategoryChips({required PlantState state}) {
@@ -77,8 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    final plants = (state is PlantLoaded) ? state.plants : <PlantModel>[];
-    final categories = ['All', ...plants.map((p) => p.category).toSet()];
+    final categories = (state is PlantLoaded) ? state.categories : ['All'];
 
     return SizedBox(
       height: 40,
@@ -93,6 +140,10 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {
                 selectedCategory = category;
               });
+
+              context.read<PlantBloc>().add(
+                LoadPlantsEvent(category: category),
+              );
             },
             child: CustomFilterChip(
               label: category,
@@ -114,36 +165,25 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: BlocBuilder<PlantBloc, PlantState>(
           builder: (context, state) {
-            final filteredPlants = (state is PlantLoaded)
-                ? (selectedCategory == 'All'
-                      ? state.plants
-                      : state.plants
-                            .where((p) => p.category == selectedCategory)
-                            .toList())
-                : null;
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  TopHeaderWidget(),
+            final filteredPlants = (state is PlantLoaded) ? state.plants : null;
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: TopHeaderWidget()),
 
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeadingWidget(name: 'Categories'),
-                        SizedBox(height: 15.0),
-                        buildCategoryChips(state: state),
-                        SizedBox(height: 20.0),
-                        buildPlantGrid(
-                          state: state,
-                          filteredPlants: filteredPlants,
-                        ),
-                      ],
-                    ),
+                SliverPadding(
+                  padding: const EdgeInsets.all(20.0),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate([
+                      HeadingWidget(name: 'All Plants'),
+                      const SizedBox(height: 15),
+                      buildCategoryChips(state: state),
+                      const SizedBox(height: 20),
+                    ]),
                   ),
-                ],
-              ),
+                ),
+
+                ...buildPlantGrid(state: state, filteredPlants: filteredPlants),
+              ],
             );
           },
         ),

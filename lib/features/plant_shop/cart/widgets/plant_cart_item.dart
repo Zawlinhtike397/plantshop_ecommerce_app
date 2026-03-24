@@ -83,9 +83,7 @@ class PlantCartItem extends StatelessWidget {
             top: -1,
             right: 4,
             child: IconButton(
-              onPressed: () {
-                // cartProvider.removeCartData(cart[index]);
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.close,
                 color: isDarkMode ? Colors.white : AppColor.darkerGrey,

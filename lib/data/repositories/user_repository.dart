@@ -117,7 +117,7 @@ class UserRepository {
     }
   }
 
-  Future<UserModel> updateProfilePicture() async {
+  Future<UserModel?> updateProfilePicture() async {
     final picker = ImagePicker();
 
     final XFile? image = await picker.pickImage(
@@ -126,7 +126,7 @@ class UserRepository {
     );
 
     if (image == null) {
-      throw Exception("No image selected");
+      return null;
     }
 
     final file = File(image.path);

@@ -9,7 +9,6 @@ class AddToCartButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColor.primary,
-        // AppColor.darkTeal,
         padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 23),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),

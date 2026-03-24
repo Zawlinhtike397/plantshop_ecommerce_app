@@ -9,6 +9,7 @@ class AppProductPriceText extends StatelessWidget {
     this.overflow = TextOverflow.ellipsis,
     this.isLarge = true,
     this.lineThrough = false,
+    this.isAlwaysWhite = false,
   });
 
   final String currencySign, price;
@@ -16,6 +17,7 @@ class AppProductPriceText extends StatelessWidget {
   final bool isLarge;
   final bool lineThrough;
   final TextOverflow? overflow;
+  final bool isAlwaysWhite;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,21 @@ class AppProductPriceText extends StatelessWidget {
       style: isLarge
           ? Theme.of(context).textTheme.titleLarge!.apply(
               decoration: lineThrough ? TextDecoration.lineThrough : null,
+              decorationColor: lineThrough
+                  ? isAlwaysWhite
+                        ? Colors.white
+                        : null
+                  : null,
+              color: isAlwaysWhite ? Colors.white : null,
             )
           : Theme.of(context).textTheme.bodySmall!.apply(
               decoration: lineThrough ? TextDecoration.lineThrough : null,
+              decorationColor: lineThrough
+                  ? isAlwaysWhite
+                        ? Colors.white
+                        : null
+                  : null,
+              color: isAlwaysWhite ? Colors.white : null,
             ),
     );
   }

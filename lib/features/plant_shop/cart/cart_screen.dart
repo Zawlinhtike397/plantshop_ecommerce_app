@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_items_view.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_price_bottom_sheet.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/discount_cupon_text_field.dart';
-import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
