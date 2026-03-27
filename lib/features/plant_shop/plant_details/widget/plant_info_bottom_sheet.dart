@@ -29,7 +29,7 @@ class PlantInfoBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 VerticalTotalPriceText(plantData: plantData),
-                AddToCartButton(),
+                AddToCartButton(plant: plantData),
               ],
             ),
           ),

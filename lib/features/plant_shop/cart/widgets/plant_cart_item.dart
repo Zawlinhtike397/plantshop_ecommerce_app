@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/product_price_text.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/model/cart_item_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/plant_quantity_plus_minus_btn.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
-import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 class PlantCartItem extends StatelessWidget {
-  const PlantCartItem({super.key});
+  final CartItemModel item;
+  final int index;
+
+  const PlantCartItem({super.key, required this.item, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -26,48 +31,53 @@ class PlantCartItem extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
               child: Row(
                 children: [
-                  Image.asset(ImageStrings.lushGreen, fit: BoxFit.fitWidth),
+                  Image.network(item.image, fit: BoxFit.fitWidth),
                   Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              spacing: 20.0,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Snake Plants',
-                                  // cart[index]['name'],
+                        SizedBox(
+                          width: 100,
+                          child: Column(
+                            spacing: 20.0,
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Text(
+                                  item.name,
+                                  maxLines: 2,
+
                                   style: Theme.of(context).textTheme.bodyMedium!
                                       .copyWith(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),
-                                AppProductPriceText(
-                                  price: '30000',
-                                  isLarge: false,
-                                ),
-                              ],
+                              ),
+                              AppProductPriceText(
+                                price: '${item.price}',
+                                isLarge: false,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 6.0,
+                          children: [
+                            SizedBox(height: 11),
+                            AppProductPriceText(
+                              price: '${item.totalPrice}',
+                              isLarge: false,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              spacing: 6.0,
-                              children: [
-                                SizedBox(height: 11),
-                                AppProductPriceText(
-                                  price: '60000',
-                                  isLarge: false,
-                                ),
 
-                                PlantQuantityPlusMinusBtn(
-                                  isDarkMode: isDarkMode,
-                                ),
-                              ],
+                            PlantQuantityPlusMinusBtn(
+                              isDarkMode: isDarkMode,
+                              index: index,
+                              item: item,
                             ),
                           ],
                         ),
@@ -83,7 +93,9 @@ class PlantCartItem extends StatelessWidget {
             top: -1,
             right: 4,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<CartBloc>().add(RemoveCartItemEvent(item.plantId));
+              },
               icon: Icon(
                 Icons.close,
                 color: isDarkMode ? Colors.white : AppColor.darkerGrey,

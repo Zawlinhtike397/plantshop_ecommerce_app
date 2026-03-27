@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
-import 'package:plantify_plantshop_project/plant_data.dart';
+import 'package:plantify_plantshop_project/data/sample_data.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PlantRepository {

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/common/widgets/loaders/animation_loader.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_items_view.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_price_bottom_sheet.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/discount_cupon_text_field.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
+import 'package:plantify_plantshop_project/utils/constants/enums.dart';
+import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -15,20 +21,14 @@ class _CartScreenState extends State<CartScreen> {
   final TextEditingController cuponCodeController = TextEditingController();
   final PageController _pageViewController = PageController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     //?
-  //     Provider.of<NavigationProvider>(context, listen: false)
-  //         .setShowBottomNavBar(false);
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartBloc>().add(LoadCartEvent());
+  }
 
   @override
   void dispose() {
-    // Provider.of<NavigationProvider>(context, listen: false)
-    //     .setShowBottomNavBar(true);
     super.dispose();
     cuponCodeController.dispose();
   }
@@ -41,24 +41,9 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  // int quantity = 1;
   @override
   Widget build(BuildContext context) {
-    // final cartProvider = context.watch<CartProviderState>();
-    // final cart = cartProvider.cartData;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final cart = [];
-
-    num totalQuantity = 0;
-    double subTotal = 0.0;
-    for (var cartItem in cart) {
-      subTotal += (cartItem['price'] * cartItem['quantity']);
-      totalQuantity += cartItem['quantity'];
-    }
-
-    const double deliveryFee = 3.46;
-    double total = subTotal + deliveryFee;
-
     String cuponCode = 'ZORO';
 
     return Scaffold(
@@ -73,25 +58,76 @@ class _CartScreenState extends State<CartScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
-      body:
-          // cart.isEmpty
-          //     ? const Center(child: Text('Cart is Empty'))
-          //     :
-          SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CartItemsView(),
-
-                DiscountCuponTextField(
-                  isDarkMode: isDarkMode,
-                  cuponCodeController: cuponCodeController,
+      body: BlocListener<DiscountBloc, DiscountState>(
+        listener: (context, state) {
+          if (state is DiscountLoaded) {
+            if (state.status == DiscountStatus.success) {
+              context.read<CartBloc>().add(
+                ApplyDiscountEvent(
+                  discountAmount: state.discountAmount!,
+                  code: state.appliedDiscount!.code,
                 ),
-                // Spacer(),
-                CartPriceBottomSheet(isDarkMode: isDarkMode),
-              ],
-            ),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Coupon Applied! New Total: ${state.newTotal!.toStringAsFixed(0)}',
+                  ),
+                ),
+              );
+            }
+
+            if (state.status == DiscountStatus.error) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message ?? 'Error')));
+            }
+          }
+        },
+        child: SingleChildScrollView(
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              if (state is! CartLoaded) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (state.items.isEmpty) {
+                return Column(
+                  children: [
+                    Center(
+                      child: AnimationLoader(
+                        headingText: 'Cart is empty!',
+                        animation: ImageStrings.emptyAnimation,
+                        smallText: 'Let\'s add something to your cart',
+                        showActionButton: false,
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CartItemsView(items: state.items),
+                  DiscountCuponTextField(
+                    isDarkMode: isDarkMode,
+                    cuponCodeController: cuponCodeController,
+                  ),
+                  CartPriceBottomSheet(
+                    subtotal: state.subtotal,
+                    total: state.total,
+                    isDarkMode: isDarkMode,
+                    deliveryFee: state.deliveryFee ?? 0,
+                    discountAmount: state.discountAmount ?? 0.0,
+                  ),
+                ],
+              );
+            },
           ),
+        ),
+      ),
     );
   }
 }

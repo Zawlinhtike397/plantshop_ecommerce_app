@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/delivery_text_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/discount_text_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/subtotal_text_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/total_text_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/checkout/checkout_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class CartPriceBottomSheet extends StatelessWidget {
-  const CartPriceBottomSheet({super.key, required this.isDarkMode});
+  final double subtotal;
+  final double total;
+  final double deliveryFee;
+  final double discountAmount;
+
+  const CartPriceBottomSheet({
+    super.key,
+    required this.isDarkMode,
+    required this.subtotal,
+    required this.total,
+    required this.deliveryFee,
+    required this.discountAmount,
+  });
 
   final bool isDarkMode;
 
@@ -27,11 +42,13 @@ class CartPriceBottomSheet extends StatelessWidget {
               Column(
                 // spacing: 2.0,
                 children: [
-                  SubTotalTextWidget(),
+                  SubTotalTextWidget(subtotal: subtotal),
                   Divider(color: AppColor.borderColor),
-                  DeliveryTextWidget(),
+                  DiscountTextWidget(discountAmount: discountAmount),
+                  if (discountAmount > 0) Divider(color: AppColor.borderColor),
+                  DeliveryTextWidget(deliveryFee: deliveryFee),
                   Divider(color: AppColor.borderColor),
-                  TotalTextWidget(),
+                  TotalTextWidget(total: total),
                 ],
               ),
               SizedBox(height: 15),
@@ -39,14 +56,19 @@ class CartPriceBottomSheet extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    final state = context.read<CartBloc>().state;
+
+                    final totalQty = state is CartLoaded
+                        ? state.totalQuantity
+                        : 0;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
                           return CheckoutScreen(
-                            subTotalValue: 90000,
-                            totalValue: 100000,
-                            totalQuantityValue: 0,
+                            subTotalValue: subtotal,
+                            totalValue: total,
+                            totalQuantityValue: totalQty,
                           );
                         },
                       ),

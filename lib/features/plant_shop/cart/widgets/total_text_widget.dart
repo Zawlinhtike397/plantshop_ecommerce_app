@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TotalTextWidget extends StatelessWidget {
-  const TotalTextWidget({super.key});
+  final double total;
+  const TotalTextWidget({super.key, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,7 @@ class TotalTextWidget extends StatelessWidget {
             ),
           ),
           Text(
-            '100000MMK',
-            // '\$${total.toStringAsFixed(2)}',
+            '${total.toStringAsFixed(0)} MMK',
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               fontSize: 15.0,
               fontWeight: FontWeight.bold,

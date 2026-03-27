@@ -1,20 +1,61 @@
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
-//plant 1 => Succulent Plant (Outdoor) (yes photo)
-//plant 2 => Snake Plants (Outdoor) (yes photo)
-//plant 3 => Peperomia Plant  (Indoor) (yes photo)
-//plant 4 => Arecea plam (Indoor) (yes photo)
-//plant 5 => lush green darcena (Gardening) (yes photo)
-//plant 6 will be monstera_deliciosa_2 (Gardening)  (yes photo)
-//plant 7 => pink alzaza (Flowering) (yes photo)
-//plant 8 => cherry blosom (Flowering) (yes photo)
-//plant 9 => hanging plant (hanging) (yes photo)
+//======= discounts ===========//
+final discounts = [
+  {
+    'id': 1,
+    'title': 'Buy for 20k for first time',
+    'code': '1ST2D',
+    'percentage': 30,
+    'minAmount': 20000,
+    'isActive': true,
+    'firstTimeOnly': true,
+    'valid_until': DateTime(2026, 4, 24).toIso8601String(),
+    'rules': [
+      'Use before expiration date',
+      'Only for first purchase',
+      'Cannot combine with other offers',
+      'Applicable to all plants',
+    ],
+  },
+  {
+    'id': 2,
+    'title': 'Summer Sale Offer',
+    'code': 'SUMMER25',
+    'percentage': 25,
+    'minAmount': 15000,
+    'valid_until': DateTime(2026, 5, 10).toIso8601String(),
+    'isActive': true,
+    'firstTimeOnly': false,
+    'rules': [
+      'Valid for Indoor plants only',
+      'Cannot combine with other offers',
+      'Limited time only',
+    ],
+  },
+  {
+    'id': 3,
+    'title': 'Weekend Special',
+    'code': 'WEEKEND15',
+    'percentage': 15,
+    'minAmount': 10000.0,
+    'valid_until': DateTime(2026, 6, 1).toIso8601String(),
+    'isActive': true,
+    'firstTimeOnly': false,
+    'rules': [
+      'Valid only on weekends',
+      'Minimum purchase required',
+      'Applicable to all plants',
+    ],
+  },
+];
+
+//========== plants ===============//
 final plants = [
   {
     'id': 1,
     'name': 'Snake Plants',
     'price': 15000,
-    'salePrice': 12000,
     'height': '1.5m',
     'category': 'Outdoor',
     'temperature': '60°F to 75°F',
@@ -55,7 +96,6 @@ final plants = [
     'id': 2,
     'name': 'Peperomia Plant',
     'price': 22000,
-    'salePrice': 17000,
     'height': '1.2m',
     'category': 'Indoor',
     'temperature': '50°F',
@@ -96,7 +136,6 @@ final plants = [
     'id': 3,
     'name': 'Areca Palm',
     'price': 33000,
-    'salePrice': 27000,
     'height': '1.2m - 2m',
     'category': 'Indoor',
     'temperature': '18°C to 24°C',
@@ -137,7 +176,6 @@ final plants = [
     'id': 4,
     'name': 'Lush green dracena',
     'price': 15000,
-    'salePrice': 10000,
     'height': '1.4m',
     'category': 'Gardening',
     'temperature': '60°F',
@@ -178,7 +216,6 @@ final plants = [
     'id': 5,
     'name': 'Monstera Deliciosa',
     'price': 22000,
-    'salePrice': 18000,
     'height': '1m - 2m',
     'category': 'Gardening',
     'temperature': '18°C to 30°C',
@@ -219,7 +256,6 @@ final plants = [
     'id': 6,
     'name': 'Pink Azalea',
     'price': 50000,
-    'salePrice': 38000,
     'height': '60cm - 1.5m',
     'category': 'Flowering',
     'temperature': '15°C to 24°C',
@@ -259,7 +295,6 @@ final plants = [
     'id': 7,
     'name': 'Cherry Blossom',
     'price': 40000,
-    'salePrice': 20000,
     'height': '3m - 8m',
     'category': 'Flowering',
     'temperature': '10°C to 25°C',
@@ -299,7 +334,6 @@ final plants = [
     'id': 8,
     'name': 'Hanging Plant',
     'price': 20000,
-    'salePrice': 12000,
     'height': '20cm - 60cm',
     'category': 'Hanging',
     'temperature': '18°C to 28°C',

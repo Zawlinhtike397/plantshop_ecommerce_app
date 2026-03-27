@@ -19,14 +19,18 @@ class VerticalTotalPriceText extends StatelessWidget {
           ).textTheme.bodyMedium!.copyWith(color: Colors.white, fontSize: 16),
         ),
 
-        AppProductPriceText(
-          price: '${plantData.salePrice}',
-          isAlwaysWhite: true,
-          isLarge: false,
-        ),
+        // AppProductPriceText(
+        //   price: '${plantData.salePrice}',
+        //   isAlwaysWhite: true,
+        //   isLarge: false,
+        // ),
+        // AppProductPriceText(
+        //   price: '${plantData.originalPrice}',
+        //   lineThrough: true,
+        //   isAlwaysWhite: true,
+        // ),
         AppProductPriceText(
           price: '${plantData.originalPrice}',
-          lineThrough: true,
           isAlwaysWhite: true,
         ),
       ],

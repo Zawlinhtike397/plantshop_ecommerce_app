@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/favourite/repository/favourite_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/favourite_repository.dart';
 
 part 'favourites_event.dart';
 part 'favourites_state.dart';

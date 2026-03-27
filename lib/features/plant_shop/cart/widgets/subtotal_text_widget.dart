@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SubTotalTextWidget extends StatelessWidget {
-  const SubTotalTextWidget({super.key});
+  final double subtotal;
+  const SubTotalTextWidget({super.key, required this.subtotal});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +16,7 @@ class SubTotalTextWidget extends StatelessWidget {
           ).textTheme.titleSmall!.copyWith(fontSize: 14.0),
         ),
         Text(
-          '90000 MMK',
-          // '\$${subTotal.toStringAsFixed(2)}',
+          '${subtotal.toStringAsFixed(0)} MMK',
           style: Theme.of(
             context,
           ).textTheme.bodySmall!.copyWith(fontSize: 14.0),

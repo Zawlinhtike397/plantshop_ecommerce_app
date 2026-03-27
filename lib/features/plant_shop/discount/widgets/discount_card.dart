@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:plantify_plantshop_project/common/widgets/list/unordered_list.dart';
-import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/widgets/use_cuppon_bottom_sheet_widget.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class DiscountCard extends StatelessWidget {
-  const DiscountCard({super.key});
+  final DiscountModel discount;
+  const DiscountCard({super.key, required this.discount});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,10 @@ class DiscountCard extends StatelessWidget {
             ? AppColor.darkerGrey
             : Theme.of(context).scaffoldBackgroundColor,
         builder: (context) {
-          return UseCuponBottomSheetWidget();
+          return BlocProvider.value(
+            value: context.read<DiscountBloc>(),
+            child: UseCuponBottomSheetWidget(discount: discount),
+          );
         },
       );
     }
@@ -55,22 +61,50 @@ class DiscountCard extends StatelessWidget {
                         children: [
                           Text(
                             overflow: TextOverflow.ellipsis,
-                            'Buy for 20k for first time',
+                            discount.title,
                             style: Theme.of(context).textTheme.bodyLarge!,
                           ),
-                          RichText(
-                            overflow: TextOverflow.ellipsis,
-                            text: TextSpan(
-                              text: 'Code: ',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: '1ST2D',
-                                  style: Theme.of(context).textTheme.bodySmall,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: 'Code: ',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: discount.code,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                    TextSpan(
+                                      text: ' (${discount.percentage}%)',
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(text: ' (30%)'),
-                              ],
-                            ),
+                              ),
+
+                              InkWell(
+                                onTap: () async {
+                                  await Clipboard.setData(
+                                    ClipboardData(text: discount.code),
+                                  );
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Copied: ${discount.code}'),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'Copy Code',
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(color: AppColor.primary),
+                                ),
+                              ),
+                            ],
                           ),
                           RichText(
                             overflow: TextOverflow.ellipsis,
@@ -79,7 +113,8 @@ class DiscountCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyMedium,
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: 'Buy for at least 20k or more',
+                                  text:
+                                      'Buy for at least ${discount.minAmount} or more',
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
@@ -91,22 +126,15 @@ class DiscountCard extends StatelessWidget {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  'Copy Code',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall!.copyWith(color: AppColor.primary),
-                ),
-              ),
             ],
           ),
           Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Expire In: 24.4.2026'),
+              Text(
+                'Expire In: ${discount.validUntil.day}.${discount.validUntil.month}.${discount.validUntil.year}',
+              ),
               InkWell(
                 onTap: () {
                   openUseCuponBottomSheet(context);

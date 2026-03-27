@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:plantify_plantshop_project/common/plant_info/repository/plant_repository.dart';
+import 'package:hive_ce_flutter/adapters.dart';
+import 'package:plantify_plantshop_project/data/repositories/cart_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/discount_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/plant_repository.dart';
 import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
 import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
@@ -10,17 +13,27 @@ import 'package:plantify_plantshop_project/data/repositories/user_repository.dar
 import 'package:plantify_plantshop_project/features/authentication/app/bloc/app_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/app/screen/app.dart';
 import 'package:plantify_plantshop_project/features/authentication/forgot_password/bloc/forgot_password_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/model/cart_item_model.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/model/applied_cupon_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/favourite/bloc/favourites_bloc.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/favourite/repository/favourite_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/favourite_repository.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'common/plant_info/bloc/plant_bloc.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(CartItemModelAdapter());
+  Hive.registerAdapter(AppliedCouponModelAdapter());
+
+  await Hive.openBox<CartItemModel>('cartBox');
+  await Hive.openBox<AppliedCouponModel>('couponBox');
 
   await dotenv.load(fileName: '.env');
   await Supabase.initialize(
@@ -35,6 +48,8 @@ Future<void> main() async {
         RepositoryProvider(create: (_) => AuthRepository()),
         RepositoryProvider(create: (_) => PlantRepository()),
         RepositoryProvider(create: (_) => FavouriteRepository()),
+        RepositoryProvider(create: (_) => CartRepository()),
+        RepositoryProvider(create: (_) => DiscountRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -50,6 +65,11 @@ Future<void> main() async {
                   ..add(LoadFavouritesEvent()),
           ),
           BlocProvider(
+            create: (context) => DiscountBloc(
+              discountRepository: context.read<DiscountRepository>(),
+            ),
+          ),
+          BlocProvider(
             create: (context) => AppBloc(
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
@@ -61,6 +81,10 @@ Future<void> main() async {
               appBloc: context.read<AppBloc>(),
               userRepository: context.read<UserRepository>(),
             )..add(LoadUser()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                CartBloc(cartRepository: context.read<CartRepository>()),
           ),
           BlocProvider(
             create: (context) => ForgotPasswordBloc(
