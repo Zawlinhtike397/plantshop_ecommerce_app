@@ -22,6 +22,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LogoutUser>(_onLogoutUser);
     on<UpdateUserField>(_onUpdateUserField);
     on<UpdateProfilePicture>(_onUpdateProfilePicture);
+    on<DeleteUser>(_onDeleteUser);
   }
 
   Future<void> _onLoadUser(LoadUser event, Emitter<UserState> emit) async {
@@ -73,6 +74,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserLoaded(updatedUser));
         }
       }
+    } catch (e) {
+      emit(UserError(e.toString()));
+    }
+  }
+
+  Future<void> _onDeleteUser(DeleteUser event, Emitter<UserState> emit) async {
+    try {
+      await userRepository.deleteUserAccount();
+
+      emit(UserLoggedOut());
+      appBloc.add(AuthStatusChanged());
     } catch (e) {
       emit(UserError(e.toString()));
     }

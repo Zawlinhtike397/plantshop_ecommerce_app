@@ -4,6 +4,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/image/rounded_image.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/FAQ/faq_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/TermsAndConditions/terms_and_conditions_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/address/screen/address_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/discount_screen.dart';
@@ -205,39 +207,30 @@ class ProfileScreen extends StatelessWidget {
                     spacing: 10.0,
                     children: [
                       ProfileTile(
-                        icon: Iconsax.moon,
-                        text: 'Dark Mode',
-                        onTap: () {},
-                        trailingWidget: SizedBox(
-                          height: 20,
-                          child: Switch(value: true, onChanged: (value) {}),
-                        ),
-                      ),
-
-                      ProfileTile(
                         icon: Iconsax.note,
                         text: 'Terms and conditions',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const TermsAndConditionsScreen(),
+                            ),
+                          );
+                        },
                       ),
                       ProfileTile(
                         icon: Iconsax.message_programming,
                         text: 'FAQ',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FAQScreen(),
+                            ),
+                          );
+                        },
                       ),
-                      // ProfileTile(
-                      //   icon: Iconsax.shop,
-                      //   text: 'LoadData',
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) {
-                      //           return LoadDataScreen();
-                      //         },
-                      //       ),
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                 ],

@@ -158,4 +158,24 @@ class UserRepository {
 
     return UserModel.fromJson(updatedData);
   }
+
+  Future<void> deleteUserAccount() async {
+    final currentUser = user;
+
+    if (currentUser == null) {
+      throw Exception("No user logged in");
+    }
+
+    final userId = currentUser.id;
+
+    try {
+      await _supabase.storage.from('profile_picture').remove([
+        'users/$userId.jpg',
+      ]);
+    } catch (_) {}
+
+    await _supabase.from('Users').delete().eq('user_id', userId);
+
+    await _supabase.auth.signOut();
+  }
 }

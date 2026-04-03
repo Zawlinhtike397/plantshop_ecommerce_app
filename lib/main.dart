@@ -66,6 +66,7 @@ Future<void> main() async {
               // ..add(LoadPlantsEvent()),
             ),
           ),
+
           BlocProvider(
             create: (context) =>
                 FavouritesBloc(repository: context.read<FavouriteRepository>())

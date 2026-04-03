@@ -22,3 +22,5 @@ class UpdateUserField extends UserEvent {
   @override
   List<Object> get props => [field, value];
 }
+
+class DeleteUser extends UserEvent {}
