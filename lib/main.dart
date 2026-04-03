@@ -97,6 +97,7 @@ Future<void> main() async {
             create: (context) => AppBloc(
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
+              cartRepository: context.read<CartRepository>(),
             )..add(AppStarted()),
           ),
           BlocProvider(

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:plantify_plantshop_project/data/repositories/authentication_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/cart_repository.dart';
 import 'package:plantify_plantshop_project/data/repositories/user_repository.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
@@ -8,25 +10,53 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
+  final CartRepository cartRepository;
 
-  AppBloc({required this.authRepository, required this.userRepository})
-    : super(AppInitial()) {
+  AppBloc({
+    required this.authRepository,
+    required this.userRepository,
+    required this.cartRepository,
+  }) : super(AppInitial()) {
     on<AppStarted>(_onAppStarted);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
     on<AuthStatusChanged>(_onAuthStatusChanged);
   }
 
-  Future<void> checkLoginStatus(Emitter<AppState> emit) async {
+  Future<void> _handleAuthState(Emitter<AppState> emit) async {
     await Future.delayed(const Duration(milliseconds: 150));
 
     final loggedIn = await authRepository.isLoggedIn();
-    if (loggedIn) {
-      await userRepository.addOrUpdateUserData();
-      emit(AppAuthenticated());
-    } else {
+
+    if (!loggedIn) {
+      await cartRepository.clearCart();
       emit(AppUnauthenticated());
+      return;
     }
+
+    await userRepository.addOrUpdateUserData();
+
+    final userId = Supabase.instance.client.auth.currentUser!.id;
+
+    await cartRepository.initForUser(userId);
+
+    emit(AppAuthenticated());
   }
+  // Future<void> _handleAuthState(Emitter<AppState> emit) async {
+  //   await Future.delayed(const Duration(milliseconds: 150));
+
+  //   final loggedIn = await authRepository.isLoggedIn();
+  //   if (loggedIn) {
+  //     await userRepository.addOrUpdateUserData();
+
+  //     final userId = Supabase.instance.client.auth.currentUser!.id;
+
+  //     await cartRepository.initForUser(userId);
+
+  //     emit(AppAuthenticated());
+  //   } else {
+  //     emit(AppUnauthenticated());
+  //   }
+  // }
 
   Future<void> _onAppStarted(AppStarted event, Emitter<AppState> emit) async {
     final onboarded = await authRepository.isOnboardingCompleted();
@@ -36,7 +66,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       return;
     }
 
-    await checkLoginStatus(emit);
+    await _handleAuthState(emit);
   }
 
   Future<void> _onOnboardingCompleted(
@@ -45,13 +75,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) async {
     await authRepository.completeOnboarding();
 
-    await checkLoginStatus(emit);
+    await _handleAuthState(emit);
   }
 
   Future<void> _onAuthStatusChanged(
     AuthStatusChanged event,
     Emitter<AppState> emit,
   ) async {
-    await checkLoginStatus(emit);
+    await _handleAuthState(emit);
   }
 }
