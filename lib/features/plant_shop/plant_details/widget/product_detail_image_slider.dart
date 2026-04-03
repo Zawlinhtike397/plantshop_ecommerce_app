@@ -20,7 +20,10 @@ class ProductDetailImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final List<String> plantImgList = plantData.imageUrl;
+    final List<String> plantImgList =
+        plantData.imageUrl.contains(plantData.thumbnailImg)
+        ? plantData.imageUrl
+        : [plantData.thumbnailImg, ...plantData.imageUrl];
     return SizedBox(
       height: screenHeight * 0.4,
       width: double.infinity,

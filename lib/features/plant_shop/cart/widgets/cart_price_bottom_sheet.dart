@@ -61,18 +61,22 @@ class CartPriceBottomSheet extends StatelessWidget {
                     final totalQty = state is CartLoaded
                         ? state.totalQuantity
                         : 0;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return CheckoutScreen(
-                            subTotalValue: subtotal,
-                            totalValue: total,
-                            totalQuantityValue: totalQty,
-                          );
-                        },
-                      ),
-                    );
+                    if (state is CartLoaded) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CheckoutScreen(
+                              subTotalValue: subtotal,
+                              totalValue: total,
+                              cartItems: state.items,
+                              discountAmount: state.discountAmount ?? 0,
+                              deliveryFee: state.deliveryFee ?? 1000,
+                            );
+                          },
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.primary,

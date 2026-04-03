@@ -1,376 +1,74 @@
-//home_screen backup
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
-// import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
-// import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
-// import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/top_header_widget.dart';
-// import 'package:plantify_plantshop_project/utils/constants/colors.dart';
-// import 'package:plantify_plantshop_project/utils/popups/category_chip_shimmer.dart';
-// import 'package:plantify_plantshop_project/utils/popups/plant_card_shimmer.dart';
+// //=================
 
-// class HomeScreen extends StatefulWidget {
-//   const HomeScreen({super.key});
+// import 'package:flutter/material.dart';
+// import 'package:plantify_plantshop_project/common/widgets/icon/cart_icon_btn_widget.dart';
+// import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
+// import 'package:plantify_plantshop_project/common/widgets/listView/address_listview.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/checkout/widgets/checkout_bottom_sheet.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/checkout/widgets/payment_method_list_view.dart';
+
+// class CheckoutScreen extends StatefulWidget {
+//   double subTotalValue;
+//   double totalValue;
+//   num totalQuantityValue;
+
+//   CheckoutScreen({
+//     super.key,
+//     required this.subTotalValue,
+//     required this.totalValue,
+//     required this.totalQuantityValue,
+//   });
 
 //   @override
-//   State<HomeScreen> createState() => _HomeScreenState();
+//   State<CheckoutScreen> createState() => _CheckoutScreenState();
 // }
 
-// class _HomeScreenState extends State<HomeScreen> {
-//   String selectedCategory = 'All';
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     context.read<PlantBloc>().add(LoadPlantsEvent());
-//   }
-
-//   Widget buildPlantGrid({
-//     required PlantState state,
-//     List<PlantModel>? filteredPlants,
-//   }) {
-//     if (state is PlantLoading) {
-//       return GridViewWidget(
-//         itemCount: 6,
-//         crossAxisCount: 2,
-//         itemBuilder: (_, __) => const PlantCardShimmer(),
-//       );
-//     }
-
-//     if (filteredPlants == null || filteredPlants.isEmpty) {
-//       return const Center(
-//         child: Padding(
-//           padding: EdgeInsets.only(top: 80),
-//           child: Text('No plant data found'),
-//         ),
-//       );
-//     }
-
-//     return GridViewWidget(
-//       itemCount: filteredPlants.length,
-//       crossAxisCount: 2,
-//       itemBuilder: (context, index) => PlantCard(plant: filteredPlants[index]),
-//     );
-//   }
-
-//   Widget buildCategoryChips({required PlantState state}) {
-//     if (state is PlantLoading) {
-//       return SizedBox(
-//         height: 40,
-//         child: ListView.separated(
-//           scrollDirection: Axis.horizontal,
-//           itemCount: 5,
-//           separatorBuilder: (_, __) => const SizedBox(width: 10),
-//           itemBuilder: (_, __) => const CategoryChipShimmer(),
-//         ),
-//       );
-//     }
-
-//     final plants = (state is PlantLoaded) ? state.plants : <PlantModel>[];
-//     final categories = ['All', ...plants.map((p) => p.category).toSet()];
-
-//     return SizedBox(
-//       height: 40,
-//       child: ListView.separated(
-//         scrollDirection: Axis.horizontal,
-//         itemCount: categories.length,
-//         separatorBuilder: (_, __) => const SizedBox(width: 10),
-//         itemBuilder: (context, index) {
-//           final category = categories[index];
-//           return GestureDetector(
-//             onTap: () {
-//               setState(() {
-//                 selectedCategory = category;
-//               });
-//             },
-//             child: CustomFilterChip(
-//               label: category,
-//               isSelected: selectedCategory == category,
-//               showColor: true,
-//               showBorder: true,
-//               borderColor: AppColor.primary.withValues(alpha: 0.5),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-
+// class _CheckoutScreenState extends State<CheckoutScreen> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return SafeArea(
 //       top: false,
 //       child: Scaffold(
-//         body: BlocBuilder<PlantBloc, PlantState>(
-//           builder: (context, state) {
-//             // if (state is PlantLoading) {
-//             //   return const Center(child: CircularProgressIndicator());
-//             // } else
-//             if (state is PlantLoaded) {
-//               final plants = state.plants;
-//               final categories = [
-//                 'All',
-//                 ...plants.map((plant) => plant.category).toSet(),
-//               ];
-
-//               final filteredPlants = selectedCategory == 'All'
-//                   ? plants
-//                   : plants
-//                         .where((p) => p.category == selectedCategory)
-//                         .toList();
-
-//               return SingleChildScrollView(
-//                 child: Column(
-//                   children: [
-//                     TopHeaderWidget(),
-
-//                     Padding(
-//                       padding: EdgeInsets.all(20.0),
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           if (categories.length > 1) ...[
-//                             HeadingWidget(name: 'Categories'),
-//                             SizedBox(height: 15.0),
-//                             SizedBox(
-//                               height: 40,
-//                               child: ListView.separated(
-//                                 scrollDirection: Axis.horizontal,
-//                                 itemCount: categories.length,
-//                                 separatorBuilder: (_, __) =>
-//                                     const SizedBox(width: 10),
-//                                 itemBuilder: (context, index) {
-//                                   final category = categories[index];
-
-//                                   return GestureDetector(
-//                                     onTap: () {
-//                                       setState(() {
-//                                         selectedCategory = category;
-//                                       });
-//                                     },
-//                                     child: CustomFilterChip(
-//                                       label: category,
-//                                       isSelected: selectedCategory == category,
-//                                       showColor: true,
-//                                       showBorder: true,
-//                                       borderColor: AppColor.primary.withValues(
-//                                         alpha: 0.5,
-//                                       ),
-//                                     ),
-//                                   );
-//                                 },
-//                               ),
-//                             ),
-//                             SizedBox(height: 20.0),
-//                           ],
-//                           if (filteredPlants.isEmpty)
-//                             const Center(
-//                               child: Padding(
-//                                 padding: EdgeInsets.only(top: 80),
-//                                 child: Text('No plant data found'),
-//                               ),
-//                             )
-//                           else
-//                             GridViewWidget(
-//                               itemCount: filteredPlants.length,
-//                               crossAxisCount: 2,
-//                               itemBuilder: (context, index) {
-//                                 return PlantCard(plant: filteredPlants[index]);
-//                               },
-//                             ),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               );
-//             } else if (state is PlantError) {
-//               return Center(child: Text(state.message));
-//             }
-//             return Center(
-//               child: const SizedBox(child: Text('Yolo home screen')),
-//             );
-//           },
+//         appBar: AppBar(
+//           title: Text(
+//             'Checkout',
+//             style: Theme.of(context).textTheme.titleLarge!.copyWith(
+//               fontSize: 20.0,
+//               fontWeight: FontWeight.normal,
+//             ),
+//           ),
+//           backgroundColor: Colors.transparent,
+//           centerTitle: true,
+//           actions: [CartIconBtnWidget()],
 //         ),
-//       ),
-//     );
-//   }
-// }
-
-// ================================
-
-// import 'package:flutter/material.dart';
-
-// class GridViewWidget extends StatelessWidget {
-//   final int? itemCount;
-//   final int crossAxisCount;
-//   final Widget? Function(BuildContext, int) itemBuilder;
-
-//   const GridViewWidget({
-//     super.key,
-//     this.itemCount,
-//     required this.crossAxisCount,
-//     required this.itemBuilder,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GridView.builder(
-//       padding: EdgeInsets.zero,
-//       shrinkWrap: true,
-//       physics: NeverScrollableScrollPhysics(),
-//       itemCount: itemCount,
-//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisCount: crossAxisCount,
-//         mainAxisSpacing: 12,
-//         crossAxisSpacing: 10,
-//         childAspectRatio: 0.56,
-//       ),
-//       itemBuilder: itemBuilder,
-//     );
-//   }
-// }
-
-//=================================================
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:iconsax/iconsax.dart';
-// import 'package:plantify_plantshop_project/common/search/cubit/search_cubit.dart';
-// import 'package:plantify_plantshop_project/common/widgets/container/search_container.dart';
-// import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/app_filter_button.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/search_products/widgets/filter_sheet.dart';
-// import 'package:plantify_plantshop_project/plant_data.dart';
-// import 'package:plantify_plantshop_project/utils/constants/colors.dart';
-
-// class SearchResultScreen extends StatefulWidget {
-//   const SearchResultScreen({super.key});
-
-//   @override
-//   State<SearchResultScreen> createState() => _SearchResultScreenState();
-// }
-
-// class _SearchResultScreenState extends State<SearchResultScreen> {
-//   void _openFilterSheet(BuildContext context) {
-//     showModalBottomSheet(
-//       context: context,
-//       isScrollControlled: true,
-//       isDismissible: false,
-
-//       shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-//       ),
-//       backgroundColor: Theme.of(context).brightness == Brightness.dark
-//           ? AppColor.darkerGrey
-//           : Theme.of(context).scaffoldBackgroundColor,
-//       builder: (context) {
-//         return const FilterSheet();
-//       },
-//     );
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // context.read<SearchCubit>().clear();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final exampleFilters = [
-//       //   'Price (High/Low)',
-//       // 'Sale (High/Low )',
-//       'Name',
-//     ];
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-//         elevation: 0,
-//         title: SearchContainer(
-//           searchBarText: 'Search plants',
-//           icon: Iconsax.search_normal,
-//           openSearchPageOnTap: false,
-//           // showBorder: true,
-//         ),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 15.0),
+//         body: SingleChildScrollView(
 //           child: Column(
-//             spacing: 16.0,
-//             crossAxisAlignment: CrossAxisAlignment.start,
 //             children: [
-//               SizedBox(
-//                 height: 40,
-//                 child: Row(
-//                   spacing: 10.0,
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   spacing: 25.0,
 //                   children: [
-//                     AppFilterButton(
-//                       iconColorFilter: ColorFilter.mode(
-//                         AppColor.buttonPrimary,
-//                         BlendMode.srcIn,
-//                       ),
-//                       backgroundColor: Colors.transparent,
-//                       onTap: () {
-//                         _openFilterSheet(context);
-//                       },
-//                       showBorder: true,
-//                     ),
-//                     Expanded(
-//                       child: ListView.builder(
-//                         scrollDirection: Axis.horizontal,
-//                         itemCount: exampleFilters.length,
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       spacing: 20.0,
+//                       children: [
+//                         HeadingWidget(name: 'Shipping to'),
 
-//                         itemBuilder: (BuildContext context, int index) {
-//                           return Padding(
-//                             padding: const EdgeInsets.only(right: 10.0),
-//                             child: CustomFilterChip(
-//                               label: exampleFilters[index],
-//                               showColor: false,
-//                               showBorder: true,
-//                             ),
-//                           );
-//                         },
-//                       ),
+//                         SizedBox(height: 200, child: AddressListview()),
+//                       ],
 //                     ),
+
+//                     HeadingWidget(name: 'Payment Method'),
+//                     PaymentMethodListView(),
 //                   ],
 //                 ),
 //               ),
 
-//               BlocBuilder<SearchCubit, String>(
-//                 builder: (context, query) {
-//                   final filteredPlants = query.isEmpty
-//                       ? plants
-//                       : plants.where((plant) {
-//                           final name = plant['name'].toString().toLowerCase();
-//                           return name.contains(query.toLowerCase().trim());
-//                         }).toList();
-
-//                   if (filteredPlants.isEmpty) {
-//                     return const Center(
-//                       child: Text(
-//                         'No plants found 🌱',
-//                         style: TextStyle(fontSize: 18),
-//                       ),
-//                     );
-//                   }
-
-//                   // return GridViewWidget(
-//                   //   itemCount: filteredPlants.length,
-//                   //   crossAxisCount: 2,
-//                   //   itemBuilder: (context, index) {
-//                   //     return PlantCard(plant: filteredPlants[index]);
-//                   //   },
-//                   // );
-//                   return SizedBox();
-//                 },
+//               CheckoutBottomSheet(
+//                 subTotalValue: widget.subTotalValue,
+//                 totalValue: widget.totalValue,
 //               ),
 //             ],
 //           ),
@@ -380,235 +78,752 @@
 //   }
 // }
 
-// ========================
-
+// // ========================//
 // import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
-// import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
-// import 'package:plantify_plantshop_project/common/widgets/loaders/animation_loader.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/favourite/bloc/favourites_bloc.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
+// import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 // import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
-// class FavouriteScreen extends StatefulWidget {
-//   const FavouriteScreen({super.key});
+// class PaymentMethodListView extends StatefulWidget {
+//   const PaymentMethodListView({super.key});
 
 //   @override
-//   State<FavouriteScreen> createState() => _FavouriteScreenState();
+//   State<PaymentMethodListView> createState() => _PaymentMethodListViewState();
 // }
 
-// class _FavouriteScreenState extends State<FavouriteScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     WidgetsBinding.instance.addPostFrameCallback((_) {
-//       context.read<FavouritesBloc>().add(LoadFavouritesEvent());
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           'Favourites',
-//           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-//             fontSize: 17,
-//             fontWeight: FontWeight.normal,
-//           ),
-//         ),
-//         centerTitle: true,
-//         backgroundColor: Colors.transparent,
-//       ),
-
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//           child: BlocBuilder<PlantBloc, PlantState>(
-//             builder: (context, plantState) {
-//               if (plantState is PlantLoaded) {
-//                 return BlocBuilder<FavouritesBloc, FavouritesState>(
-//                   builder: (context, favState) {
-//                     List<PlantModel> favouritePlants = [];
-
-//                     if (favState is FavouriteLoaded) {
-//                       favouritePlants = plantState.plants
-//                           .where((p) => favState.favouriteIds.contains(p.id))
-//                           .toList();
-//                     }
-
-//                     if (favState is FavouriteLoading ||
-//                         plantState is PlantLoading) {
-//                       return const Center(child: CircularProgressIndicator());
-//                     }
-
-//                     if (favouritePlants.isEmpty) {
-//                       return Center(
-//                         child: AnimationLoader(
-//                           headingText: 'Wishlist is empty!',
-//                           animation: ImageStrings.emptyAnimation,
-//                           smallText: 'Add something that you wish to buy here',
-//                           showActionButton: true,
-//                           actionText: 'Add Products',
-//                           onPressed: () {
-//                             context.read<NavigationCubit>().changeIndex(0);
-//                           },
-//                         ),
-//                       );
-//                     }
-
-//                     return GridViewWidget(
-//                       itemCount: favouritePlants.length,
-//                       crossAxisCount: 2,
-//                       itemBuilder: (context, index) {
-//                         final plant = favouritePlants[index];
-//                         return PlantCard(plant: plant);
-//                       },
-//                     );
-//                   },
-//                 );
-//               }
-
-//               return const SizedBox();
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-//===========================================
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:plantify_plantshop_project/common/widgets/loaders/animation_loader.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_items_view.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/cart_price_bottom_sheet.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/cart/widgets/discount_cupon_text_field.dart';
-// import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
-// import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
-
-// class CartScreen extends StatefulWidget {
-//   const CartScreen({super.key});
-
-//   @override
-//   State<CartScreen> createState() => _CartScreenState();
-// }
-
-// class _CartScreenState extends State<CartScreen> {
-//   int activePage = 0;
-//   final TextEditingController cuponCodeController = TextEditingController();
-//   final PageController _pageViewController = PageController();
+// class _PaymentMethodListViewState extends State<PaymentMethodListView> {
+//   List<String> paymentOptions = [
+//     'CB Pay',
+//     'Aya Pay',
+//     'KBZ pay',
+//     'WaveMoney',
+//     'CB Pay',
+//     'Aya Pay',
+//     'KBZ pay',
+//     'WaveMoney',
+//   ];
+//   late String _selectedPaymentOption;
+//   List<String> paymentImages = [
+//     ImageStrings.cbPayLogo,
+//     ImageStrings.ayaPayLogo,
+//     ImageStrings.kbzPayLogo,
+//     ImageStrings.waveMoneyLogo,
+//     ImageStrings.cbPayLogo,
+//     ImageStrings.ayaPayLogo,
+//     ImageStrings.kbzPayLogo,
+//     ImageStrings.waveMoneyLogo,
+//   ];
 
 //   @override
 //   void initState() {
 //     super.initState();
-//     context.read<CartBloc>().add(LoadCartEvent());
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     cuponCodeController.dispose();
-//   }
-
-//   void onTapBottomNav(int pageIndex) {
-//     _pageViewController.animateToPage(
-//       pageIndex,
-//       duration: const Duration(milliseconds: 300),
-//       curve: Curves.easeInOut,
-//     );
+//     _selectedPaymentOption = paymentOptions[0];
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-//     String cuponCode = 'ZORO';
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           'Cart',
-//           style: Theme.of(context).textTheme.titleLarge!.copyWith(
-//             fontSize: 17.0,
-//             fontWeight: FontWeight.normal,
-//           ),
-//         ),
-//         centerTitle: true,
-//         backgroundColor: Colors.transparent,
-//       ),
-//       body: BlocListener<DiscountBloc, DiscountState>(
-//         listener: (context, state) {
-//           if (state is CouponApplied) {
-//             context.read<CartBloc>().add(
-//               ApplyDiscountEvent(
-//                 discountAmount: state.discountAmount,
-//                 code: state.discount.code,
-//               ),
-//             );
-
-//             ScaffoldMessenger.of(context).showSnackBar(
-//               SnackBar(
-//                 content: Text(
-//                   'Coupon Applied! New Total: ${state.newTotal.toStringAsFixed(0)}',
-//                 ),
-//               ),
-//             );
-//           }
-
-//           if (state is CouponInvalid) {
-//             ScaffoldMessenger.of(
-//               context,
-//             ).showSnackBar(SnackBar(content: Text(state.message)));
-//           }
-//         },
-//         child: SingleChildScrollView(
-//           child: BlocBuilder<CartBloc, CartState>(
-//             builder: (context, state) {
-//               if (state is! CartLoaded) {
-//                 return const Center(child: CircularProgressIndicator());
-//               }
-
-//               if (state.items.isEmpty) {
-//                 return Column(
-//                   children: [
-//                     Center(
-//                       child: AnimationLoader(
-//                         headingText: 'Cart is empty!',
-//                         animation: ImageStrings.emptyAnimation,
-//                         smallText: 'Let\'s add something to your cart',
-//                         showActionButton: false,
-//                       ),
-//                     ),
-//                   ],
-//                 );
-//               }
-
-//               return Column(
-//                 mainAxisSize: MainAxisSize.min,
+//     return Container(
+//       // decoration: BoxDecoration(
+//       //   color: Theme.of(context).brightness == Brightness.dark
+//       //       ? AppColor.darkerGrey
+//       //       : Colors.white,
+//       // ),
+//       child: ListView.separated(
+//         shrinkWrap: true,
+//         physics: NeverScrollableScrollPhysics(),
+//         itemCount: paymentOptions.length,
+//         itemBuilder: (context, index) {
+//           return Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 spacing: 15.0,
 //                 children: [
-//                   CartItemsView(items: state.items),
-//                   DiscountCuponTextField(
-//                     isDarkMode: isDarkMode,
-//                     cuponCodeController: cuponCodeController,
-//                   ),
-//                   CartPriceBottomSheet(
-//                     subtotal: state.subtotal,
-//                     total: state.total,
-//                     isDarkMode: isDarkMode,
-//                     deliveryFee: state.deliveryFee ?? 0,
-//                     discountAmount: state.discountAmount ?? 0.0,
+//                   Image.asset(paymentImages[index], width: 70),
+//                   Text(
+//                     paymentOptions[index],
+//                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w500,
+//                     ),
 //                   ),
 //                 ],
-//               );
+//               ),
+//               Radio(
+//                 value: paymentOptions[index],
+//                 groupValue: _selectedPaymentOption,
+//                 onChanged: (value) {
+//                   setState(() {
+//                     _selectedPaymentOption = value!;
+//                   });
+//                 },
+//               ),
+//             ],
+//           );
+//         },
+//         separatorBuilder: (BuildContext context, int index) {
+//           return SizedBox(height: 12);
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// ==========================//
+// import 'package:bloc/bloc.dart';
+// import 'package:equatable/equatable.dart';
+// import 'package:plantify_plantshop_project/data/repositories/discount_repository.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
+// import 'package:plantify_plantshop_project/utils/constants/enums.dart';
+
+// part 'discount_event.dart';
+// part 'discount_state.dart';
+
+// class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
+//   final DiscountRepository discountRepository;
+
+//   DiscountBloc({required this.discountRepository}) : super(DiscountInitial()) {
+//     on<FetchDiscounts>(_fetchDiscounts);
+//     on<UploadDiscounts>(_uploadDiscounts);
+//     on<ApplyCoupon>(_applyCoupon);
+//   }
+
+//   Future<void> _fetchDiscounts(
+//     FetchDiscounts event,
+//     Emitter<DiscountState> emit,
+//   ) async {
+//     try {
+//       emit(DiscountLoading());
+
+//       final discounts = await discountRepository.fetchDiscounts();
+
+//       emit(DiscountLoaded(discounts));
+//     } catch (e) {
+//       emit(DiscountError(e.toString()));
+//     }
+//   }
+
+//   Future<void> _uploadDiscounts(
+//     UploadDiscounts event,
+//     Emitter<DiscountState> emit,
+//   ) async {
+//     try {
+//       emit(DiscountUploading());
+
+//       await discountRepository.uploadDiscounts();
+
+//       emit(DiscountUploaded());
+//     } catch (e) {
+//       emit(DiscountError(e.toString()));
+//     }
+//   }
+
+//   Future<void> _applyCoupon(
+//     ApplyCoupon event,
+//     Emitter<DiscountState> emit,
+//   ) async {
+//     try {
+//       final currentState = state;
+
+//       if (currentState is! DiscountLoaded) return;
+
+//       /// 1. Get discount by code
+//       final discount = await discountRepository.getDiscountByCode(event.code);
+
+//       if (discount == null) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "Invalid coupon code",
+//           ),
+//         );
+//         return;
+//       }
+
+//       /// 2. Validate coupon
+//       final now = DateTime.now();
+
+//       if (!discount.isActive) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "Coupon is inactive",
+//           ),
+//         );
+//         return;
+//       }
+
+//       if (now.isAfter(discount.validUntil)) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "Coupon expired",
+//           ),
+//         );
+//         return;
+//       }
+
+//       if (event.cartTotal < discount.minAmount) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "Minimum amount is ${discount.minAmount} MMK",
+//           ),
+//         );
+//         return;
+//       }
+
+//       final hasUsedAnyCoupon = await discountRepository.hasUserUsedAnyCoupon(
+//         event.userId,
+//       );
+
+//       final isFirstTimeUser = !hasUsedAnyCoupon;
+
+//       if (discount.firstTimeOnly && !isFirstTimeUser) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "Only for first-time users",
+//           ),
+//         );
+//         return;
+//       }
+
+//       final alreadyUsed = await discountRepository.hasUserUsedCoupon(
+//         userId: event.userId,
+//         code: event.code,
+//       );
+
+//       if (alreadyUsed) {
+//         emit(
+//           currentState.copyWith(
+//             status: DiscountStatus.error,
+//             message: "You already used this coupon",
+//           ),
+//         );
+//         return;
+//       }
+
+//       final discountAmount = (event.cartTotal * discount.percentage) / 100;
+
+//       final newTotal = event.cartTotal - discountAmount;
+
+//       print('newTotal is $newTotal');
+
+//       /// 5. Save usage
+//       // await discountRepository.saveCouponUsage(
+//       //   userId: event.userId,
+//       //   code: event.code,
+//       // );
+
+//       // final cartRepo = CartRepository();
+
+//       // cartRepo.saveCoupon(
+//       //   AppliedCouponModel(code: discount.code, discountAmount: discountAmount),
+//       // );
+
+//       emit(
+//         currentState.copyWith(
+//           status: DiscountStatus.success,
+//           message: "Coupon applied",
+//           discountAmount: discountAmount,
+//           newTotal: newTotal,
+//           appliedDiscount: discount,
+//         ),
+//       );
+//     } catch (e) {
+//       if (state is DiscountLoaded) {
+//         emit(
+//           (state as DiscountLoaded).copyWith(
+//             status: DiscountStatus.error,
+//             message: e.toString(),
+//           ),
+//         );
+//       }
+//     }
+//   }
+// }
+
+// import 'package:flutter/material.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/order/order_detail_screen.dart';
+
+// class OrderCard extends StatelessWidget {
+//   final String title, date, name, price, status;
+//   final Color color;
+
+//   const OrderCard({
+//     super.key,
+//     required this.title,
+//     required this.date,
+//     required this.name,
+//     required this.price,
+//     required this.status,
+//     required this.color,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) {
+//               return OrderDetailScreen();
 //             },
 //           ),
+//         );
+//       },
+//       child: Container(
+//         margin: const EdgeInsets.only(bottom: 12),
+//         padding: const EdgeInsets.all(12),
+//         decoration: BoxDecoration(
+//           border: Border.all(color: Colors.grey.shade300),
+//           borderRadius: BorderRadius.circular(12),
 //         ),
+//         child: Column(
+//           children: [
+//             /// Top
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 const Text("ID: 65JHG1"),
+//                 Container(
+//                   padding: const EdgeInsets.symmetric(
+//                     horizontal: 10,
+//                     vertical: 4,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     color: color,
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                   child: Text(
+//                     status,
+//                     style: const TextStyle(color: Colors.white, fontSize: 12),
+//                   ),
+//                 ),
+//               ],
+//             ),
+
+//             const Divider(),
+
+//             /// Middle
+//             Row(
+//               children: [
+//                 Container(width: 50, height: 50, color: Colors.grey.shade300),
+//                 const SizedBox(width: 10),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         title,
+//                         style: const TextStyle(fontWeight: FontWeight.bold),
+//                       ),
+//                       Text(date),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+
+//             const Divider(),
+
+//             /// Bottom
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(name),
+//                 Text(
+//                   price,
+//                   style: const TextStyle(fontWeight: FontWeight.bold),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// =================//
+
+// import 'package:flutter/material.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/order/widgets/order_card.dart';
+// import 'package:plantify_plantshop_project/utils/constants/colors.dart';
+
+// class MyOrdersScreen extends StatelessWidget {
+//   const MyOrdersScreen({super.key});
+
+//   Widget _tab(String text, bool active) {
+//     return Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//       decoration: BoxDecoration(
+//         color: active ? Colors.green : Colors.grey.shade200,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(color: AppColor.primary),
+//       ),
+//       child: Text(
+//         text,
+//         style: TextStyle(color: active ? Colors.white : Colors.black54),
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("My Orders"), centerTitle: true),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16),
+//         child: Column(
+//           children: [
+//             const SizedBox(height: 15),
+
+//             SizedBox(
+//               height: 35,
+//               child: ListView.separated(
+//                 scrollDirection: Axis.horizontal,
+//                 itemBuilder: (BuildContext context, int index) {
+//                   return _tab("All", false);
+//                 },
+//                 separatorBuilder: (BuildContext context, int index) {
+//                   return SizedBox(width: 10);
+//                 },
+//                 itemCount: 5,
+//               ),
+//             ),
+//             const SizedBox(height: 15),
+
+//             Expanded(
+//               child: ListView(
+//                 children: [
+//                   OrderCard(
+//                     title: "Snake Plant",
+//                     date: "6 Jan, 2025",
+//                     name: "Sarah",
+//                     price: "\$32.43",
+//                     status: "Pending",
+//                     color: Colors.blueGrey,
+//                   ),
+//                   OrderCard(
+//                     title: "Jad Plant",
+//                     date: "6 Feb, 2025",
+//                     name: "Janna",
+//                     price: "\$66.73",
+//                     status: "Shipping",
+//                     color: Colors.orange,
+//                   ),
+//                   OrderCard(
+//                     title: "Snake Plant",
+//                     date: "6 Jan, 2025",
+//                     name: "Sarah",
+//                     price: "\$32.43",
+//                     status: "Processing",
+//                     color: Colors.cyan,
+//                   ),
+//                   OrderCard(
+//                     title: "Snake Plant",
+//                     date: "6 Jan, 2025",
+//                     name: "Sarah",
+//                     price: "\$32.43",
+//                     status: "Delivered",
+//                     color: Colors.green,
+//                   ),
+//                   OrderCard(
+//                     title: "Snake Plant",
+//                     date: "6 Jan, 2025",
+//                     name: "Sarah",
+//                     price: "\$32.43",
+//                     status: "Canceled",
+//                     color: Colors.red,
+//                   ),
+//                 ],
+//               ),
+// //             ),
+// //           ],
+// //         ),
+// //       ),
+// //     );
+// //   }
+// // }
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/order/bloc/order_bloc.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/order/widgets/order_detail_row.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/order/widgets/order_detail_timeline.dart';
+// import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_detail_image_slider.dart';
+
+// class OrderDetailScreen extends StatefulWidget {
+//   final String orderId;
+//   const OrderDetailScreen({super.key, required this.orderId});
+
+//   @override
+//   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
+// }
+
+// class _OrderDetailScreenState extends State<OrderDetailScreen> {
+//   final PageController _controller = PageController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     context.read<OrderBloc>().add(FetchOrderDetail(widget.orderId));
+//   }
+
+//   static Widget section({required String title, required Widget child}) {
+//     return Container(
+//       width: double.infinity,
+//       padding: const EdgeInsets.all(14),
+//       decoration: BoxDecoration(
+//         color: Colors.grey.shade100,
+//         borderRadius: BorderRadius.circular(12),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+//           const SizedBox(height: 10),
+//           child,
+//         ],
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Order Detail"),
+//         centerTitle: true,
+//         backgroundColor: Colors.transparent,
+//       ),
+//       body: BlocBuilder<OrderBloc, OrderState>(
+//         builder: (context, state) {
+//           if (state is OrderLoading) {
+//             return const Center(child: CircularProgressIndicator());
+//           }
+
+//           if (state is OrderError) {
+//             return Center(child: Text(state.message));
+//           }
+
+//           if (state is OrderDetailLoaded) {
+//             final order = state.order;
+
+//             /// 🪴 collect plants
+//             final plants = order.items!
+//                 .map((e) => e.plant)
+//                 .where((p) => p != null)
+//                 .toList();
+
+//             /// 🖼 multiple images
+//             Widget imageSection;
+
+//             if (plants.isNotEmpty) {
+//               /// 👉 Use first plant for slider (with multiple images)
+//               imageSection = ProductDetailImageSlider(
+//                 controller: _controller,
+//                 plantData: plants.first!,
+//                 isNetworkImage: true,
+//               );
+//             } else {
+//               imageSection = Container(
+//                 height: 220,
+//                 color: Colors.grey.shade300,
+//               );
+//             }
+
+//             String title = "Order";
+//             if (order.items!.isNotEmpty) {
+//               final first = order.items!.first.plant?.name ?? "Plant";
+
+//               if (order.items!.length > 1) {
+//                 title = "$first +${order.items!.length - 1} more";
+//               } else {
+//                 title = first;
+//               }
+//             }
+
+//             /// 💰 price calc
+//             final subtotal = order.items!.fold(
+//               0.0,
+//               (sum, item) => sum + item.subtotal,
+//             );
+
+//             const deliveryFee = 1000.0;
+//             final total = order.totalAmount;
+
+//             return SingleChildScrollView(
+//               padding: const EdgeInsets.all(16),
+//               child: Column(
+//                 children: [
+//                   imageSection,
+
+//                   const SizedBox(height: 20),
+
+//                   /// 📄 Product Info
+//                   section(
+//                     title: "Product Info",
+//                     child: Column(
+//                       children: [
+//                         OrderDetailRow(left: "Product", right: title),
+//                         OrderDetailRow(
+//                           left: "Order Date",
+//                           right:
+//                               "${order.createdAt!.day}-${order.createdAt!.month}-${order.createdAt!.year}",
+//                         ),
+//                         OrderDetailRow(
+//                           left: "Order ID",
+//                           right: order.id!.substring(0, 6),
+//                         ),
+//                         OrderDetailRow(left: "Status", right: order.status!),
+//                       ],
+//                     ),
+//                   ),
+
+//                   const SizedBox(height: 15),
+
+//                   /// 📍 Address (mock for now)
+//                   section(
+//                     title: "Delivery Address",
+//                     child: const Text("User address here"),
+//                   ),
+
+//                   const SizedBox(height: 15),
+
+//                   /// 💰 Price
+//                   section(
+//                     title: "Order Price",
+//                     child: Column(
+//                       children: [
+//                         OrderDetailRow(
+//                           left: "Subtotal",
+//                           right: "\$${subtotal.toStringAsFixed(2)}",
+//                         ),
+//                         const OrderDetailRow(
+//                           left: "Delivery Fee",
+//                           right: "\$1000",
+//                         ),
+//                         const Divider(),
+//                         OrderDetailRow(
+//                           left: "Total",
+//                           right: "\$${total.toStringAsFixed(2)}",
+//                           bold: true,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+
+//                   const SizedBox(height: 20),
+
+//                   ElevatedButton(
+//                     onPressed: () {},
+//                     style: ElevatedButton.styleFrom(
+//                       backgroundColor: Colors.green,
+//                       minimumSize: const Size(double.infinity, 50),
+//                     ),
+//                     child: const Text("Mark as delivered"),
+//                   ),
+//                 ],
+//               ),
+//             );
+//           }
+
+//           return const SizedBox();
+//           // return SingleChildScrollView(
+//           //   padding: const EdgeInsets.all(16),
+//           //   child: Column(
+//           //     children: [
+//           //       Container(
+//           //         height: 220,
+//           //         width: double.infinity,
+//           //         decoration: BoxDecoration(
+//           //           color: Colors.grey.shade300,
+//           //           borderRadius: BorderRadius.circular(16),
+//           //         ),
+//           //       ),
+
+//           //       const SizedBox(height: 20),
+
+//           //       /// 📄 Product Info
+//           //       section(
+//           //         title: "Product Info",
+//           //         child: Column(
+//           //           children: const [
+//           //             OrderDetailRow(left: "Product Name", right: "Jade Plant"),
+//           //             OrderDetailRow(left: "Order Date", right: "Jan 7, 2024"),
+//           //             OrderDetailRow(left: "Product ID", right: "65SKG1"),
+//           //             OrderDetailRow(
+//           //               left: "Product Status",
+//           //               right: "Processing",
+//           //             ),
+//           //           ],
+//           //         ),
+//           //       ),
+
+//           //       const SizedBox(height: 15),
+
+//           //       section(
+//           //         title: "Delivery Address",
+//           //         child: const Text(
+//           //           "No 219, 8 ward, Shwe Pyi Thar Township, Yangon City",
+//           //         ),
+//           //       ),
+
+//           //       const SizedBox(height: 15),
+
+//           //       /// 💰 Price
+//           //       section(
+//           //         title: "Order Price",
+//           //         child: Column(
+//           //           children: const [
+//           //             OrderDetailRow(left: "Price", right: "\$30.43"),
+//           //             OrderDetailRow(left: "Discount", right: "\$1.00"),
+//           //             OrderDetailRow(left: "Delivery Fee", right: "\$1.00"),
+//           //             Divider(),
+//           //             OrderDetailRow(
+//           //               left: "Total",
+//           //               right: "\$32.43",
+//           //               bold: true,
+//           //             ),
+//           //           ],
+//           //         ),
+//           //       ),
+
+//           //       const SizedBox(height: 15),
+
+//           //       /// 🚚 Tracking (will remove)
+//           //       // _section(
+//           //       //   title: "Order Tracking",
+//           //       //   child: Column(
+//           //       //     crossAxisAlignment: CrossAxisAlignment.start,
+//           //       //     children: [
+//           //       //       OrderDetailTimeline(text: "Order Received", active: true),
+//           //       //       OrderDetailTimeline(text: "Payment Confirmed", active: true),
+//           //       //       OrderDetailTimeline(text: "Processing", active: true),
+//           //       //       OrderDetailTimeline(text: "Shipping", active: false),
+//           //       //     ],
+//           //       //   ),
+//           //       // ),
+//           //       const SizedBox(height: 20),
+
+//           //       SizedBox(
+//           //         width: double.infinity,
+//           //         child: ElevatedButton(
+//           //           onPressed: () {},
+//           //           style: ElevatedButton.styleFrom(
+//           //             padding: const EdgeInsets.symmetric(vertical: 16),
+//           //             backgroundColor: Colors.green,
+//           //           ),
+//           //           child: const Text("Marked as delivered"),
+//           //         ),
+//           //       ),
+//           //     ],
+//           //   ),
+//           // );
+//         },
 //       ),
 //     );
 //   }

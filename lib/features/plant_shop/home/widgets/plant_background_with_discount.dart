@@ -20,6 +20,7 @@ class PlantBackgroundWithDiscount extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final List<String> images = plantData.imageUrl;
+    final String thumbnail = plantData.thumbnailImg;
     return Stack(
       children: [
         CircularContainer(
@@ -28,12 +29,12 @@ class PlantBackgroundWithDiscount extends StatelessWidget {
               : AppColor.lightGray,
           child: isNetworkImage
               ? CachedNetworkImage(
-                  imageUrl: images[0],
+                  imageUrl: thumbnail,
                   placeholder: (context, url) =>
                       const ZShimmerEffect(width: 72, height: 72),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
-              : Image.asset(images[0], width: double.infinity),
+              : Image.asset(thumbnail, width: double.infinity),
         ),
         // if (plantData.salePrice < plantData.originalPrice)
         //   DiscountTag(

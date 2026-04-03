@@ -1,3 +1,5 @@
+import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/model/address_model.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 //======= discounts ===========//
@@ -50,6 +52,8 @@ final discounts = [
   },
 ];
 
+//========== address in separate file ===============//
+
 //========== plants ===============//
 final plants = [
   {
@@ -60,6 +64,7 @@ final plants = [
     'category': 'Outdoor',
     'temperature': '60°F to 75°F',
     'pot': 'Ciramic Pot',
+    'thumbnailImg': ImageStrings.snakePlant,
     'imageUrl': [ImageStrings.snakePlant],
     'description':
         'The snake plant is a hardy, low-maintenance indoor plant with striking leaves',
@@ -100,6 +105,7 @@ final plants = [
     'category': 'Indoor',
     'temperature': '50°F',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.peperomiaPlant,
     'imageUrl': [ImageStrings.peperomiaPlant],
     'description':
         'Peperomia are small, low-maintenance houseplants with varied, attractive leaves, thriving in indirect light and humidity.',
@@ -140,6 +146,7 @@ final plants = [
     'category': 'Indoor',
     'temperature': '18°C to 24°C',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.plamPlant,
     'imageUrl': [ImageStrings.plamPlant],
     'description':
         'Areca Palm is a popular indoor plant known for its feathery, arching green fronds that bring a tropical feel to any space. It is also known for improving indoor air quality and is easy to maintain.',
@@ -180,6 +187,7 @@ final plants = [
     'category': 'Gardening',
     'temperature': '60°F',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.lushGreen,
     'imageUrl': [ImageStrings.lushGreen],
     'description':
         'Green Echeveria agavoides is a compact, rosette-forming succulent with pointed, fleshy green leaves that resemble an agave.',
@@ -220,6 +228,7 @@ final plants = [
     'category': 'Gardening',
     'temperature': '18°C to 30°C',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.monsteraPlant,
     'imageUrl': [ImageStrings.monsteraPlant],
     'description':
         'Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical houseplant famous for its large, glossy green leaves with natural splits and holes. It is a popular decorative plant that adds a lush, jungle-like feel to indoor spaces.',
@@ -260,6 +269,7 @@ final plants = [
     'category': 'Flowering',
     'temperature': '15°C to 24°C',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.pinkAzalea,
     'imageUrl': [ImageStrings.pinkAzalea],
     'description':
         'Pink Azalea is a beautiful flowering shrub known for its vibrant pink blossoms and lush green foliage. It is commonly grown in gardens and patios, bringing bright seasonal color and elegance to outdoor spaces.',
@@ -299,6 +309,7 @@ final plants = [
     'category': 'Flowering',
     'temperature': '10°C to 25°C',
     'pot': 'Plastic Pot',
+    'thumbnailImg': ImageStrings.cherryBlosom,
     'imageUrl': [ImageStrings.cherryBlosom],
     'description':
         'Cherry Blossom is a famous ornamental tree known for its stunning pink or white flowers that bloom in spring. These delicate blossoms create breathtaking landscapes and symbolize beauty and renewal.',
@@ -338,6 +349,7 @@ final plants = [
     'category': 'Hanging',
     'temperature': '18°C to 28°C',
     'pot': 'no pot',
+    'thumbnailImg': ImageStrings.hangingPlant,
     'imageUrl': [ImageStrings.hangingPlant],
     'description':
         'Hanging plants are beautiful trailing houseplants that grow gracefully from hanging baskets or pots. Their cascading vines make them perfect for decorating balconies, windows, and indoor spaces.',

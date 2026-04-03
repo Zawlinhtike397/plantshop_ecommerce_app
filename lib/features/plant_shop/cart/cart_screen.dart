@@ -93,17 +93,16 @@ class _CartScreenState extends State<CartScreen> {
               }
 
               if (state.items.isEmpty) {
-                return Column(
-                  children: [
-                    Center(
-                      child: AnimationLoader(
-                        headingText: 'Cart is empty!',
-                        animation: ImageStrings.emptyAnimation,
-                        smallText: 'Let\'s add something to your cart',
-                        showActionButton: false,
-                      ),
+                return SizedBox(
+                  height: MediaQuery.sizeOf(context).height / 2,
+                  child: Center(
+                    child: AnimationLoader(
+                      headingText: 'Cart is empty!',
+                      animation: ImageStrings.emptyAnimation,
+                      smallText: 'Let\'s add something to your cart',
+                      showActionButton: false,
                     ),
-                  ],
+                  ),
                 );
               }
 

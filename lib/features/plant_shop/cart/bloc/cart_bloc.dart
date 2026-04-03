@@ -19,6 +19,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<IncreaseQtyEvent>(_increaseQty);
     on<DecreaseQtyEvent>(_decreaseQty);
     on<ApplyDiscountEvent>(_applyDiscount);
+    on<ClearCartEvent>((event, emit) {
+      cartRepository.clearCart();
+      _emitUpdatedCart(emit);
+    });
   }
 
   void _emitUpdatedCart(Emitter<CartState> emit) {
@@ -82,7 +86,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         ),
       );
 
-      // final newTotal = currentState.total - event.discountAmount;
       final newTotal =
           currentState.subtotal + deliveryFee - event.discountAmount;
 

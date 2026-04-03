@@ -5,7 +5,10 @@ import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/image/rounded_image.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/address/screen/address_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/discount_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/favourite/favourite_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/order/order_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/profile_detail_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
 import 'package:plantify_plantshop_project/load_data.dart';
@@ -122,7 +125,15 @@ class ProfileScreen extends StatelessWidget {
                       ProfileTile(
                         icon: Iconsax.shop,
                         text: 'My Orders',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyOrdersScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                       ProfileTile(
                         icon: Iconsax.discount_shape,
@@ -155,12 +166,30 @@ class ProfileScreen extends StatelessWidget {
                       ProfileTile(
                         icon: Iconsax.heart,
                         text: 'Favourites',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return FavouriteScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                       ProfileTile(
                         icon: Iconsax.shopping_bag,
                         text: 'My Shopping Cart',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return CartScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -184,11 +213,7 @@ class ProfileScreen extends StatelessWidget {
                           child: Switch(value: true, onChanged: (value) {}),
                         ),
                       ),
-                      ProfileTile(
-                        icon: Iconsax.notification,
-                        text: 'Notifications',
-                        onTap: () {},
-                      ),
+
                       ProfileTile(
                         icon: Iconsax.note,
                         text: 'Terms and conditions',
@@ -199,20 +224,20 @@ class ProfileScreen extends StatelessWidget {
                         text: 'FAQ',
                         onTap: () {},
                       ),
-                      ProfileTile(
-                        icon: Iconsax.shop,
-                        text: 'LoadData',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return LoadDataScreen();
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                      // ProfileTile(
+                      //   icon: Iconsax.shop,
+                      //   text: 'LoadData',
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) {
+                      //           return LoadDataScreen();
+                      //         },
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                 ],

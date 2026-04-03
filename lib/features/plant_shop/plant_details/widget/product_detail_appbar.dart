@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-
-import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
+import 'package:plantify_plantshop_project/common/widgets/icon/cart_icon_btn_widget.dart';
 
 class ProductDetailAppBar extends StatelessWidget {
   const ProductDetailAppBar({super.key});
@@ -13,21 +11,7 @@ class ProductDetailAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       elevation: 0,
-      actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const CartScreen();
-                },
-              ),
-            );
-          },
-          icon: const Icon(Iconsax.shopping_bag),
-        ),
-      ],
+      actions: [CartIconBtnWidget()],
     );
   }
 }

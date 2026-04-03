@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/address/bloc/address_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
 import 'package:plantify_plantshop_project/utils/popups/fullscreen_loader.dart';
@@ -37,7 +38,6 @@ class LoadDataScreen extends StatelessWidget {
             }
           },
         ),
-
         BlocListener<DiscountBloc, DiscountState>(
           listener: (context, state) {
             if (state is DiscountUploading) {
@@ -55,6 +55,30 @@ class LoadDataScreen extends StatelessWidget {
             }
 
             if (state is DiscountError) {
+              FullscreenLoader.hide(context);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+        ),
+        BlocListener<AddressBloc, AddressState>(
+          listener: (context, state) {
+            if (state is AddressLoading) {
+              FullscreenLoader.showLoader(
+                context,
+                text: "Uploading addresses...",
+              );
+            }
+
+            if (state is AddressUploaded) {
+              FullscreenLoader.hide(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Address Upload Success")),
+              );
+            }
+
+            if (state is AddressError) {
               FullscreenLoader.hide(context);
               ScaffoldMessenger.of(
                 context,
@@ -94,6 +118,13 @@ class LoadDataScreen extends StatelessWidget {
                   text: 'Load Discount Data',
                   onTap: () {
                     context.read<DiscountBloc>().add(UploadDiscounts());
+                  },
+                ),
+                ProfileTile(
+                  icon: Iconsax.location,
+                  text: 'Load Address Data',
+                  onTap: () {
+                    context.read<AddressBloc>().add(UploadAddressData());
                   },
                 ),
               ],

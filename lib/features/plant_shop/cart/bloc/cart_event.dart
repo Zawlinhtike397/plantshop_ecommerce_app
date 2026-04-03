@@ -39,3 +39,5 @@ class ApplyDiscountEvent extends CartEvent {
 
   const ApplyDiscountEvent({required this.discountAmount, required this.code});
 }
+
+class ClearCartEvent extends CartEvent {}

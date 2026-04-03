@@ -10,6 +10,7 @@ class PlantModel {
   int stock;
   String temperature;
   String pot;
+  String thumbnailImg;
   List<String> imageUrl;
   String description;
   Map<String, CareGuideModel>? careGuide;
@@ -24,6 +25,7 @@ class PlantModel {
     required this.stock,
     required this.temperature,
     required this.pot,
+    required this.thumbnailImg,
     required this.imageUrl,
     required this.description,
     this.careGuide,
@@ -43,6 +45,7 @@ class PlantModel {
     stock: 3,
     temperature: '',
     pot: '',
+    thumbnailImg: '',
     imageUrl: [],
     description: '',
   );
@@ -58,6 +61,7 @@ class PlantModel {
       'stock': stock,
       'temperature': temperature,
       'pot': pot,
+      'thumbnailImg': thumbnailImg,
       'imageUrl': imageUrl,
       'description': description,
       'careGuide': careGuide?.map(
@@ -84,19 +88,20 @@ class PlantModel {
     }
 
     return PlantModel(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      originalPrice: (json['price'] ?? 0).toDouble(),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name']?.toString() ?? '',
+      originalPrice: (json['price'] ?? 0).toDouble() ?? 0.0,
       // salePrice: (json['salePrice'] ?? 0).toDouble(),
-      height: json['height'] ?? '',
-      category: json['category'] ?? '',
-      stock: json['stock'] ?? 0,
-      temperature: json['temperature'] ?? '',
-      pot: json['pot'] ?? '',
+      height: json['height']?.toString() ?? '',
+      category: json['category']?.toString() ?? '',
+      stock: (json['stock'] as num?)?.toInt() ?? 0,
+      temperature: json['temperature']?.toString() ?? '',
+      pot: json['pot']?.toString() ?? '',
+      thumbnailImg: json['thumbnailImg']?.toString() ?? '',
       imageUrl: json['imageUrl'] != null
           ? List<String>.from(json['imageUrl'])
           : [],
-      description: json['description'] ?? '',
+      description: json['description']?.toString() ?? '',
       careGuide: careGuideMap,
     );
   }

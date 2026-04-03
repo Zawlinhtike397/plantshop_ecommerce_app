@@ -30,8 +30,10 @@ class PlantRepository {
 
   Future<void> uploadPlants() async {
     for (var plant in plants) {
-      List<String> imageUrls = [];
+      final thumbnailUrl = await uploadImage(plant['thumbnailImg'] as String);
+      plant['thumbnailImg'] = thumbnailUrl;
 
+      List<String> imageUrls = [];
       for (String asset in plant['imageUrl'] as List<String>) {
         final url = await uploadImage(asset);
         imageUrls.add(url);

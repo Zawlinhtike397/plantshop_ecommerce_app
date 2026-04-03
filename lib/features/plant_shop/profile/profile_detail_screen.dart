@@ -137,7 +137,7 @@ class ProfileDetailScreen extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {},
                           child: const Text(
-                            'Delete Account',
+                            'Delete Account Need to implement',
                             style: TextStyle(color: Colors.red, fontSize: 11.0),
                           ),
                         ),

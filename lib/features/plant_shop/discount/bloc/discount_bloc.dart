@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:plantify_plantshop_project/data/repositories/cart_repository.dart';
 import 'package:plantify_plantshop_project/data/repositories/discount_repository.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/discount/model/applied_cupon_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
 import 'package:plantify_plantshop_project/utils/constants/enums.dart';
 
@@ -141,10 +139,10 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
       print('newTotal is $newTotal');
 
       /// 5. Save usage
-      await discountRepository.saveCouponUsage(
-        userId: event.userId,
-        code: event.code,
-      );
+      // await discountRepository.saveCouponUsage(
+      //   userId: event.userId,
+      //   code: event.code,
+      // );
 
       // final cartRepo = CartRepository();
 
