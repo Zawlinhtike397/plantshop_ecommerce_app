@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/discount/widgets/use_cuppon_bottom_sheet_widget.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/discount/widgets/use_cupon_bottom_sheet_widget.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class DiscountCard extends StatelessWidget {

@@ -136,4 +136,14 @@ class OrderRepository {
       throw Exception("Failed to fetch order detail: $e");
     }
   }
+
+  Future<bool> hasUserPlacedOrder(String userId) async {
+    final response = await supabase
+        .from('orders')
+        .select('id')
+        .eq('user_id', userId)
+        .limit(1);
+
+    return response.isNotEmpty;
+  }
 }

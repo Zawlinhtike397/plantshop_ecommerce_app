@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:plantify_plantshop_project/data/repositories/discount_repository.dart';
+import 'package:plantify_plantshop_project/data/repositories/order_repository.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
 import 'package:plantify_plantshop_project/utils/constants/enums.dart';
 
@@ -9,8 +10,12 @@ part 'discount_state.dart';
 
 class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
   final DiscountRepository discountRepository;
+  final OrderRepository orderRepository;
 
-  DiscountBloc({required this.discountRepository}) : super(DiscountInitial()) {
+  DiscountBloc({
+    required this.discountRepository,
+    required this.orderRepository,
+  }) : super(DiscountInitial()) {
     on<FetchDiscounts>(_fetchDiscounts);
     on<UploadDiscounts>(_uploadDiscounts);
     on<ApplyCoupon>(_applyCoupon);
@@ -55,7 +60,6 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
 
       if (currentState is! DiscountLoaded) return;
 
-      /// 1. Get discount by code
       final discount = await discountRepository.getDiscountByCode(event.code);
 
       if (discount == null) {
@@ -68,7 +72,6 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
         return;
       }
 
-      /// 2. Validate coupon
       final now = DateTime.now();
 
       if (!discount.isActive) {
@@ -101,11 +104,11 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
         return;
       }
 
-      final hasUsedAnyCoupon = await discountRepository.hasUserUsedAnyCoupon(
+      final hasPlacedOrder = await orderRepository.hasUserPlacedOrder(
         event.userId,
       );
 
-      final isFirstTimeUser = !hasUsedAnyCoupon;
+      final isFirstTimeUser = !hasPlacedOrder;
 
       if (discount.firstTimeOnly && !isFirstTimeUser) {
         emit(
@@ -137,18 +140,6 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
       final newTotal = event.cartTotal - discountAmount;
 
       print('newTotal is $newTotal');
-
-      /// 5. Save usage
-      // await discountRepository.saveCouponUsage(
-      //   userId: event.userId,
-      //   code: event.code,
-      // );
-
-      // final cartRepo = CartRepository();
-
-      // cartRepo.saveCoupon(
-      //   AppliedCouponModel(code: discount.code, discountAmount: discountAmount),
-      // );
 
       emit(
         currentState.copyWith(

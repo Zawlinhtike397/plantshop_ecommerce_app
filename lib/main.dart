@@ -75,6 +75,7 @@ Future<void> main() async {
           BlocProvider(
             create: (context) => DiscountBloc(
               discountRepository: context.read<DiscountRepository>(),
+              orderRepository: context.read<OrderRepository>(),
             ),
           ),
 
