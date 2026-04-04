@@ -4,7 +4,6 @@ class PlantModel {
   int id;
   String name;
   double originalPrice;
-  // double salePrice;
   String height;
   String category;
   int stock;
@@ -19,7 +18,6 @@ class PlantModel {
     required this.id,
     required this.name,
     required this.originalPrice,
-    // required this.salePrice,
     required this.height,
     required this.category,
     required this.stock,
@@ -31,15 +29,10 @@ class PlantModel {
     this.careGuide,
   });
 
-  // double get discountPercent {
-  //   return ((originalPrice - salePrice) / originalPrice) * 100;
-  // }
-
   static PlantModel empty() => PlantModel(
     id: 0,
     name: '',
     originalPrice: 0.0,
-    // salePrice: 0.0,
     height: '',
     category: '',
     stock: 3,
@@ -55,7 +48,6 @@ class PlantModel {
       'id': id,
       'name': name,
       'price': originalPrice,
-      // 'salePrice': salePrice,
       'height': height,
       'category': category,
       'stock': stock,
@@ -91,7 +83,6 @@ class PlantModel {
       id: (json['id'] as num?)?.toInt() ?? 0,
       name: json['name']?.toString() ?? '',
       originalPrice: (json['price'] ?? 0).toDouble() ?? 0.0,
-      // salePrice: (json['salePrice'] ?? 0).toDouble(),
       height: json['height']?.toString() ?? '',
       category: json['category']?.toString() ?? '',
       stock: (json['stock'] as num?)?.toInt() ?? 0,

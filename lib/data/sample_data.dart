@@ -1,5 +1,3 @@
-import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/address/model/address_model.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 //======= discounts ===========//

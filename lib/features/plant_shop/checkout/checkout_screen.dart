@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/icon/cart_icon_btn_widget.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
 import 'package:plantify_plantshop_project/common/widgets/listView/address_listview.dart';
-import 'package:plantify_plantshop_project/data/repositories/cart_repository.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/address/bloc/address_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/model/cart_item_model.dart';

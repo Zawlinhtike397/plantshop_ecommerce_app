@@ -9,9 +9,7 @@ class UnorderedList extends StatelessWidget {
   Widget build(BuildContext context) {
     var widgetList = <Widget>[];
     for (var text in texts) {
-      // Add list item
       widgetList.add(UnorderedListItem(text: text));
-      // Add space between items
       widgetList.add(SizedBox(height: 5.0));
     }
 

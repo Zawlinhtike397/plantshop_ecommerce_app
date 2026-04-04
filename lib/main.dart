@@ -61,10 +61,8 @@ Future<void> main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => PlantBloc(
-              plantRepository: context.read<PlantRepository>(),
-              // ..add(LoadPlantsEvent()),
-            ),
+            create: (context) =>
+                PlantBloc(plantRepository: context.read<PlantRepository>()),
           ),
 
           BlocProvider(
@@ -93,7 +91,6 @@ Future<void> main() async {
           BlocProvider(
             create: (context) =>
                 OrderBloc(orderRepository: context.read<OrderRepository>()),
-            // ..add(FetchOrders()),
           ),
           BlocProvider(
             create: (context) => AppBloc(

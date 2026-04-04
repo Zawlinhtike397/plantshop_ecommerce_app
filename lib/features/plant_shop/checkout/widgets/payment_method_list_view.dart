@@ -35,12 +35,6 @@ class _PaymentMethodSliverListState extends State<PaymentMethodSliverList> {
     PaymentModel(id: 'aya_3', name: 'Aya Pay', image: ImageStrings.ayaPayLogo),
   ];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selectedPaymentId = paymentMethods.first.id;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SliverPadding(

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/common/plant_info/bloc/plant_bloc.dart';
 import 'package:plantify_plantshop_project/common/widgets/container/search_container.dart';
-import 'package:plantify_plantshop_project/common/widgets/product/custom_filter_chip.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/app_filter_button.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/grid_view_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/home/widgets/plant_card.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/search_products/widgets/filter_sheet.dart';
@@ -52,12 +50,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final exampleFilters = [
-      //   'Price (High/Low)',
-      // 'Sale (High/Low )',
-      'Name',
-    ];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -71,45 +63,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       ),
       body: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-              child: SizedBox(
-                height: 40,
-                child: Row(
-                  children: [
-                    AppFilterButton(
-                      iconColorFilter: ColorFilter.mode(
-                        AppColor.buttonPrimary,
-                        BlendMode.srcIn,
-                      ),
-                      backgroundColor: Colors.transparent,
-                      onTap: () => _openFilterSheet(context),
-                      showBorder: true,
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: exampleFilters.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: CustomFilterChip(
-                              label: exampleFilters[index],
-                              showColor: false,
-                              showBorder: true,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
           BlocBuilder<PlantBloc, PlantState>(
             builder: (context, state) {
               if (state is PlantLoading) {

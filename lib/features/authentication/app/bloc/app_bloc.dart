@@ -41,22 +41,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
     emit(AppAuthenticated());
   }
-  // Future<void> _handleAuthState(Emitter<AppState> emit) async {
-  //   await Future.delayed(const Duration(milliseconds: 150));
-
-  //   final loggedIn = await authRepository.isLoggedIn();
-  //   if (loggedIn) {
-  //     await userRepository.addOrUpdateUserData();
-
-  //     final userId = Supabase.instance.client.auth.currentUser!.id;
-
-  //     await cartRepository.initForUser(userId);
-
-  //     emit(AppAuthenticated());
-  //   } else {
-  //     emit(AppUnauthenticated());
-  //   }
-  // }
 
   Future<void> _onAppStarted(AppStarted event, Emitter<AppState> emit) async {
     final onboarded = await authRepository.isOnboardingCompleted();

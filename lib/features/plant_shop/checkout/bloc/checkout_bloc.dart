@@ -4,7 +4,6 @@ import 'package:plantify_plantshop_project/data/repositories/discount_repository
 import 'package:plantify_plantshop_project/data/repositories/order_repository.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/model/cart_item_model.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/order/model/order_model.dart';
-import 'package:plantify_plantshop_project/utils/constants/enums.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'checkout_event.dart';

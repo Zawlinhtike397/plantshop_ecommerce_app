@@ -67,7 +67,6 @@ class PlantCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      // AppProductPriceText(price: '${plant.salePrice}'),
                       AppProductPriceText(price: '${plant.originalPrice}'),
                     ],
                   ),

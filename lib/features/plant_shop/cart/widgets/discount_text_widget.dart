@@ -10,7 +10,6 @@ class DiscountTextWidget extends StatelessWidget {
     if (discountAmount == 0) {
       return const SizedBox.shrink();
     }
-    // hide if no discount
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

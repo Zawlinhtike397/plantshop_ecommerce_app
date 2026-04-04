@@ -44,7 +44,6 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    String cuponCode = 'ZORO';
 
     return Scaffold(
       appBar: AppBar(

@@ -7,10 +7,6 @@ class CartRepository {
   Box<AppliedCouponModel>? _couponBox;
 
   String? _currentUserId;
-  // final Box<CartItemModel> _cartBox = Hive.box<CartItemModel>('cartBox');
-  // final Box<AppliedCouponModel> _couponBox = Hive.box<AppliedCouponModel>(
-  //   'couponBox',
-  // );
 
   Future<void> initForUser(String userId) async {
     _currentUserId = userId;
@@ -29,10 +25,6 @@ class CartRepository {
   List<CartItemModel> getCartItems() {
     return _cartBox?.values.toList() ?? [];
   }
-
-  // int _findIndexById(int plantId) {
-  //   return _cartBox.values.toList().indexWhere((e) => e.plantId == plantId);
-  // }
 
   int _findIndexById(int plantId) {
     if (_cartBox == null) return -1;

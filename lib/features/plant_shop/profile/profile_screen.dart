@@ -13,7 +13,6 @@ import 'package:plantify_plantshop_project/features/plant_shop/favourite/favouri
 import 'package:plantify_plantshop_project/features/plant_shop/order/order_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/profile_detail_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
-import 'package:plantify_plantshop_project/load_data.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 import 'package:plantify_plantshop_project/utils/popups/shimmer_effect.dart';

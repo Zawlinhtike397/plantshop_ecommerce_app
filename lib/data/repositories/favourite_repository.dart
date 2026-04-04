@@ -1,5 +1,5 @@
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
-import 'package:plantify_plantshop_project/utils/storage/app_local_storage.dart';
+import 'package:plantify_plantshop_project/data/storage/app_local_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FavouriteRepository {
@@ -30,8 +30,6 @@ class FavouriteRepository {
         .from('plants')
         .select()
         .inFilter('id', ids);
-
-    // final data = response as List;
 
     return response.map((e) => PlantModel.fromJson(e)).toList();
   }

@@ -168,9 +168,6 @@ class _ChangeProfileFieldScreenState extends State<ChangeProfileFieldScreen> {
                         (provider) => provider != 'email',
                       );
 
-                      print('providers: $providers');
-                      print('hasOAuth: $hasOAuth');
-
                       if (hasOAuth) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(

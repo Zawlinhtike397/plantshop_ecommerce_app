@@ -81,8 +81,6 @@ class OrderRepository {
           .eq('user_id', userId)
           .order('created_at', ascending: false);
 
-      print("FETCH ORDERS RESPONSE: $response");
-
       return (response as List).map((e) => OrderModel.fromJson(e)).toList();
     } catch (e) {
       throw Exception("Failed to fetch orders: $e");
@@ -130,7 +128,6 @@ class OrderRepository {
           .eq('id', orderId)
           .single();
 
-      print("ORDER DETAIL RESPONSE: $response");
       return OrderModel.fromJson(response);
     } catch (e) {
       throw Exception("Failed to fetch order detail: $e");

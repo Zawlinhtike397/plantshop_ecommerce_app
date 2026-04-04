@@ -139,8 +139,6 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
 
       final newTotal = event.cartTotal - discountAmount;
 
-      print('newTotal is $newTotal');
-
       emit(
         currentState.copyWith(
           status: DiscountStatus.success,

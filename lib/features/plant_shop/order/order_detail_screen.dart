@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plantify_plantshop_project/common/user/bloc/user_bloc.dart';
-import 'package:plantify_plantshop_project/features/authentication/login/screen/login_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/order/bloc/order_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/order/widgets/order_detail_row.dart';
-import 'package:plantify_plantshop_project/features/plant_shop/order/widgets/order_detail_timeline.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_detail_image_slider.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 

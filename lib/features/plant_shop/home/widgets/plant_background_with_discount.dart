@@ -2,12 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 import 'package:plantify_plantshop_project/common/widgets/container/circular_container.dart';
-import 'package:plantify_plantshop_project/common/widgets/product/discount_tag.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/popups/shimmer_effect.dart';
 
 class PlantBackgroundWithDiscount extends StatelessWidget {
-  // final Map<String, Object> plantData;
   final PlantModel plantData;
   final bool isNetworkImage;
   const PlantBackgroundWithDiscount({
@@ -36,10 +34,6 @@ class PlantBackgroundWithDiscount extends StatelessWidget {
                 )
               : Image.asset(thumbnail, width: double.infinity),
         ),
-        // if (plantData.salePrice < plantData.originalPrice)
-        //   DiscountTag(
-        //     percentage: '${plantData.discountPercent.toStringAsFixed(0)}%',
-        //   ),
       ],
     );
   }

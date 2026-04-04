@@ -48,7 +48,6 @@ class AuthRepository {
 
       await saveToken(session.accessToken);
     } catch (e) {
-      print(e);
       throw ('Unexpected error: $e');
     }
   }

@@ -13,7 +13,6 @@ class DiscountRepository {
 
         await _supabase.from('discounts').upsert(jsonData);
       } catch (e) {
-        print('Error uploading discount ${json['id']}: $e');
         rethrow;
       }
     }
@@ -66,7 +65,7 @@ class DiscountRepository {
         .eq('user_id', userId);
 
     return response.isNotEmpty;
-  } //temporary
+  }
 
   Future<void> saveCouponUsage({
     required String userId,

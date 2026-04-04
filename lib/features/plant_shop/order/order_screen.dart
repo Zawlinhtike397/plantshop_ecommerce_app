@@ -75,8 +75,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         itemBuilder: (context, index) {
                           final order = state.orders[index];
 
-                          print("ORDER: ${order.toString()}");
-
                           String title = "Order";
                           String? thumnailImage;
 
@@ -94,9 +92,6 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                             }
                           }
 
-                          print(
-                            "USER NAME: ${Supabase.instance.client.auth.currentUser?.userMetadata}",
-                          );
                           final user =
                               Supabase
                                   .instance

@@ -25,7 +25,6 @@ class AddToCartButton extends StatelessWidget {
             CartItemModel(
               plantId: plant.id,
               name: plant.name,
-              // price: plant.salePrice,
               price: plant.originalPrice,
               image: plant.imageUrl.first,
             ),

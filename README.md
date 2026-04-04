@@ -1,4 +1,4 @@
-# plantify_plantshop_project
+# e_commerce_coding_with_t
 
 A new Flutter project.
 

@@ -142,23 +142,6 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    // RichText(
-                                    //   overflow: TextOverflow.ellipsis,
-                                    //   text: TextSpan(
-                                    //     text: 'Applies: ',
-                                    //     style: Theme.of(
-                                    //       context,
-                                    //     ).textTheme.bodyMedium,
-                                    //     children: <TextSpan>[
-                                    //       TextSpan(
-                                    //         text: discount.appliesTo,
-                                    //         style: Theme.of(
-                                    //           context,
-                                    //         ).textTheme.bodySmall,
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
                                     RichText(
                                       overflow: TextOverflow.ellipsis,
                                       text: TextSpan(
@@ -196,7 +179,6 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
                     ],
                   ),
 
-                  ///
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
