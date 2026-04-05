@@ -159,11 +159,15 @@ class _RegisterFormFieldsState extends State<RegisterFormFields> {
                 hintText: AppText.confirmPasswordHintText,
               ),
               validator: (value) {
-                if (value == widget.passwordController.text) {
-                  Validator.validatePassword(value);
-                } else {
-                  return 'password does not match';
+                if (value == null || value.isEmpty) {
+                  return 'Confirm password is required';
                 }
+
+                if (value != widget.passwordController.text) {
+                  return 'Passwords do not match';
+                }
+
+                return null;
               },
             ),
           ],

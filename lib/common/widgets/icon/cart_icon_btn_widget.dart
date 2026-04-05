@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/bloc/cart_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class CartIconBtnWidget extends StatelessWidget {
@@ -28,14 +29,7 @@ class CartIconBtnWidget extends StatelessWidget {
                 size: 25.0,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const CartScreen();
-                    },
-                  ),
-                );
+                context.read<NavigationCubit>().changeIndex(1);
               },
             ),
             if (totalQuantity > 0)

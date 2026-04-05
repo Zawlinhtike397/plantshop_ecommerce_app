@@ -11,7 +11,6 @@ class ProductDetailAppBar extends StatelessWidget {
       floating: true,
       snap: true,
       elevation: 0,
-      actions: [CartIconBtnWidget()],
     );
   }
 }

@@ -28,16 +28,33 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         return;
       }
 
-      await authRepository.register(
+      final isNewUser = await authRepository.register(
         email: event.email,
         password: event.password,
         name: event.name,
         phone: event.phone,
       );
 
+      if (!isNewUser) {
+        emit(
+          RegisterFailure(
+            'Account already exists. Please login with Google or email.',
+          ),
+        );
+        return;
+      }
+
       emit(RegisterEmailVerificationSent());
     } catch (e) {
-      emit(RegisterFailure(e.toString()));
+      final error = e.toString();
+
+      if (error.contains('already registered')) {
+        emit(
+          RegisterFailure('Email already in use. Try login or Google sign-in.'),
+        );
+      } else {
+        emit(RegisterFailure(error));
+      }
     }
   }
 }

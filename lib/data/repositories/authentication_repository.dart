@@ -93,7 +93,7 @@ class AuthRepository {
     }
   }
 
-  Future<void> register({
+  Future<bool> register({
     required String email,
     required String password,
     required String name,
@@ -112,6 +112,20 @@ class AuthRepository {
       if (user == null) {
         throw Exception('Registration failed');
       }
+
+      final identities = user.identities;
+
+      if (identities == null || identities.isEmpty) {
+        return false;
+      }
+
+      if (res.session != null) {
+        return false;
+      }
+
+      return true;
+    } on AuthException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
       throw Exception('Register error: $e');
     }

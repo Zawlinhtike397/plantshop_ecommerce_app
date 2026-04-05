@@ -19,6 +19,7 @@ class CartRepository {
     if (_couponBox == null || _couponBox!.isEmpty) {
       return null;
     }
+
     return _couponBox!.getAt(0);
   }
 

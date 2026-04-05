@@ -34,6 +34,8 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
                   ),
                 );
 
+                context.read<CartBloc>().add(LoadCartEvent());
+
                 showDialog(
                   context: context,
                   builder: (_) => AlertDialog(

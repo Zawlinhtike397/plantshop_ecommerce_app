@@ -106,7 +106,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                             orderId: order.id ?? '',
                             title: title,
                             date:
-                                "${order.createdAt!.day} ${order.createdAt!.month}, ${order.createdAt!.year}",
+                                "${order.createdAt!.day}, ${order.createdAt!.month}, ${order.createdAt!.year}",
                             name: user,
                             price:
                                 "${order.totalAmount.toStringAsFixed(0)} MMK",

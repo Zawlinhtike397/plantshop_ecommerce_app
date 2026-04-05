@@ -24,15 +24,21 @@ class ForgotPasswordBloc
     _initDeepLinks();
   }
 
+  bool _hasHandledLink = false;
+
   void _initDeepLinks() {
     linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      if (uri.queryParameters.containsKey('code')) {
+      if (!_hasHandledLink && uri.queryParameters.containsKey('code')) {
+        _hasHandledLink = true;
         add(VerifyResetLink(uri));
       }
     });
 
     _appLinks.getInitialLink().then((uri) {
-      if (uri != null && uri.queryParameters.containsKey('code')) {
+      if (!_hasHandledLink &&
+          uri != null &&
+          uri.queryParameters.containsKey('code')) {
+        _hasHandledLink = true;
         add(VerifyResetLink(uri));
       }
     });

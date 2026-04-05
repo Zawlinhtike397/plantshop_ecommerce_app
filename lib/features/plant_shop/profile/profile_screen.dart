@@ -10,6 +10,7 @@ import 'package:plantify_plantshop_project/features/plant_shop/address/screen/ad
 import 'package:plantify_plantshop_project/features/plant_shop/cart/cart_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/discount_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/favourite/favourite_screen.dart';
+import 'package:plantify_plantshop_project/features/plant_shop/navigation/navigation_cubit.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/order/order_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/profile_detail_screen.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/profile/widgets/profile_tile.dart';
@@ -168,28 +169,14 @@ class ProfileScreen extends StatelessWidget {
                         icon: Iconsax.heart,
                         text: 'Favourites',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return FavouriteScreen();
-                              },
-                            ),
-                          );
+                          context.read<NavigationCubit>().changeIndex(2);
                         },
                       ),
                       ProfileTile(
                         icon: Iconsax.shopping_bag,
                         text: 'My Shopping Cart',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return CartScreen();
-                              },
-                            ),
-                          );
+                          context.read<NavigationCubit>().changeIndex(1);
                         },
                       ),
                     ],

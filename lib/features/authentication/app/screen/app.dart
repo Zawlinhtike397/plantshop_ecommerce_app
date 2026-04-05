@@ -8,8 +8,21 @@ import 'package:plantify_plantshop_project/features/plant_shop/navigation/widget
 import 'package:plantify_plantshop_project/utils/network/bloc/network_bloc.dart';
 import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FlutterNativeSplash.remove();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +45,14 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             switch (state) {
               case AppInitial():
-                return const SizedBox();
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
               case AppOnboarding():
-                FlutterNativeSplash.remove();
                 return const OnboardingScreen();
               case AppUnauthenticated():
-                FlutterNativeSplash.remove();
                 return const LoginScreen();
               case AppAuthenticated():
-                FlutterNativeSplash.remove();
                 return const BottomNavigationMenu();
             }
           },

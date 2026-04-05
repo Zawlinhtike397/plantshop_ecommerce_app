@@ -143,48 +143,6 @@ class ProfileDetailScreen extends StatelessWidget {
                           onTap: null,
                         ),
                         const SizedBox(height: 16.0),
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Delete Account'),
-                                    content: const Text(
-                                      'Are you sure you want to delete your account? This action cannot be undone.',
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          context.read<UserBloc>().add(
-                                            DeleteUser(),
-                                          );
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text(
-                                          'Delete',
-                                          style: TextStyle(color: Colors.red),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: const Text(
-                              'Delete Account',
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 11.0,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

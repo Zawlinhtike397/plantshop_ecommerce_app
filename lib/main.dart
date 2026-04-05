@@ -62,7 +62,8 @@ Future<void> main() async {
         providers: [
           BlocProvider(
             create: (context) =>
-                PlantBloc(plantRepository: context.read<PlantRepository>()),
+                PlantBloc(plantRepository: context.read<PlantRepository>())
+                  ..add(LoadPlantsEvent()),
           ),
 
           BlocProvider(
@@ -90,7 +91,8 @@ Future<void> main() async {
           ),
           BlocProvider(
             create: (context) =>
-                OrderBloc(orderRepository: context.read<OrderRepository>()),
+                OrderBloc(orderRepository: context.read<OrderRepository>())
+                  ..add(FetchOrders()),
           ),
           BlocProvider(
             create: (context) => AppBloc(

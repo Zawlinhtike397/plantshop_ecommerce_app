@@ -45,9 +45,15 @@ class RegisterScreen extends StatelessWidget {
               break;
             case RegisterFailure(message: final message):
               FullscreenLoader.hide(context);
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(message)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    message.contains('already registered')
+                        ? 'This email is already registered.\nTry Google login or reset password.'
+                        : message,
+                  ),
+                ),
+              );
               break;
           }
         },
