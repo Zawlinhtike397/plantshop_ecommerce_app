@@ -78,7 +78,7 @@ flutter run
 ### 🎨 Theme and UX
 - Shimmer loading effects for better UX  
 - Use your phone theme (Change your phone theme to toggle dark mode)
-
+- lazy loading and inifite scroll with show more button
 
 ### 📱 Local Storage Usage
 
