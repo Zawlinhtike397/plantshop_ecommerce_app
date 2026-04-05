@@ -7,15 +7,15 @@ Plantify is a modern and user-friendly plant shop e-commerce mobile application 
 ## 📸 Screenshots (Test with dark theme)
 
 <p align="center">
-  <img src="screenshots/home_screen_plantify.jpg" width="30%" />
-  <img src="screenshots/search_plant_plantify.jpg" width="30%" />
-  <img src="screenshots/cart_screen_plantify.jpg" width="30%" />
+  <img src="screenshots/home_screen.jpg" width="30%" />
+  <img src="screenshots/search_plant.jpg" width="30%" />
+  <img src="screenshots/cart_screen.jpg" width="30%" />
 </p>
 
 <p align="center">
-  <img src="screenshots/checkout_screen_plantify.jpg" width="30%" />
-  <img src="screenshots/order_screen_plantify.jpg" width="30%" />
-  <img src="screenshots/order_detail_screen_plantify.jpg" width="30%" />
+  <img src="screenshots/checkout_screen.jpg" width="30%" />
+  <img src="screenshots/order_screen.jpg" width="30%" />
+  <img src="screenshots/order_detail_screen.jpg" width="30%" />
 </p>
 
 ## 📌 Purpose
