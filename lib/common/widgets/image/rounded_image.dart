@@ -51,6 +51,7 @@ class AppRoundedImage extends StatelessWidget {
           child: Center(
             child: isNetworkImage
                 ? CachedNetworkImage(
+                    key: ValueKey(imageUrl),
                     imageUrl: imageUrl,
                     fit: fit,
                     placeholder: (context, url) =>

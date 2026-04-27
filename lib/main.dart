@@ -77,7 +77,6 @@ Future<void> main() async {
               orderRepository: context.read<OrderRepository>(),
             ),
           ),
-
           BlocProvider(
             create: (context) => AddressBloc(
               addressRepository: context.read<AddressRepository>(),

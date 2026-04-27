@@ -145,9 +145,12 @@ class UserRepository {
         .from('profile_picture')
         .getPublicUrl('users/$fileName');
 
+    final updatedImageUrl =
+        '$imageUrl?t=${DateTime.now().millisecondsSinceEpoch}';
+
     await _supabase
         .from('Users')
-        .update({'profile_picture': imageUrl})
+        .update({'profile_picture': updatedImageUrl})
         .eq('user_id', user!.id);
 
     final updatedData = await _supabase
