@@ -23,7 +23,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _handleAuthState(Emitter<AppState> emit) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    // await Future.delayed(const Duration(milliseconds: 400));
 
     final loggedIn = await authRepository.isLoggedIn();
 
