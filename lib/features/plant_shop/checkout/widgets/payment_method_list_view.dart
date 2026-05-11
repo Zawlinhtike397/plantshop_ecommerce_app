@@ -18,21 +18,6 @@ class _PaymentMethodSliverListState extends State<PaymentMethodSliverList> {
     PaymentModel(id: 'cb_1', name: 'CB Pay', image: ImageStrings.cbPayLogo),
     PaymentModel(id: 'aya_1', name: 'Aya Pay', image: ImageStrings.ayaPayLogo),
     PaymentModel(id: 'kbz_1', name: 'KBZ Pay', image: ImageStrings.kbzPayLogo),
-    PaymentModel(
-      id: 'wave_1',
-      name: 'Wave Money',
-      image: ImageStrings.waveMoneyLogo,
-    ),
-    PaymentModel(id: 'cb_2', name: 'CB Pay', image: ImageStrings.cbPayLogo),
-    PaymentModel(id: 'aya_2', name: 'Aya Pay', image: ImageStrings.ayaPayLogo),
-    PaymentModel(id: 'kbz_2', name: 'KBZ Pay', image: ImageStrings.kbzPayLogo),
-    PaymentModel(
-      id: 'wave_2',
-      name: 'Wave Money',
-      image: ImageStrings.waveMoneyLogo,
-    ),
-    PaymentModel(id: 'cb_3', name: 'CB Pay', image: ImageStrings.cbPayLogo),
-    PaymentModel(id: 'aya_3', name: 'Aya Pay', image: ImageStrings.ayaPayLogo),
   ];
 
   @override

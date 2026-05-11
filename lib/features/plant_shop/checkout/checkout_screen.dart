@@ -126,7 +126,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 20,
-                              vertical: 10,
+                              vertical: 5,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,14 +160,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           return Center(child: Text(state.message));
                         }
 
-                        return const SizedBox(child: Text('sljofsoifj'));
+                        return const SizedBox();
                       },
-                      // child:
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 20.0,
+                      ),
                       child: HeadingWidget(name: 'Payment Method'),
                     ),
                   ),
@@ -186,7 +188,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ],
               ),
-
               Align(
                 alignment: Alignment.bottomCenter,
                 child: CheckoutBottomSheet(

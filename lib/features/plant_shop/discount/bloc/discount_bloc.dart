@@ -60,6 +60,16 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
 
       if (currentState is! DiscountLoaded) return;
 
+      if (currentState.appliedDiscount != null) {
+        emit(
+          currentState.copyWith(
+            status: DiscountStatus.error,
+            message: "A coupon is already applied",
+          ),
+        );
+        return;
+      }
+
       final discount = await discountRepository.getDiscountByCode(event.code);
 
       if (discount == null) {
@@ -138,6 +148,11 @@ class DiscountBloc extends Bloc<DiscountEvent, DiscountState> {
       final discountAmount = (event.cartTotal * discount.percentage) / 100;
 
       final newTotal = event.cartTotal - discountAmount;
+
+      await discountRepository.saveCouponUsage(
+        userId: event.userId,
+        code: event.code,
+      );
 
       emit(
         currentState.copyWith(

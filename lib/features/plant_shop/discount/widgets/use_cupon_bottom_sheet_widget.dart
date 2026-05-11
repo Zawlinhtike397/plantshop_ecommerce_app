@@ -27,6 +27,8 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
           listener: (context, state) {
             if (state is DiscountLoaded) {
               if (state.status == DiscountStatus.success) {
+                Navigator.pop(context);
+
                 context.read<CartBloc>().add(
                   ApplyDiscountEvent(
                     discountAmount: state.discountAmount!,
@@ -58,171 +60,192 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
               }
             }
           },
-          builder: (context, state) => SingleChildScrollView(
-            controller: scrollController,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-              child: Column(
-                spacing: 25.0,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Iconsax.tag, color: AppColor.primary, size: 40),
-                      const SizedBox(width: 12),
+          builder: (context, state) {
+            bool alreadyApplied = false;
 
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 25.0,
-                          children: [
-                            Column(
-                              spacing: 20.0,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  discount.title,
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleMedium,
-                                ),
+            if (state is DiscountLoaded) {
+              alreadyApplied = state.appliedDiscount != null;
+            }
 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  spacing: 7.0,
-                                  children: [
-                                    RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      text: TextSpan(
-                                        text: 'Code: ',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyMedium,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: discount.code,
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.bodySmall,
-                                          ),
-                                        ],
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 30,
+                  horizontal: 20,
+                ),
+                child: Column(
+                  spacing: 25.0,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Iconsax.tag, color: AppColor.primary, size: 40),
+                        const SizedBox(width: 12),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 25.0,
+                            children: [
+                              Column(
+                                spacing: 20.0,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    discount.title,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleMedium,
+                                  ),
+
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: 7.0,
+                                    children: [
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'Code: ',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: discount.code,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      text: TextSpan(
-                                        text: 'Discount Percentage: ',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyMedium,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: '${discount.percentage}%',
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.bodySmall,
-                                          ),
-                                        ],
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'Discount Percentage: ',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '${discount.percentage}%',
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      text: TextSpan(
-                                        text: 'Requirement: ',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyMedium,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text:
-                                                'Buy for at least ${discount.minAmount} or more',
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.bodySmall,
-                                          ),
-                                        ],
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'Requirement: ',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text:
+                                                  'Buy for at least ${discount.minAmount} or more',
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      text: TextSpan(
-                                        text: 'Valid Until: ',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyMedium,
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text:
-                                                '${discount.validUntil.day}.${discount.validUntil.month}.${discount.validUntil.year}',
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.bodySmall,
-                                          ),
-                                        ],
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        text: TextSpan(
+                                          text: 'Valid Until: ',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium,
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text:
+                                                  '${discount.validUntil.day}.${discount.validUntil.month}.${discount.validUntil.year}',
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                    ],
+                                  ),
+                                ],
+                              ),
 
-                            Column(
-                              spacing: 20.0,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HeadingWidget(name: 'Rules'),
-                                UnorderedList(texts: discount.rules),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final userState = context.read<UserBloc>().state;
-                        final cartState = context.read<CartBloc>().state;
-
-                        if (userState is! UserLoaded ||
-                            cartState is! CartLoaded) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Something went wrong"),
-                            ),
-                          );
-                          return;
-                        }
-
-                        final userId = userState.user.id;
-                        final cartTotal = cartState.total;
-
-                        context.read<DiscountBloc>().add(
-                          ApplyCoupon(
-                            userId: userId,
-                            code: discount.code,
-                            cartTotal: cartTotal,
+                              Column(
+                                spacing: 20.0,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  HeadingWidget(name: 'Rules'),
+                                  UnorderedList(texts: discount.rules),
+                                ],
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColor.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 17),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: alreadyApplied
+                            ? null
+                            : () {
+                                final userState = context
+                                    .read<UserBloc>()
+                                    .state;
+                                final cartState = context
+                                    .read<CartBloc>()
+                                    .state;
+
+                                if (userState is! UserLoaded ||
+                                    cartState is! CartLoaded) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Something went wrong"),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                final userId = userState.user.id;
+                                final cartTotal = cartState.total;
+
+                                context.read<DiscountBloc>().add(
+                                  ApplyCoupon(
+                                    userId: userId,
+                                    code: discount.code,
+                                    cartTotal: cartTotal,
+                                  ),
+                                );
+                              },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.primary,
+                          padding: const EdgeInsets.symmetric(vertical: 17),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        child: Text(
+                          alreadyApplied ? 'Can\'t use now' : 'Use Cupon Code',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      child: const Text('Use Cupon Code'),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );

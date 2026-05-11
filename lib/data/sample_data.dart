@@ -10,7 +10,7 @@ final discounts = [
     'minAmount': 20000,
     'isActive': true,
     'firstTimeOnly': true,
-    'valid_until': DateTime(2026, 4, 24).toIso8601String(),
+    'valid_until': DateTime(2026, 9, 24).toIso8601String(),
     'rules': [
       'Use before expiration date',
       'Only for first purchase',

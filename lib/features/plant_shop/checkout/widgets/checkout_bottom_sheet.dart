@@ -53,7 +53,7 @@ class CheckoutBottomSheet extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      '\$${subTotalValue.toStringAsFixed(2)}',
+                      '${subTotalValue.toStringAsFixed(2)} MMK',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
@@ -66,7 +66,7 @@ class CheckoutBottomSheet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Discount'),
-                    Text('- \$${discountAmount.toStringAsFixed(2)}'),
+                    Text('- ${discountAmount.toStringAsFixed(2)}'),
                   ],
                 ),
 
@@ -96,7 +96,7 @@ class CheckoutBottomSheet extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      '\$${totalValue.toStringAsFixed(2)}',
+                      '${totalValue.toStringAsFixed(2)} MMK',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
