@@ -2,7 +2,7 @@
 
 Plantify is a modern and user-friendly plant shop e-commerce mobile application built with Flutter. This project follows featured-first folder structure. User can browse plants, add plants to wishlist, add plants to cart, perform checkout (not include real-world payment integration) and see order history. Below is my built apk file.
 
-🔗 **Built APK version of app:** https://github.com/Zawlinhtike397/plantshop_ecommerce_app/releases/tag/v1.0.0
+🔗 **Built APK version of app:** https://github.com/Zawlinhtike397/plantshop_ecommerce_app/releases/tag/v1.0.2
 
 ## 📸 Screenshots (Test with dark theme)
 
