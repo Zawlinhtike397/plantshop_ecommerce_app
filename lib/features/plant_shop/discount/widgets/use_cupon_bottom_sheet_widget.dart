@@ -31,8 +31,9 @@ class UseCuponBottomSheetWidget extends StatelessWidget {
 
                 context.read<CartBloc>().add(
                   ApplyDiscountEvent(
-                    discountAmount: state.discountAmount!,
+                    percentage: state.appliedDiscount!.percentage,
                     code: state.appliedDiscount!.code,
+                    minAmount: state.appliedDiscount!.minAmount,
                   ),
                 );
 

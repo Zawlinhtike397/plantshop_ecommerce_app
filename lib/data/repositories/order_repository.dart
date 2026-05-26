@@ -28,6 +28,27 @@ class OrderRepository {
       }).toList();
 
       await supabase.from('order_items').insert(orderItems);
+
+      for (final item in items) {
+        final plantResponse = await supabase
+            .from('plants')
+            .select('stock')
+            .eq('id', item.plantId)
+            .single();
+
+        final currentStock = plantResponse['stock'] ?? 0;
+
+        if (currentStock < item.quantity) {
+          throw Exception('Not enough stock for plant  ${item.name}');
+        }
+
+        final updatedStock = currentStock - item.quantity;
+
+        await supabase
+            .from('plants')
+            .update({'stock': updatedStock})
+            .eq('id', item.plantId);
+      }
     } catch (e) {
       throw Exception("Failed to place order: $e");
     }

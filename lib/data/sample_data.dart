@@ -107,7 +107,7 @@ final plants = [
     'imageUrl': [ImageStrings.peperomiaPlant],
     'description':
         'Peperomia are small, low-maintenance houseplants with varied, attractive leaves, thriving in indirect light and humidity.',
-    'stock': 100,
+    'stock': 50,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -148,7 +148,7 @@ final plants = [
     'imageUrl': [ImageStrings.plamPlant],
     'description':
         'Areca Palm is a popular indoor plant known for its feathery, arching green fronds that bring a tropical feel to any space. It is also known for improving indoor air quality and is easy to maintain.',
-    'stock': 180,
+    'stock': 40,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -189,7 +189,7 @@ final plants = [
     'imageUrl': [ImageStrings.lushGreen],
     'description':
         'Green Echeveria agavoides is a compact, rosette-forming succulent with pointed, fleshy green leaves that resemble an agave.',
-    'stock': 180,
+    'stock': 30,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -230,7 +230,7 @@ final plants = [
     'imageUrl': [ImageStrings.monsteraPlant],
     'description':
         'Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical houseplant famous for its large, glossy green leaves with natural splits and holes. It is a popular decorative plant that adds a lush, jungle-like feel to indoor spaces.',
-    'stock': 180,
+    'stock': 20,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -271,7 +271,7 @@ final plants = [
     'imageUrl': [ImageStrings.pinkAzalea],
     'description':
         'Pink Azalea is a beautiful flowering shrub known for its vibrant pink blossoms and lush green foliage. It is commonly grown in gardens and patios, bringing bright seasonal color and elegance to outdoor spaces.',
-    'stock': 180,
+    'stock': 10,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -311,7 +311,7 @@ final plants = [
     'imageUrl': [ImageStrings.cherryBlosom],
     'description':
         'Cherry Blossom is a famous ornamental tree known for its stunning pink or white flowers that bloom in spring. These delicate blossoms create breathtaking landscapes and symbolize beauty and renewal.',
-    'stock': 180,
+    'stock': 15,
     'careGuide': {
       'light': {
         'title': 'Light',
@@ -351,7 +351,7 @@ final plants = [
     'imageUrl': [ImageStrings.hangingPlant],
     'description':
         'Hanging plants are beautiful trailing houseplants that grow gracefully from hanging baskets or pots. Their cascading vines make them perfect for decorating balconies, windows, and indoor spaces.',
-    'stock': 180,
+    'stock': 40,
     'careGuide': {
       'light': {
         'title': 'Light',

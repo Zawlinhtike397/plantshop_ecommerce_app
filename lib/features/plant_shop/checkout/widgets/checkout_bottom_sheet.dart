@@ -50,11 +50,11 @@ class CheckoutBottomSheet extends StatelessWidget {
                   children: [
                     Text(
                       'Sub total',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text(
-                      '${subTotalValue.toStringAsFixed(2)} MMK',
-                      style: Theme.of(context).textTheme.titleSmall,
+                      '${subTotalValue.toStringAsFixed(0)} MMK',
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
                 ),
@@ -65,8 +65,14 @@ class CheckoutBottomSheet extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Discount'),
-                    Text('- ${discountAmount.toStringAsFixed(2)}'),
+                    Text(
+                      'Discount',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    Text(
+                      '- ${discountAmount.toStringAsFixed(0)} MMK',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ],
                 ),
 
@@ -75,8 +81,14 @@ class CheckoutBottomSheet extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Delivery Fee'),
-                  Text('${deliveryFee.toStringAsFixed(0)} MMK'),
+                  Text(
+                    'Delivery Fee',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    '${deliveryFee.toStringAsFixed(0)} MMK',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                 ],
               ),
 
@@ -96,7 +108,7 @@ class CheckoutBottomSheet extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      '${totalValue.toStringAsFixed(2)} MMK',
+                      '${totalValue.toStringAsFixed(0)} MMK',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],

@@ -18,18 +18,21 @@ class AppliedCouponModelAdapter extends TypeAdapter<AppliedCouponModel> {
     };
     return AppliedCouponModel(
       code: fields[0] as String,
-      discountAmount: (fields[1] as num).toDouble(),
+      percentage: (fields[2] as num).toDouble(),
+      minAmount: (fields[3] as num).toInt(),
     );
   }
 
   @override
   void write(BinaryWriter writer, AppliedCouponModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.code)
-      ..writeByte(1)
-      ..write(obj.discountAmount);
+      ..writeByte(2)
+      ..write(obj.percentage)
+      ..writeByte(3)
+      ..write(obj.minAmount);
   }
 
   @override

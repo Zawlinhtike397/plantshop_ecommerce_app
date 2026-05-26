@@ -76,4 +76,15 @@ class DiscountRepository {
       'cupon_code': code,
     });
   }
+
+  Future<void> removeCouponUsage({
+    required String userId,
+    required String code,
+  }) async {
+    await _supabase
+        .from('user_coupon_usage')
+        .delete()
+        .eq('user_id', userId)
+        .eq('cupon_code', code);
+  }
 }

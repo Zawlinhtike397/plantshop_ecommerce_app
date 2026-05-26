@@ -108,9 +108,10 @@ Future<void> main() async {
             )..add(LoadUser()),
           ),
           BlocProvider(
-            create: (context) =>
-                CartBloc(cartRepository: context.read<CartRepository>())
-                  ..add(LoadCartEvent()),
+            create: (context) => CartBloc(
+              cartRepository: context.read<CartRepository>(),
+              discountRepository: context.read<DiscountRepository>(),
+            )..add(LoadCartEvent()),
           ),
           BlocProvider(
             create: (context) => ForgotPasswordBloc(

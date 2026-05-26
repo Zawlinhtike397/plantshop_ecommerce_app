@@ -2,7 +2,7 @@ class DiscountModel {
   final int id;
   final String title;
   final String code;
-  final int percentage;
+  final double percentage;
   final int minAmount;
   final DateTime validUntil;
   final bool isActive;
@@ -47,7 +47,7 @@ class DiscountModel {
       id: json['id'],
       title: json['title'],
       code: json['code'],
-      percentage: json['percentage'],
+      percentage: (json['percentage'] as num).toDouble(),
       minAmount: (json['minAmount'] as num).toInt(),
       validUntil: DateTime.parse(json['valid_until']),
       rules: rulesList,

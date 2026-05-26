@@ -101,12 +101,12 @@ class CartRepository {
     await _cartBox?.clear();
   }
 
-  void saveCoupon(AppliedCouponModel coupon) {
-    _couponBox?.clear();
-    _couponBox?.add(coupon);
+  Future<void> saveCoupon(AppliedCouponModel coupon) async {
+    await _couponBox?.clear();
+    await _couponBox?.add(coupon);
   }
 
-  void clearCoupon() {
-    _couponBox?.clear();
+  Future<void> clearCoupon() async {
+    await _couponBox?.clear();
   }
 }

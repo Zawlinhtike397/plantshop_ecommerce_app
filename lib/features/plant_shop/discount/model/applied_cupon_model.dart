@@ -7,8 +7,15 @@ class AppliedCouponModel extends HiveObject {
   @HiveField(0)
   final String code;
 
-  @HiveField(1)
-  final double discountAmount;
+  @HiveField(2)
+  final double percentage;
 
-  AppliedCouponModel({required this.code, required this.discountAmount});
+  @HiveField(3)
+  final int? minAmount;
+
+  AppliedCouponModel({
+    required this.code,
+    required this.percentage,
+    this.minAmount,
+  });
 }

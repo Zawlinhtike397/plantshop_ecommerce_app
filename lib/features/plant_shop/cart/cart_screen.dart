@@ -63,8 +63,9 @@ class _CartScreenState extends State<CartScreen> {
             if (state.status == DiscountStatus.success) {
               context.read<CartBloc>().add(
                 ApplyDiscountEvent(
-                  discountAmount: state.discountAmount!,
+                  percentage: state.appliedDiscount!.percentage,
                   code: state.appliedDiscount!.code,
+                  minAmount: state.appliedDiscount!.minAmount,
                 ),
               );
 

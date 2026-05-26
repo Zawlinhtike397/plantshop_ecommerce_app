@@ -34,10 +34,18 @@ class DecreaseQtyEvent extends CartEvent {
 }
 
 class ApplyDiscountEvent extends CartEvent {
-  final double discountAmount;
+  final double percentage;
   final String code;
+  final int minAmount;
 
-  const ApplyDiscountEvent({required this.discountAmount, required this.code});
+  const ApplyDiscountEvent({
+    required this.percentage,
+    required this.code,
+    required this.minAmount,
+  });
+
+  @override
+  List<Object> get props => [percentage, code, minAmount];
 }
 
 class ClearCartEvent extends CartEvent {}
