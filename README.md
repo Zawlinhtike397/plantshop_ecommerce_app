@@ -68,7 +68,7 @@ flutter run
 
 ### 📦 Orders
 - Fetch and display user orders  
-- Order history screen  
+- Order details screen (currently fixing an error)
 
 ### ⚙️ Profile Management
 - Edit user profile  
