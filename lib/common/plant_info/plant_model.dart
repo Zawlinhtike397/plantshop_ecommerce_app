@@ -1,18 +1,19 @@
 import 'package:plantify_plantshop_project/common/plant_info/care_guide_model.dart';
 
 class PlantModel {
-  int id;
+  String id;
   String name;
   double originalPrice;
   String height;
   String category;
   int stock;
-  String temperature;
+  List<int> temperature;
   String pot;
   String thumbnailImg;
   List<String> imageUrl;
   String description;
   Map<String, CareGuideModel>? careGuide;
+  bool? isActive;
 
   PlantModel({
     required this.id,
@@ -27,16 +28,17 @@ class PlantModel {
     required this.imageUrl,
     required this.description,
     this.careGuide,
+    this.isActive,
   });
 
   static PlantModel empty() => PlantModel(
-    id: 0,
+    id: '',
     name: '',
     originalPrice: 0.0,
     height: '',
     category: '',
     stock: 3,
-    temperature: '',
+    temperature: [],
     pot: '',
     thumbnailImg: '',
     imageUrl: [],
@@ -62,11 +64,13 @@ class PlantModel {
           'description': value.description,
         }),
       ),
+      'isActive': isActive,
     };
   }
 
   factory PlantModel.fromJson(Map<String, dynamic> json) {
     Map<String, CareGuideModel>? careGuideMap;
+
     if (json['careGuide'] != null) {
       careGuideMap = (json['careGuide'] as Map<String, dynamic>).map(
         (key, value) => MapEntry(
@@ -80,13 +84,17 @@ class PlantModel {
     }
 
     return PlantModel(
-      id: (json['id'] as num?)?.toInt() ?? 0,
+      id: json['id']?.toString() ?? '',
       name: json['name']?.toString() ?? '',
       originalPrice: (json['price'] ?? 0).toDouble() ?? 0.0,
       height: json['height']?.toString() ?? '',
       category: json['category']?.toString() ?? '',
       stock: (json['stock'] as num?)?.toInt() ?? 0,
-      temperature: json['temperature']?.toString() ?? '',
+      temperature:
+          (json['temperature'] as List)
+              .map((e) => int.tryParse(e.toString()) ?? 0)
+              .toList() ??
+          <int>[],
       pot: json['pot']?.toString() ?? '',
       thumbnailImg: json['thumbnailImg']?.toString() ?? '',
       imageUrl: json['imageUrl'] != null
@@ -94,6 +102,7 @@ class PlantModel {
           : [],
       description: json['description']?.toString() ?? '',
       careGuide: careGuideMap,
+      isActive: json['isActive'] ?? false,
     );
   }
 }

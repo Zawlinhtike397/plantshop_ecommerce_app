@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
+import 'package:plantify_plantshop_project/data/sample_data.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/plant_info_bottom_sheet.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_care_instruction_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/plant_details/widget/product_category_text.dart';
@@ -59,7 +60,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                         ProductCategoryText(plantData: widget.plant),
                         const SizedBox(height: 20),
 
-                        ProductStockStatus(),
+                        ProductStockStatus(plant: widget.plant),
                         const SizedBox(height: 20),
 
                         ProductCareInstructionWidget(plantData: widget.plant),

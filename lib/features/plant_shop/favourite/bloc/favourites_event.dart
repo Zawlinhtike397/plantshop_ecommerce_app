@@ -10,7 +10,7 @@ sealed class FavouritesEvent extends Equatable {
 final class LoadFavouritesEvent extends FavouritesEvent {}
 
 final class ToggleFavouriteEvent extends FavouritesEvent {
-  final int plantId;
+  final String plantId;
 
   const ToggleFavouriteEvent(this.plantId);
 

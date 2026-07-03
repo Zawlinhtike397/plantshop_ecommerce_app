@@ -5,12 +5,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class FavouriteRepository {
   final _supabase = Supabase.instance.client;
 
-  Future<List<int>> getFavouriteIds() async {
+  Future<List<String>> getFavouriteIds() async {
     return await AppLocalStorage.getFavouriteIds();
   }
 
-  Future<void> toggleFavourite(int plantId) async {
-    List<int> ids = await AppLocalStorage.getFavouriteIds();
+  Future<void> toggleFavourite(String plantId) async {
+    List<String> ids = await AppLocalStorage.getFavouriteIds();
 
     if (ids.contains(plantId)) {
       ids.remove(plantId);
@@ -22,7 +22,7 @@ class FavouriteRepository {
   }
 
   Future<List<PlantModel>> getFavouritePlants() async {
-    List<int> ids = await AppLocalStorage.getFavouriteIds();
+    List<String> ids = await AppLocalStorage.getFavouriteIds();
 
     if (ids.isEmpty) return [];
 
@@ -34,8 +34,8 @@ class FavouriteRepository {
     return response.map((e) => PlantModel.fromJson(e)).toList();
   }
 
-  Future<bool> isFavourite(int plantId) async {
-    List<int> ids = await AppLocalStorage.getFavouriteIds();
+  Future<bool> isFavourite(String plantId) async {
+    List<String> ids = await AppLocalStorage.getFavouriteIds();
     return ids.contains(plantId);
   }
 }

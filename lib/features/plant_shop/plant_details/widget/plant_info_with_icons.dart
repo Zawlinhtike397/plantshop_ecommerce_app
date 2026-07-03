@@ -25,7 +25,7 @@ class PlantInfoWithIcons extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                plantData.height,
+                '${plantData.height}cm',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
@@ -47,7 +47,7 @@ class PlantInfoWithIcons extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                plantData.temperature,
+                '${plantData.temperature.first} °C to ${plantData.temperature.last}°C',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,

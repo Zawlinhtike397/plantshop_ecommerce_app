@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plantify_plantshop_project/features/authentication/forgot_password/bloc/forgot_password_bloc.dart';
-import 'package:plantify_plantshop_project/features/authentication/forgot_password/reset_password_screen.dart';
+import 'package:plantify_plantshop_project/features/authentication/forgot_password/screens/reset_password_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 

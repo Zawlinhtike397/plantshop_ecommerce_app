@@ -27,7 +27,7 @@ class CartRepository {
     return _cartBox?.values.toList() ?? [];
   }
 
-  int _findIndexById(int plantId) {
+  int _findIndexById(String plantId) {
     if (_cartBox == null) return -1;
 
     for (int i = 0; i < _cartBox!.length; i++) {
@@ -52,7 +52,7 @@ class CartRepository {
     }
   }
 
-  void removeItem(int plantId) {
+  void removeItem(String plantId) {
     if (_cartBox == null) return;
 
     final index = _findIndexById(plantId);
@@ -61,7 +61,7 @@ class CartRepository {
     }
   }
 
-  void increaseQty(int plantId) {
+  void increaseQty(String plantId) {
     if (_cartBox == null) return;
     final index = _findIndexById(plantId);
     if (index == -1) return;
@@ -71,7 +71,7 @@ class CartRepository {
     item.save();
   }
 
-  void decreaseQty(int plantId) {
+  void decreaseQty(String plantId) {
     if (_cartBox == null) return;
 
     final index = _findIndexById(plantId);

@@ -19,7 +19,7 @@ class AppliedCouponModelAdapter extends TypeAdapter<AppliedCouponModel> {
     return AppliedCouponModel(
       code: fields[0] as String,
       percentage: (fields[2] as num).toDouble(),
-      minAmount: (fields[3] as num).toInt(),
+      minAmount: (fields[3] as num?)?.toInt(),
     );
   }
 

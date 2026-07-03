@@ -1,9 +1,11 @@
 import 'package:plantify_plantshop_project/data/sample_data.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/model/discount_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 class DiscountRepository {
   final _supabase = Supabase.instance.client;
+  final _uuid = const Uuid();
 
   Future<void> uploadDiscounts() async {
     for (var json in discounts) {
@@ -20,10 +22,7 @@ class DiscountRepository {
 
   Future<List<DiscountModel>> fetchDiscounts() async {
     try {
-      final response = await _supabase
-          .from('discounts')
-          .select()
-          .order('id', ascending: true);
+      final response = await _supabase.from('discounts').select();
 
       final data = response as List<dynamic>;
 
@@ -72,6 +71,7 @@ class DiscountRepository {
     required String code,
   }) async {
     await _supabase.from('user_coupon_usage').insert({
+      'id': _uuid.v4(),
       'user_id': userId,
       'cupon_code': code,
     });

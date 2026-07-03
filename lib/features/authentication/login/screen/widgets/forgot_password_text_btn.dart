@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plantify_plantshop_project/features/authentication/forgot_password/forgot_password_screen.dart';
+import 'package:plantify_plantshop_project/features/authentication/forgot_password/screens/forgot_password_screen.dart';
 import 'package:plantify_plantshop_project/utils/constants/text_strings.dart';
 import 'package:plantify_plantshop_project/utils/themes/app_theme.dart';
 

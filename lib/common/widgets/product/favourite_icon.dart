@@ -4,7 +4,7 @@ import 'package:plantify_plantshop_project/features/plant_shop/favourite/bloc/fa
 import 'package:plantify_plantshop_project/utils/constants/colors.dart';
 
 class FavouriteIcon extends StatelessWidget {
-  final int plantId;
+  final String plantId;
 
   const FavouriteIcon({super.key, required this.plantId});
 

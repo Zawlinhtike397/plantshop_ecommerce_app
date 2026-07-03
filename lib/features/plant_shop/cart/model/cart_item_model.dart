@@ -5,7 +5,7 @@ part 'cart_item_model.g.dart';
 @HiveType(typeId: 0)
 class CartItemModel extends HiveObject {
   @HiveField(0)
-  final int plantId;
+  final String plantId;
 
   @HiveField(1)
   final String name;

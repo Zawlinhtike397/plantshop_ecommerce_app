@@ -27,7 +27,6 @@ class ProfileScreen extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserInitial || state is UserLoggedOut) {
-          // Force navigation reset
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (_) => const MyApp()),

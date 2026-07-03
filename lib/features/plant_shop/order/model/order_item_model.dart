@@ -3,7 +3,7 @@ import 'package:plantify_plantshop_project/common/plant_info/plant_model.dart';
 class OrderItemModel {
   final String? id;
   final String orderId;
-  final int plantId;
+  final String plantId;
   final int quantity;
   final double price;
   PlantModel? plant;
@@ -31,7 +31,7 @@ class OrderItemModel {
     return OrderItemModel(
       id: json['id']?.toString(),
       orderId: json['order_id']?.toString() ?? '',
-      plantId: (json['plant_id'] as num?)?.toInt() ?? 0,
+      plantId: json['plant_id']?.toString() ?? '',
       quantity: (json['quantity'] as num?)?.toInt() ?? 0,
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       plant: json['plants'] != null

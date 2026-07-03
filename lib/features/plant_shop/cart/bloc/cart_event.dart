@@ -16,19 +16,19 @@ class AddToCartEvent extends CartEvent {
 }
 
 class RemoveCartItemEvent extends CartEvent {
-  final int plantId;
+  final String plantId;
 
   const RemoveCartItemEvent(this.plantId);
 }
 
 class IncreaseQtyEvent extends CartEvent {
-  final int plantId;
+  final String plantId;
 
   const IncreaseQtyEvent(this.plantId);
 }
 
 class DecreaseQtyEvent extends CartEvent {
-  final int plantId;
+  final String plantId;
 
   const DecreaseQtyEvent(this.plantId);
 }

@@ -1,5 +1,7 @@
+import 'package:uuid/uuid.dart';
+
 class DiscountModel {
-  final int id;
+  final String id;
   final String title;
   final String code;
   final double percentage;
@@ -43,8 +45,13 @@ class DiscountModel {
       }
     }
 
+    String parsedId = const Uuid().v4();
+    if (json['id'] != null) {
+      parsedId = json['id'] is int ? const Uuid().v4() : json['id'].toString();
+    }
+
     return DiscountModel(
-      id: json['id'],
+      id: parsedId,
       title: json['title'],
       code: json['code'],
       percentage: (json['percentage'] as num).toDouble(),
