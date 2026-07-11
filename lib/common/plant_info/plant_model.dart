@@ -86,12 +86,12 @@ class PlantModel {
     return PlantModel(
       id: json['id']?.toString() ?? '',
       name: json['name']?.toString() ?? '',
-      originalPrice: (json['price'] ?? 0).toDouble() ?? 0.0,
+      originalPrice: ((json['price']) as num?)?.toDouble() ?? 0.0,
       height: json['height']?.toString() ?? '',
       category: json['category']?.toString() ?? '',
       stock: (json['stock'] as num?)?.toInt() ?? 0,
       temperature:
-          (json['temperature'] as List)
+          (json['temperature'] as List?)!
               .map((e) => int.tryParse(e.toString()) ?? 0)
               .toList() ??
           <int>[],

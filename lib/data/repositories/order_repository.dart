@@ -58,47 +58,7 @@ class OrderRepository {
     try {
       final response = await supabase
           .from('orders')
-          .select('''
-          id,
-          user_id,
-          address_id,
-          payment_method,
-          total,
-          subtotal,
-          discount,
-          delivery_fee,
-          status,
-          created_at,
-          address:address_id (
-            id,
-            user_id,
-            contact_name,
-            phone,
-            home_no,
-            street,
-            city
-          ),
-          order_items (
-            id,
-            order_id,
-            plant_id,
-            quantity,
-            price,
-            plants (
-            id,
-            name,
-            price,
-            height,
-            category,
-            stock,
-            temperature,
-            pot,
-            thumbnailImg,
-            imageUrl,
-            description
-            )
-          )
-        ''')
+          .select('*,address:address_id (*),order_items (*, plants (*))')
           .eq('user_id', userId)
           .order('created_at', ascending: false);
 
@@ -113,37 +73,11 @@ class OrderRepository {
       final response = await supabase
           .from('orders')
           .select('''
-          id,
-          user_id,
-          address_id,
-          payment_method,
-          total,
-          subtotal,
-          discount,
-          delivery_fee,
-          status,
-          created_at,
-           address:address_id (
-            id,
-            user_id,
-            contact_name,
-            phone,
-            home_no,
-            street,
-            city
-          ),
+          *,
+           address:address_id (*),
           order_items (
-            id,
-            order_id,
-            plant_id,
-            quantity,
-            price,
-            plants (
-              id,
-              name,
-              imageUrl,
-              thumbnailImg
-            )
+            *,
+            plants (*)
           )
         ''')
           .eq('id', orderId)
