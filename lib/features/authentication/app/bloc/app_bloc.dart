@@ -17,9 +17,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     required this.userRepository,
     required this.cartRepository,
   }) : super(AppInitial()) {
-    Supabase.instance.client.auth.onAuthStateChange.listen((data) {
-      add(AuthStatusChanged());
-    });
+    // Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+    //   add(AuthStatusChanged());
+    // });
 
     on<AppStarted>(_onAppStarted);
     on<AppOnboardingCompleted>(_onOnboardingCompleted);
@@ -27,7 +27,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   Future<void> _handleAuthState(Emitter<AppState> emit) async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    // await Future.delayed(const Duration(milliseconds: 400));
 
     final loggedIn = await authRepository.isLoggedIn();
 
