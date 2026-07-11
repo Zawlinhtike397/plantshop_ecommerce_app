@@ -21,7 +21,7 @@ class AuthRepository {
 
   Future<bool> isLoggedIn() async {
     final session = _supabase.auth.currentSession;
-    return session?.user != null;
+    return session != null || session?.user != null;
   }
 
   Future<void> completeOnboarding() async {
@@ -54,6 +54,7 @@ class AuthRepository {
 
   Future<void> logout() async {
     await _supabase.auth.signOut();
+    await GoogleSignIn.instance.signOut();
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_tokenKey);
@@ -71,7 +72,7 @@ class AuthRepository {
       );
 
       final googleUser = await googleSignIn.authenticate();
-
+      if (googleUser == null) return;
       final googleAuth = googleUser.authentication;
       final idToken = googleAuth.idToken;
 
