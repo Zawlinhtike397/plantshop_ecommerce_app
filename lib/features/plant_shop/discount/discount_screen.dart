@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plantify_plantshop_project/common/widgets/loaders/animation_loader.dart';
 import 'package:plantify_plantshop_project/common/widgets/product/heading_widget.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/bloc/discount_bloc.dart';
 import 'package:plantify_plantshop_project/features/plant_shop/discount/widgets/discount_card.dart';
+import 'package:plantify_plantshop_project/utils/constants/image_strings.dart';
 
 class DiscountScreen extends StatefulWidget {
   const DiscountScreen({super.key});
@@ -43,6 +45,19 @@ class _DiscountScreenState extends State<DiscountScreen> {
             if (state is DiscountLoaded) {
               final discounts = state.discounts;
 
+              if (discounts.isEmpty) {
+                return SizedBox(
+                  height: MediaQuery.sizeOf(context).height / 2,
+                  child: Center(
+                    child: AnimationLoader(
+                      headingText: 'No discounts yet!',
+                      animation: ImageStrings.emptyAnimation,
+                      smallText: 'Please come back later again',
+                      showActionButton: false,
+                    ),
+                  ),
+                );
+              }
               return ListView.separated(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20.0,
