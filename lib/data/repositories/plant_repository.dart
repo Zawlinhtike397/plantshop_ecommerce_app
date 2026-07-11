@@ -52,7 +52,7 @@ class PlantRepository {
     String? searchQuery,
   }) async {
     try {
-      var query = _supabase.from('plants').select();
+      var query = _supabase.from('plants').select().eq('isActive', true);
 
       if (category != null && category != 'All') {
         query = query.eq('category', category);
