@@ -13,4 +13,16 @@ class FetchOrderDetail extends OrderEvent {
   final String orderId;
 
   const FetchOrderDetail(this.orderId);
+
+  @override
+  List<Object?> get props => [orderId];
+}
+
+class CancelOrder extends OrderEvent {
+  final String orderId;
+
+  const CancelOrder(this.orderId);
+
+  @override
+  List<Object?> get props => [orderId];
 }

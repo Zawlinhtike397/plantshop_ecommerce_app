@@ -20,10 +20,28 @@ final class OrderLoaded extends OrderState {
   List<Object?> get props => [orders];
 }
 
-class OrderDetailLoaded extends OrderState {
+final class OrderDetailLoaded extends OrderState {
   final OrderModel order;
 
   const OrderDetailLoaded(this.order);
+}
+
+final class OrderCancelling extends OrderState {
+  final OrderModel order;
+
+  const OrderCancelling(this.order);
+
+  @override
+  List<Object?> get props => [order];
+}
+
+final class OrderCancelled extends OrderState {
+  final OrderModel order;
+
+  const OrderCancelled(this.order);
+
+  @override
+  List<Object?> get props => [order];
 }
 
 final class OrderError extends OrderState {

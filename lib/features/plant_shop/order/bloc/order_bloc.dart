@@ -13,6 +13,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   OrderBloc({required this.orderRepository}) : super(OrderInitial()) {
     on<FetchOrders>(_fetchOrders);
     on<FetchOrderDetail>(_fetchOrderDetail);
+    on<CancelOrder>(_cancelOrder);
   }
 
   Future<void> _fetchOrders(FetchOrders event, Emitter<OrderState> emit) async {
@@ -42,6 +43,42 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     try {
       final order = await orderRepository.fetchOrderDetail(event.orderId);
       emit(OrderDetailLoaded(order));
+    } catch (e) {
+      emit(OrderError(e.toString()));
+    }
+  }
+
+  // Future<void> _cancelOrder(CancelOrder event, Emitter<OrderState> emit) async {
+  //   try {
+  //     final currentOrder = await orderRepository.fetchOrderDetail(
+  //       event.orderId,
+  //     );
+
+  //     await orderRepository.cancelOrder(event.orderId);
+
+  //     final order = await orderRepository.fetchOrderDetail(event.orderId);
+
+  //     emit(OrderDetailLoaded(order));
+  //   } catch (e) {
+  //     emit(OrderError(e.toString()));
+  //   }
+  // }
+
+  Future<void> _cancelOrder(CancelOrder event, Emitter<OrderState> emit) async {
+    try {
+      final currentOrder = await orderRepository.fetchOrderDetail(
+        event.orderId,
+      );
+
+      emit(OrderCancelling(currentOrder));
+
+      await orderRepository.cancelOrder(event.orderId);
+
+      final updatedOrder = await orderRepository.fetchOrderDetail(
+        event.orderId,
+      );
+
+      emit(OrderCancelled(updatedOrder));
     } catch (e) {
       emit(OrderError(e.toString()));
     }

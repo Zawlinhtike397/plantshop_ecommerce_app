@@ -37,7 +37,7 @@ class AddToCartButton extends StatelessWidget {
                     plantId: plant.id,
                     name: plant.name,
                     price: plant.originalPrice,
-                    image: plant.imageUrl.first,
+                    image: plant.thumbnailImg,
                   ),
                 ),
               );

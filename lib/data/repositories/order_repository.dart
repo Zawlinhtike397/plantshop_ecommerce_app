@@ -98,4 +98,61 @@ class OrderRepository {
 
     return response.isNotEmpty;
   }
+
+  Future<void> cancelOrder(String orderId) async {
+    try {
+      final user = supabase.auth.currentUser;
+
+      if (user == null) {
+        throw Exception("User not logged in");
+      }
+
+      final orderItems = await supabase
+          .from('order_items')
+          .select('plant_id, quantity')
+          .eq('order_id', orderId);
+
+      for (final item in orderItems) {
+        final plantId = item['plant_id'].toString();
+        final quantity = (item['quantity'] as num).toInt();
+
+        final plantResponse = await supabase
+            .from('plants')
+            .select('stock')
+            .eq('id', plantId)
+            .single();
+
+        print(plantResponse);
+
+        final currentStock = (plantResponse['stock'] as num?)?.toInt() ?? 0;
+
+        final updatedStock = currentStock + quantity;
+
+        await supabase
+            .from('plants')
+            .update({'stock': updatedStock})
+            .eq('id', plantId);
+      }
+
+      final updatedOrder = await supabase
+          .from('orders')
+          .update({'status': 'cancelled'})
+          .eq('id', orderId)
+          .eq('user_id', user.id)
+          .select('id, status')
+          .maybeSingle();
+
+      if (updatedOrder == null) {
+        throw Exception(
+          "Unable to cancel order. Please check your permissions.",
+        );
+      }
+
+      if (updatedOrder['status'] != 'cancelled') {
+        throw Exception("Order cancellation failed.");
+      }
+    } catch (e) {
+      throw Exception("Failed to cancel order: $e");
+    }
+  }
 }
