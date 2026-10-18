@@ -13,6 +13,7 @@
 migrate_working_dir/
 .env
 backup_codes.dart
+sample_data.dart
 
 # IntelliJ related
 *.iml
